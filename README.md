@@ -208,7 +208,9 @@ All settings live in `/etc/systemd/system/ambed.service`:
 | --- | --- | --- |
 | `AMBED_SOFT_PAIRS` | answer to question 18 | simultaneous transcoded streams |
 | `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | `-20` | audio gain in dB, D-Star → DMR/YSF. Lower it if D-Star audio saturates on DMR/YSF radios |
-| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | `13` | audio gain in dB, DMR/YSF → D-Star. Raise it if DMR/YSF audio is too quiet on D-Star radios |
+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | `16` | audio gain in dB, DMR/YSF → D-Star. Raise it if DMR/YSF audio is too quiet on D-Star radios |
+| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | `9` | clarity of DMR/YSF → D-Star audio: presence boost in dB (`0`-`12`, `0` = off). Raise it if the audio sounds muffled on D-Star radios |
+| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | `-45` | noise reduction in pauses, DMR/YSF → D-Star: threshold in dBFS (`0` = off). Raise it (e.g. `-40`) for less background noise, lower it (e.g. `-50`) if quiet words get cut |
 
 Gains are whole dB from `-24` to `24`; steps of 2-3 dB are a good start. The defaults come from on-air tests with a Yaesu FT-1DR and Icom radios. The gain is applied inside the encoder (not to the audio samples), so large values do not add hiss in pauses or clip the peaks. Example:
 
