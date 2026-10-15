@@ -153,10 +153,10 @@ sudo apt install git -y
 
 # Clone repository
 cd /usr/src/
-sudo git clone https://github.com/PP5PK/XLX_Installer.git
+sudo git clone https://github.com/PP5PK/XLX-SoftAMBE_Installer.git
 
 # Run installer
-cd XLX_Installer/ && sudo chmod +x *.sh
+cd XLX-SoftAMBE_Installer/ && sudo chmod +x *.sh
 sudo ./installer.sh
 ```
 
@@ -216,7 +216,7 @@ sudo systemctl daemon-reload && sudo systemctl restart ambed xlxd
 | Type                         | Location                                                                                                                                                                                                     |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Installation**             | `/xlxd/` `/ambed/`                                                                                                                                                                                                   |
-| **Source Files & Folders**   | `/usr/src/xlxd/` `/usr/src/xlxd/ambed/` `/usr/src/XLXEcho/` `/usr/src/XLX_Dark_Dashboard/` `/usr/src/XLX_Installer/` `/usr/local/bin/update_db.sh` `/usr/local/bin/xlx_log.sh`                                                     |
+| **Source Files & Folders**   | `/usr/src/xlxd/` `/usr/src/xlxd/ambed/` `/usr/src/XLXEcho/` `/usr/src/XLX_Dark_Dashboard/` `/usr/src/XLX-SoftAMBE_Installer/` `/usr/local/bin/update_db.sh` `/usr/local/bin/xlx_log.sh`                                                     |
 | **Log Files**                | `/var/log/xlxd*` `/var/log/xlx.log` `/var/log/xlxecho.log` `/var/log/update_XLX_db.log`                                                                                                                     |
 | **Services**                 | `/etc/systemd/system/xlxd.service` `/etc/systemd/system/xlxecho.service` `/etc/systemd/system/ambed.service` `/etc/systemd/system/xlx_log.service` `/etc/systemd/system/update_XLX_db.service` `/etc/systemd/system/update_XLX_db.timer`        |
 | **Dashboard**                | `/var/www/html/xlxd/`                                                                                                                                                                                        |
@@ -390,7 +390,7 @@ Main menu
 | ⏳ **Pending List**        | Track users who have not yet changed their initial password                                                   |
 | 🔄 **SQL Sync**            | Trigger `create_user_db.php` to rebuild the SQLite database from the CSV                                      |
 
-> For full documentation see [REFLECTOR_USER_MANAGER.md](https://github.com/PP5PK/XLX_Installer/blob/master/REFLECTOR_USER_MANAGER.md).
+> For full documentation see [REFLECTOR_USER_MANAGER.md](https://github.com/PP5PK/XLX-SoftAMBE_Installer/blob/master/REFLECTOR_USER_MANAGER.md).
 
 ---
 
@@ -418,7 +418,7 @@ If you skipped automatic SSL during installation:
 The uninstaller is located at `templates/uninstaller.sh` within the installer directory. It can be launched manually or directly from the installer if an existing installation is detected during a new install attempt.
 
 ```bash
-cd /usr/src/XLX_Installer/templates
+cd /usr/src/XLX-SoftAMBE_Installer/templates
 sudo ./uninstaller.sh
 ```
 
