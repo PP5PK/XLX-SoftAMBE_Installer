@@ -1351,13 +1351,19 @@ Before=xlxd.service
 Type=simple
 User=root
 Group=root
+# Software transcoder settings. Change in steps of 2-3, then run:
+#   systemctl daemon-reload && systemctl restart ambed xlxd
+# Comments must stay on their own line: text after a value breaks it.
+#
+# PAIRS = simultaneous transcoded streams (1-16)
 Environment=AMBED_SOFT_PAIRS=$AMBED_PAIRS
-# Audio levels in dB: lower the first if D-Star saturates on DMR/YSF,
-# raise the second if DMR/YSF is too quiet on D-Star
+# GAIN D-Star -> DMR/YSF = value > louder, value < quieter (dB, -24 to 24; -18 is louder than -20)
 Environment=AMBED_SOFT_GAIN_DSTAR_TO_DMR=$AMBED_GAIN_DSTAR_TO_DMR
+# GAIN DMR/YSF -> D-Star = value > louder, value < quieter (dB, -24 to 24)
 Environment=AMBED_SOFT_GAIN_DMR_TO_DSTAR=$AMBED_GAIN_DMR_TO_DSTAR
-# DMR/YSF -> D-Star clarity (presence boost, dB) and noise reduction in pauses (dBFS)
+# EQ DMR/YSF -> D-Star = value > more treble, value < more bass (0 to 12, 0 = off)
 Environment=AMBED_SOFT_EQ_DMR_TO_DSTAR=$AMBED_EQ_DMR_TO_DSTAR
+# GATE DMR/YSF -> D-Star = value > less noise in pauses, value < keeps quieter words (dBFS, -90 to -1, 0 = off; -40 cuts more than -50)
 Environment=AMBED_SOFT_GATE_DMR_TO_DSTAR=$AMBED_GATE_DMR_TO_DSTAR
 ExecStart=$AMBED_DIR/ambed 127.0.0.1
 Restart=always
