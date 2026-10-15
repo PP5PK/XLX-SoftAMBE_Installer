@@ -1,9 +1,9 @@
 diff --git a/ambed/SOFTWARE_VOCODER.md b/ambed/SOFTWARE_VOCODER.md
 new file mode 100644
-index 0000000..ce9b562
+index 0000000..ad8a3ff
 --- /dev/null
 +++ b/ambed/SOFTWARE_VOCODER.md
-@@ -0,0 +1,81 @@
+@@ -0,0 +1,92 @@
 +# ambed software vocoder (SoftAMBE)
 +
 +ambed can transcode D-Star (AMBE 3600x2400) to and from DMR/YSF (AMBE+2
@@ -56,23 +56,34 @@ index 0000000..ce9b562
 +
 +| Variable | Default | Meaning |
 +|---|---|---|
-+| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -8 dB | gain on the D-Star to DMR/YSF path |
-+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | +4 dB | gain on the DMR/YSF to D-Star path |
++| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -20 dB | output level of the D-Star to DMR/YSF path |
++| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | +13 dB | output level of the DMR/YSF to D-Star path |
 +
 +Values are whole dB, clamped to +/-24. Lower the first one if D-Star
 +audio saturates on DMR/YSF radios; raise the second one if DMR/YSF
 +audio is too quiet on D-Star radios. Steps of 2-3 dB are a good start.
 +
 +The software decoders are level-matched to each other, but radios decode
-+AMBE+2 louder than AMBE, which is why the defaults are not 0 (the DVSI
-+`CODECGAIN_*` values compensate the same way with -10/+10 dB).
++this encoder's AMBE+2 much louder and its AMBE much quieter, hence the
++large defaults. They come from on-air tests (Yaesu FT-1DR and Icom).
 +
-+Compile-time defaults in `csoftambeinterface.h`:
++The gain is applied to the encoder's quantized gain parameter, not to the
++PCM. Attenuating the PCM by 20 dB pushes quiet passages under the IMBE
++analysis floor (harmonic amplitudes are clamped to 1), which is heard as a
++constant hiss in pauses; boosting it by 17 dB clips the peaks. Measured
++speech-to-pause ratio on a test signal with -60 dBFS background noise:
++
++| Path | PCM gain | Encoder gain |
++|---|---|---|
++| D-Star -> DMR, -20 dB | 23.7 dB | 33.5 dB |
++| DMR -> D-Star, +17 dB | 28.8 dB | 32.9 dB |
++
++Compile-time settings in `csoftambeinterface.h`:
 +
 +| Define | Default | Meaning |
 +|---|---|---|
-+| `SOFTAMBE_GAIN_AMBEPLUS` | -8 dB | default D-Star to DMR/YSF gain |
-+| `SOFTAMBE_GAIN_AMBE2PLUS` | +4 dB | default DMR/YSF to D-Star gain |
++| `SOFTAMBE_GAIN_AMBEPLUS` | -20 dB | default D-Star to DMR/YSF gain |
++| `SOFTAMBE_GAIN_AMBE2PLUS` | +13 dB | default DMR/YSF to D-Star gain |
 +| `SOFTAMBE_IDLE_RESET_MS` | 500 | vocoder state reset after this much silence |
 +| `SOFTAMBE_MAX_PAIRS` | 16 | upper limit for `AMBED_SOFT_PAIRS` |
 +
@@ -102,10 +113,10 @@ index 600df13..8e3e2f1 100644
          voice[i+1] = LOBYTE((short)output);
 diff --git a/ambed/csoftambeinterface.cpp b/ambed/csoftambeinterface.cpp
 new file mode 100644
-index 0000000..f614055
+index 0000000..0cb256c
 --- /dev/null
 +++ b/ambed/csoftambeinterface.cpp
-@@ -0,0 +1,321 @@
+@@ -0,0 +1,328 @@
 +//
 +//  csoftambeinterface.cpp
 +//  ambed
@@ -139,6 +150,7 @@ index 0000000..f614055
 +#include "mbe/mbevocoder.h"   // from swvocoder/
 +
 +#define SOFTAMBE_PCM_SAMPLES    160
++#define SOFTAMBE_DB_PER_LOG2    6.0206f     // 20 * log10(2)
 +
 +////////////////////////////////////////////////////////////////////////////////////////
 +// constructor
@@ -147,6 +159,8 @@ index 0000000..f614055
 +    : CVocodecInterface()
 +{
 +    m_iNbPairs = MAX(0, MIN(iNbPairs, SOFTAMBE_MAX_PAIRS));
++    m_fGainToDmrLog2 = 0.0f;
++    m_fGainToDstarLog2 = 0.0f;
 +}
 +
 +////////////////////////////////////////////////////////////////////////////////////////
@@ -222,6 +236,8 @@ index 0000000..f614055
 +{
 +    int iGainToDmr   = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DMR,   SOFTAMBE_GAIN_AMBEPLUS);
 +    int iGainToDstar = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DSTAR, SOFTAMBE_GAIN_AMBE2PLUS);
++    m_fGainToDmrLog2   = (float)iGainToDmr   / SOFTAMBE_DB_PER_LOG2;
++    m_fGainToDstarLog2 = (float)iGainToDstar / SOFTAMBE_DB_PER_LOG2;
 +    std::cout << "SoftAMBE gains : D-Star -> DMR/YSF " << iGainToDmr << " dB, DMR/YSF -> D-Star " << iGainToDstar << " dB" << std::endl;
 +
 +    int n = 0;
@@ -232,13 +248,13 @@ index 0000000..f614055
 +        CVocodecChannel *Channel;
 +
 +        // D-Star -> DMR
-+        Channel = new CVocodecChannel(this, iDstar, this, iDmr, iGainToDmr);
++        Channel = new CVocodecChannel(this, iDstar, this, iDmr, 0);
 +        channels->push_back(Channel);
 +        AddChannel(Channel);
 +        n++;
 +
 +        // DMR -> D-Star
-+        Channel = new CVocodecChannel(this, iDmr, this, iDstar, iGainToDstar);
++        Channel = new CVocodecChannel(this, iDmr, this, iDstar, 0);
 +        channels->push_back(Channel);
 +        AddChannel(Channel);
 +        n++;
@@ -400,10 +416,12 @@ index 0000000..f614055
 +    uint8 uiCodec = GetChannelCodec(iCh);
 +    if ( uiCodec == CODEC_AMBEPLUS )
 +    {
++        m_Encoders[iCh]->set_encode_gain_log2(m_fGainToDstarLog2);
 +        m_Encoders[iCh]->encode_2400x1200(pcm, ambe);
 +    }
 +    else
 +    {
++        m_Encoders[iCh]->set_encode_gain_log2(m_fGainToDmrLog2);
 +        m_Encoders[iCh]->encode_2450x1150(pcm, ambe);
 +    }
 +
@@ -429,10 +447,10 @@ index 0000000..f614055
 +}
 diff --git a/ambed/csoftambeinterface.h b/ambed/csoftambeinterface.h
 new file mode 100644
-index 0000000..8f56e44
+index 0000000..0c3609b
 --- /dev/null
 +++ b/ambed/csoftambeinterface.h
-@@ -0,0 +1,109 @@
+@@ -0,0 +1,117 @@
 +//
 +//  csoftambeinterface.h
 +//  ambed
@@ -480,14 +498,20 @@ index 0000000..8f56e44
 +// transmission does not inherit the previous speaker's parameters.
 +#define SOFTAMBE_IDLE_RESET_MS      500
 +
-+// Channel gains (dB) applied between decode and encode. The software
-+// decoders are level-matched to each other, but radios decode AMBE+2
-+// louder than AMBE, so D-Star -> DMR/YSF needs attenuation and
-+// DMR/YSF -> D-Star a little boost (the DVSI CODECGAIN_* values do the
-+// same with -10/+10 dB). Defaults come from on-air tests and can be
-+// overridden at runtime with the environment variables below.
-+#define SOFTAMBE_GAIN_AMBEPLUS      -8      // D-Star -> DMR/YSF
-+#define SOFTAMBE_GAIN_AMBE2PLUS     4       // DMR/YSF -> D-Star
++// Output gains (dB) of each path. The software decoders are level-matched
++// to each other, but radios decode this encoder's AMBE+2 much louder and
++// its AMBE much quieter, so D-Star -> DMR/YSF needs attenuation and
++// DMR/YSF -> D-Star a boost. Defaults come from on-air tests with Yaesu
++// and Icom radios and can be overridden at runtime with the environment
++// variables below.
++//
++// The gain is applied to the encoder's quantized gain parameter, not to
++// the PCM: attenuating the PCM pushes quiet passages under the analysis
++// floor (harmonic amplitudes are clamped to 1), which shows up as a
++// constant hiss in pauses, and boosting it clips. 1 dB here is 1 dB of
++// output level either way.
++#define SOFTAMBE_GAIN_AMBEPLUS      -20     // D-Star -> DMR/YSF
++#define SOFTAMBE_GAIN_AMBE2PLUS     13      // DMR/YSF -> D-Star
 +#define SOFTAMBE_ENV_GAIN_TO_DMR    "AMBED_SOFT_GAIN_DSTAR_TO_DMR"
 +#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
 +#define SOFTAMBE_GAIN_LIMIT         24      // accepted range is +/- this, in dB
@@ -532,6 +556,8 @@ index 0000000..8f56e44
 +
 +protected:
 +    int                         m_iNbPairs;
++    float                       m_fGainToDmrLog2;     // encoder gain, log2 amplitude units
++    float                       m_fGainToDstarLog2;
 +
 +    // one decoder and one encoder per internal channel, both are stateful
 +    std::vector<MBEVocoder *>   m_Decoders;
@@ -11853,10 +11879,10 @@ index 0000000..b5e3686
 +}
 diff --git a/ambed/swvocoder/mbe/mbevocoder.cpp b/ambed/swvocoder/mbe/mbevocoder.cpp
 new file mode 100644
-index 0000000..5126a0b
+index 0000000..aecae0e
 --- /dev/null
 +++ b/ambed/swvocoder/mbe/mbevocoder.cpp
-@@ -0,0 +1,394 @@
+@@ -0,0 +1,395 @@
 +/*
 + * Permission to use, copy, modify, and/or distribute this software for any
 + * purpose with or without fee is hereby granted, provided that the above
@@ -11938,6 +11964,7 @@ index 0000000..5126a0b
 +		initMbeParms();
 +		memset(ambe_d, 0, 49);
 +		m_dstar_gain_s = -99.0f;
++		m_enc_gain_log2 = 0.0f;
 +	}
 +	
 +    MBEVocoder::~MBEVocoder()
@@ -11984,7 +12011,7 @@ index 0000000..5126a0b
 +		memset(ambe, 0, 9);
 +		
 +		vocoder.imbe_encode(frame_vector, pcm);
-+		encode_ambe(vocoder.param(), b, m_mbelibParms->m_cur_mp, m_mbelibParms->m_prev_mp, true, DSTAR_GAIN_ADJUST, &m_dstar_gain_s);
++		encode_ambe(vocoder.param(), b, m_mbelibParms->m_cur_mp, m_mbelibParms->m_prev_mp, true, DSTAR_GAIN_ADJUST - m_enc_gain_log2, &m_dstar_gain_s);
 +		b[8] >>= 1;
 +
 +		for (int i=0; i < 9; i++) {
@@ -12080,7 +12107,7 @@ index 0000000..5126a0b
 +		memset(ambe, 0, 9);
 +		
 +		vocoder.imbe_encode(frame_vector, pcm);
-+		encode_ambe(vocoder.param(), b, m_mbelibParms->m_cur_mp, m_mbelibParms->m_prev_mp, false, 1.0);
++		encode_ambe(vocoder.param(), b, m_mbelibParms->m_cur_mp, m_mbelibParms->m_prev_mp, false, 1.0f - m_enc_gain_log2);
 +        memset(ambe_frame, 0, 56);
 +		
 +		ambe_frame[0] = (b[0] >> 6) & 1;
@@ -12253,10 +12280,10 @@ index 0000000..5126a0b
 +	}
 diff --git a/ambed/swvocoder/mbe/mbevocoder.h b/ambed/swvocoder/mbe/mbevocoder.h
 new file mode 100644
-index 0000000..33ecd46
+index 0000000..8238f1d
 --- /dev/null
 +++ b/ambed/swvocoder/mbe/mbevocoder.h
-@@ -0,0 +1,143 @@
+@@ -0,0 +1,149 @@
 +/*
 + * Permission to use, copy, modify, and/or distribute this software for any
 + * purpose with or without fee is hereby granted, provided that the above
@@ -12370,6 +12397,11 @@ index 0000000..33ecd46
 +	void encode_2400x1200(int16_t *pcm, uint8_t *codec);
 +	void encode_2450x1150(int16_t *pcm, uint8_t *codec);
 +	void encode_2450(int16_t *pcm, uint8_t *codec);
++	// Extra encoder gain in log2 amplitude units, applied to the quantized
++	// gain parameter (not to the PCM), so the analysis always sees the
++	// signal at full scale. Positive values make the output louder.
++	void set_encode_gain_log2(float g)	{ m_enc_gain_log2 = g; }
++	float get_encode_gain_log2(void) const	{ return m_enc_gain_log2; }
 +	
 +private:
 +	imbe_vocoder vocoder;
@@ -12389,6 +12421,7 @@ index 0000000..33ecd46
 +	const int *w, *x, *y, *z;
 +	char ambe_d[49];
 +	float m_dstar_gain_s;
++	float m_enc_gain_log2;
 +	
 +	void initMbeParms();
 +	void process_2400x1200(unsigned char *d);

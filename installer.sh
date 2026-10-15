@@ -134,8 +134,8 @@ INSTALL_AMBED="N"
 AMBED_PAIRS=0
 AMBED_DIR="/ambed"
 # Audio gains in dB, adjustable later in /etc/systemd/system/ambed.service
-AMBED_GAIN_DSTAR_TO_DMR=-8
-AMBED_GAIN_DMR_TO_DSTAR=4
+AMBED_GAIN_DSTAR_TO_DMR=-20
+AMBED_GAIN_DMR_TO_DSTAR=13
 AMBED_PATCH="$XLXINS/patches/xlxd-ambed-softambe.patch"
 DEPAPP=(
 python3-certbot-apache
