@@ -133,6 +133,7 @@ SSL_OK=0
 INSTALL_AMBED="N"
 AMBED_PAIRS=0
 AMBED_DIR="/ambed"
+AMBED_PATCH="$XLXINS/patches/xlxd-ambed-softambe.patch"
 DEPAPP=(
 python3-certbot-apache
 build-essential
@@ -876,10 +877,10 @@ question_17() {
     echo ""
     print_wrapped "17. Install the software transcoder (ambed)? D-Star <-> DMR/YSF without a DVSI USB stick. (Y/N)"
     print_gray "Uses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: check the patent situation in your country before enabling it."
-    print_gray "Suggested: N $ACCEPT"
+    print_gray "Suggested: Y $ACCEPT"
     while true; do
         read_or_abort INSTALL_AMBED
-        INSTALL_AMBED=$(echo "${INSTALL_AMBED:-N}" | tr '[:lower:]' '[:upper:]')
+        INSTALL_AMBED=$(echo "${INSTALL_AMBED:-Y}" | tr '[:lower:]' '[:upper:]')
         if [[ "$INSTALL_AMBED" == "Y" || "$INSTALL_AMBED" == "N" ]]; then
             break
         else
@@ -1140,6 +1141,23 @@ echo ""
 cd "$USRSRC" || error_exit "Failed to change to $USRSRC directory"
 echo "Cloning repository..."
 git clone --depth 1 "$XLXREP" || error_exit "Failed to clone XLX repository"
+
+# The software vocoder is not part of the upstream xlxd repository: it is
+# shipped here as a patch and applied on top of the fresh clone. A patch
+# that no longer applies must not abort the reflector installation.
+if [ "$INSTALL_AMBED" == "Y" ]; then
+    echo "Applying SoftAMBE patch to ambed..."
+    if [ ! -f "$AMBED_PATCH" ]; then
+        msg_warn "Warning: $AMBED_PATCH not found. Skipping the software transcoder."
+        INSTALL_AMBED="N"
+    elif git -C "$USRSRC/xlxd" apply --check "$AMBED_PATCH" 2>/dev/null; then
+        git -C "$USRSRC/xlxd" apply "$AMBED_PATCH" || error_exit "Failed to apply $AMBED_PATCH"
+        msg_success "SoftAMBE patch applied."
+    else
+        msg_warn "Warning: SoftAMBE patch does not apply to this xlxd version. Skipping the software transcoder."
+        INSTALL_AMBED="N"
+    fi
+fi
 cd "$USRSRC/xlxd/src" || error_exit "Failed to change to xlxd/src directory"
 make clean || error_exit "Failed to run 'make clean'. Check the Makefile and build environment."
 echo "Seeding customizations..."

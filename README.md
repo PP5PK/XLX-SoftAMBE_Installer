@@ -125,7 +125,7 @@ The installer will request the following information:
 | 14 | YSF Wires-X frequency (Hz) | `433125000`           | 433125000 |
 | 15 | Enable YSF auto-link?      | `Y/N`                 | Y         |
 | 16 | YSF auto-link module       | `A-Z`                 | C         |
-| 17 | Install soft transcoder?   | `Y/N`                 | N         |
+| 17 | Install soft transcoder?   | `Y/N`                 | Y         |
 | 18 | Transcoded streams         | `1-16`                | CPU cores (max 4) |
 
 > **Tip:** At any prompt, type `X` and press **[ENTER]** to safely cancel the installation. No changes will be made to the system.
@@ -187,6 +187,27 @@ sudo ./installer.sh
 | 40000       | UDP  | Terminal DV                    |
 | 42000       | UDP  | YSF protocol                   |
 | 62030       | UDP  | MMDVM protocol                 |
+
+---
+
+## 🔁 Software Transcoder (SoftAMBE)
+
+This installer adds a software transcoder to the XLX reflector, so D-Star users can talk with DMR and YSF users **without a DVSI USB stick**.
+
+- The `xlxd` source is cloned unchanged from [PP5PK/xlxd](https://github.com/PP5PK/xlxd); `patches/xlxd-ambed-softambe.patch` is applied on top of it during installation.
+- The patch adds a software backend to `ambed`, based on the open source AMBE/AMBE+2 vocoder from [DroidStar](https://github.com/nostar/DroidStar) (mbelib decoder, OP25-derived encoder, Pavel Yazev's IMBE analysis). No firmware or proprietary code is used.
+- `ambed` is built with `make NO_FTDI=1` and installed to `/ambed/`, running as `ambed.service`.
+- The number of simultaneous transcoded streams (question 18) is stored in `AMBED_SOFT_PAIRS` inside `ambed.service`. Each stream uses about 8% of one modern x86_64 core.
+- If the patch no longer applies to the current `xlxd`, the installer warns and continues without the transcoder.
+
+Change the number of streams later:
+
+```bash
+sudo sed -i 's/AMBED_SOFT_PAIRS=.*/AMBED_SOFT_PAIRS=4/' /etc/systemd/system/ambed.service
+sudo systemctl daemon-reload && sudo systemctl restart ambed xlxd
+```
+
+> **Patents:** AMBE and AMBE+2 are DVSI technologies. Check the patent situation in your country before enabling the software transcoder.
 
 ---
 
