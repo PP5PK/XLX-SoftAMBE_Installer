@@ -64,11 +64,11 @@ detect_remnants() {
     local found=0
     REMNANT_LIST=()
 
-    for dir in /xlxd /var/www/html/xlxd /usr/src/xlxd /usr/src/XLXEcho /usr/src/XLX_Dark_Dashboard; do
+    for dir in /xlxd /ambed /var/www/html/xlxd /usr/src/xlxd /usr/src/XLXEcho /usr/src/XLX_Dark_Dashboard; do
         [ -d "$dir" ] && { REMNANT_LIST+=("Directory : $dir"); found=1; }
     done
 
-    for svc in xlxd.service xlxecho.service xlx_log.service update_XLX_db.service update_XLX_db.timer; do
+    for svc in xlxd.service ambed.service xlxecho.service xlx_log.service update_XLX_db.service update_XLX_db.timer; do
         [ -f "/etc/systemd/system/$svc" ] && { REMNANT_LIST+=("Service   : /etc/systemd/system/$svc"); found=1; }
     done
 
@@ -207,7 +207,7 @@ echo ""
 print_blueb "STOPPING AND DISABLING SERVICES..."
 print_blue "==================================="
 echo ""
-for SVC in xlxd.service xlxecho.service xlx_log.service; do
+for SVC in xlxd.service ambed.service xlxecho.service xlx_log.service; do
     if systemctl is-active --quiet "$SVC" 2>/dev/null; then
         systemctl stop "$SVC"
         print_green "✔ Stopped $SVC."
@@ -239,7 +239,7 @@ echo ""
 print_blueb "REMOVING FILES AND FOLDERS..."
 print_blue "============================="
 echo ""
-for dir in "/xlxd" "/var/www/html/xlxd" "/usr/src/xlxd" "/usr/src/XLXEcho" "/usr/src/XLX_Dark_Dashboard"; do
+for dir in "/xlxd" "/ambed" "/var/www/html/xlxd" "/usr/src/xlxd" "/usr/src/XLXEcho" "/usr/src/XLX_Dark_Dashboard"; do
     if [ -d "$dir" ]; then
         rm -rf "$dir"
         print_green "✔ Removed directory: $dir"
@@ -247,6 +247,7 @@ for dir in "/xlxd" "/var/www/html/xlxd" "/usr/src/xlxd" "/usr/src/XLXEcho" "/usr
 done
 for file in \
     "/etc/systemd/system/xlxd.service" \
+    "/etc/systemd/system/ambed.service" \
     "/etc/systemd/system/xlxecho.service" \
     "/etc/systemd/system/xlx_log.service" \
     "/etc/systemd/system/update_XLX_db.service" \

@@ -130,6 +130,9 @@ WEBDIR="/var/www/html/xlxd"
 XLXDIR="/xlxd"
 ACCEPT="| [ENTER] to accept..."
 SSL_OK=0
+INSTALL_AMBED="N"
+AMBED_PAIRS=0
+AMBED_DIR="/ambed"
 DEPAPP=(
 python3-certbot-apache
 build-essential
@@ -867,6 +870,53 @@ question_16() {
     echo ""
 }
 
+question_17() {
+    echo ""
+    echo "$SEPQUE"
+    echo ""
+    print_wrapped "17. Install the software transcoder (ambed)? D-Star <-> DMR/YSF without a DVSI USB stick. (Y/N)"
+    print_gray "Uses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: check the patent situation in your country before enabling it."
+    print_gray "Suggested: N $ACCEPT"
+    while true; do
+        read_or_abort INSTALL_AMBED
+        INSTALL_AMBED=$(echo "${INSTALL_AMBED:-N}" | tr '[:lower:]' '[:upper:]')
+        if [[ "$INSTALL_AMBED" == "Y" || "$INSTALL_AMBED" == "N" ]]; then
+            break
+        else
+            msg_caution "Please enter 'Y' or 'N'."
+        fi
+    done
+    if [ "$INSTALL_AMBED" == "N" ]; then
+        AMBED_PAIRS=0
+    fi
+    print_yellow "Using: $INSTALL_AMBED"
+}
+
+question_18() {
+    echo ""
+    echo "$SEPQUE"
+    echo ""
+    # About 8% of one CPU core per active stream on a modern x86_64 core,
+    # more on a Raspberry Pi. Suggest one pair per CPU core, capped at 4.
+    local cores suggested
+    cores=$(nproc 2>/dev/null || echo 1)
+    suggested=$(( cores < 4 ? cores : 4 ))
+    (( suggested < 1 )) && suggested=1
+    print_wrapped "18. Number of simultaneous transcoded streams. (1-16)"
+    print_gray "Each stream handles one D-Star to DMR/YSF and one DMR/YSF to D-Star transmission at the same time. This machine has $cores CPU core(s)."
+    print_gray "Suggested: $suggested $ACCEPT"
+    while true; do
+        read_or_abort AMBED_PAIRS
+        AMBED_PAIRS=${AMBED_PAIRS:-$suggested}
+        if [[ "$AMBED_PAIRS" =~ ^[0-9]+$ && "$AMBED_PAIRS" -ge 1 && "$AMBED_PAIRS" -le 16 ]]; then
+            break
+        else
+            msg_caution "Must be a number between 1 and 16. Try again!"
+        fi
+    done
+    print_yellow "Using: $AMBED_PAIRS"
+}
+
 collect_all_questions() {
     question_01
     question_02
@@ -887,6 +937,12 @@ collect_all_questions() {
     # It only calls q16 if Auto-link is enabled.
     if [[ "$AUTOLINK" -eq 1 ]]; then
         question_16
+    fi
+
+    question_17
+    # It only calls q18 if the software transcoder is enabled.
+    if [[ "$INSTALL_AMBED" == "Y" ]]; then
+        question_18
     fi
 }
 
@@ -916,6 +972,10 @@ review_settings() {
 
     if [[ "$AUTOLINK" -eq 1 ]]; then
         print_wrapped "16. YSF module:          $MODAUTO"
+    fi
+    print_wrapped "17. Soft transcoder:     $INSTALL_AMBED"
+    if [[ "$INSTALL_AMBED" == "Y" ]]; then
+        print_wrapped "18. Transcoded streams:  $AMBED_PAIRS"
     fi
 
     echo ""
@@ -1005,8 +1065,22 @@ while true; do
                     msg_caution "Question 16 is not active."
                 fi
                 ;;
+            17)
+                OLD_AMBED="$INSTALL_AMBED"
+                question_17
+                if [[ "$OLD_AMBED" == "N" && "$INSTALL_AMBED" == "Y" ]]; then
+                    question_18
+                fi
+                ;;
+            18)
+                if [[ "$INSTALL_AMBED" == "Y" ]]; then
+                    question_18
+                else
+                    msg_caution "Question 18 is not active."
+                fi
+                ;;
             *)
-                msg_caution "Invalid input. Press [ENTER] to confirm, enter a question number (1-16), or [X] to cancel."
+                msg_caution "Invalid input. Press [ENTER] to confirm, enter a question number (1-18), or [X] to cancel."
                 ;;
         esac
 
@@ -1217,6 +1291,58 @@ if [ "$INSTALL_ECHO" == "Y" ]; then
     msg_success "Echo Test server successfully installed!"
     echo ""
 fi
+# Software transcoder (ambed) installation conditional
+if [ "$INSTALL_AMBED" == "Y" ]; then
+    line_type1
+    echo ""
+    center_wrap_color $BLUE_BRIGHT "$ICON_INFO INSTALLING SOFTWARE TRANSCODER..."
+    center_wrap_color $BLUE "======================================"
+    echo ""
+    echo ""
+    AMBED_SRC="$USRSRC/xlxd/ambed"
+    # The software vocoder ships with the xlxd repository. Older checkouts
+    # without it must not abort the whole reflector installation.
+    if [ ! -f "$AMBED_SRC/csoftambeinterface.cpp" ]; then
+        msg_warn "Warning: this xlxd version has no software vocoder. Skipping the transcoder."
+        INSTALL_AMBED="N"
+    else
+        cd "$AMBED_SRC" || error_exit "Failed to change to $AMBED_SRC directory"
+        echo "Compiling ambed (software only, no FTDI)..."
+        make clean >/dev/null 2>&1 || true
+        make -j"$(nproc 2>/dev/null || echo 1)" NO_FTDI=1 \
+            || error_exit "Failed to compile ambed. Check build dependencies and logs."
+        make install || error_exit "Failed to install ambed to $AMBED_DIR"
+        [ -x "$AMBED_DIR/ambed" ] || error_exit "ambed binary not found at $AMBED_DIR/ambed"
+
+        echo "Creating ambed.service..."
+        # No DVSI hardware: the ftdi_sio/usb_serial rmmod lines are not needed.
+        # ambed listens on 127.0.0.1, the transcoder address passed to xlxd.
+        cat > /etc/systemd/system/ambed.service <<EOF
+[Unit]
+Description=AMBE Software Transcoder Daemon
+After=network.target
+Before=xlxd.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=AMBED_SOFT_PAIRS=$AMBED_PAIRS
+ExecStart=$AMBED_DIR/ambed 127.0.0.1
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+EOF
+        chmod 644 /etc/systemd/system/ambed.service
+        echo ""
+        msg_success "Software transcoder successfully installed! ($AMBED_PAIRS stream(s))"
+        echo ""
+    fi
+fi
 line_type1
 echo ""
 center_wrap_color $BLUE_BRIGHT "$ICON_INFO INSTALLING DASHBOARD..."
@@ -1353,6 +1479,15 @@ center_wrap_color $BLUE "================================"
 echo ""
 echo ""
 
+#  Starting ambed.service (if the software transcoder is installed)
+if [ "$INSTALL_AMBED" == "Y" ]; then
+    systemctl enable --now ambed.service >> "$LOGFILE" 2>&1 \
+        || error_exit "Failed to enable/start ambed.service. Check with: systemctl status ambed.service"
+    if ! systemctl is-active --quiet ambed.service; then
+        msg_warn "Warning: ambed service may not have started correctly. Check with: systemctl status ambed"
+    fi
+fi
+
 #  Starting xlxd.service
 systemctl enable --now xlxd.service >> "$LOGFILE" 2>&1 &
 pid=$!
@@ -1479,6 +1614,15 @@ if [ "$INSTALL_ECHO" == "Y" ]; then
         msg_success "Echo Test service is running"
     else
         msg_error "Echo Test service is not running"
+    fi
+fi
+
+# Check if ambed service is running (if installed)
+if [ "$INSTALL_AMBED" == "Y" ]; then
+    if systemctl is-active --quiet ambed.service; then
+        msg_success "Software transcoder (ambed) is running"
+    else
+        msg_error "Software transcoder (ambed) is not running"
     fi
 fi
 

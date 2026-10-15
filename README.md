@@ -22,13 +22,14 @@ This project simplifies the installation of XLX reflectors with minimal user int
 - ✅ **Dark theme dashboard** with improvements and modern UI
 - ✅ **Lightweight** - it ever runs on Raspberry Pi Zero!
 - ✅ **Optional Echo Test** (Parrot) service to audio tests
+- ✅ **Optional software transcoder** (`ambed`) for D-Star ⇄ DMR/YSF without a DVSI USB stick
 - ✅ **Compatible** with Debian 10+ (13 recommended), Ubuntu, RaspiOS, Armbian, etc...
 - ✅ **Full uninstall support** with optional SSL certificate removal
 - ✅ **Built-in User Manager** for whitelist, dashboard access and RadioID database
 - ✅ **Residual installation detection** — automatically cleans up incomplete or failed installs before proceeding
 - ✅ **Safe cancellation** — type `X` at any prompt to abort without leaving the system in an inconsistent state
 
-> **Note:** D-Star integration with other modes still requires AMBE chips. For D-Star-only or YSF/DMR reflectors, no additional hardware is needed.
+> **Note:** D-Star integration with other modes needs a transcoder. The installer can set up a software transcoder (question 17) based on the open source AMBE/AMBE+2 vocoder from [DroidStar](https://github.com/nostar/DroidStar), so no AMBE chip is required. AMBE and AMBE+2 are DVSI technologies: check the patent situation in your country before enabling it. For D-Star-only or YSF/DMR reflectors, no transcoder is needed.
 
 ---
 
@@ -39,6 +40,7 @@ This project simplifies the installation of XLX reflectors with minimal user int
 | 🔄 **Multi-Protocol**       | Native support for D-Star, C4FM (YSF), and DMR         |
 | 🎨 **Custom Dashboard**     | Dark theme with enhanced monitoring capabilities       |
 | 🔊 **Echo Test**            | Optional Parrot service for audio testing              |
+| 🔁 **Software Transcoder**  | Optional D-Star ⇄ DMR/YSF transcoding without hardware |
 | 🔒 **SSL Ready**            | Automated SSL certificate setup with Certbot           |
 | 📊 **Real-time Monitoring** | Live connection tracking and statistics                |
 | 🌍 **YSF Auto-link**        | Configurable automatic linking for YSF                 |
@@ -67,6 +69,7 @@ The installer provides native **systemd services**, replacing original XLXD `ini
 - `xlx_log.service`
 - `update_XLX_db.service` (update timers)
 - `xlxecho.service` (if Echo Test is enabled)
+- `ambed.service` (if the software transcoder is enabled)
 
 This brings better reliability, logging, restart behavior, and dependency control.
 
@@ -122,6 +125,8 @@ The installer will request the following information:
 | 14 | YSF Wires-X frequency (Hz) | `433125000`           | 433125000 |
 | 15 | Enable YSF auto-link?      | `Y/N`                 | Y         |
 | 16 | YSF auto-link module       | `A-Z`                 | C         |
+| 17 | Install soft transcoder?   | `Y/N`                 | N         |
+| 18 | Transcoded streams         | `1-16`                | CPU cores (max 4) |
 
 > **Tip:** At any prompt, type `X` and press **[ENTER]** to safely cancel the installation. No changes will be made to the system.
 
@@ -189,10 +194,10 @@ sudo ./installer.sh
 
 | Type                         | Location                                                                                                                                                                                                     |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Installation**             | `/xlxd/`                                                                                                                                                                                                     |
-| **Source Files & Folders**   | `/usr/src/xlxd/` `/usr/src/XLXEcho/` `/usr/src/XLX_Dark_Dashboard/` `/usr/src/XLX_Installer/` `/usr/local/bin/update_db.sh` `/usr/local/bin/xlx_log.sh`                                                     |
+| **Installation**             | `/xlxd/` `/ambed/`                                                                                                                                                                                                   |
+| **Source Files & Folders**   | `/usr/src/xlxd/` `/usr/src/xlxd/ambed/` `/usr/src/XLXEcho/` `/usr/src/XLX_Dark_Dashboard/` `/usr/src/XLX_Installer/` `/usr/local/bin/update_db.sh` `/usr/local/bin/xlx_log.sh`                                                     |
 | **Log Files**                | `/var/log/xlxd*` `/var/log/xlx.log` `/var/log/xlxecho.log` `/var/log/update_XLX_db.log`                                                                                                                     |
-| **Services**                 | `/etc/systemd/system/xlxd.service` `/etc/systemd/system/xlxecho.service` `/etc/systemd/system/xlx_log.service` `/etc/systemd/system/update_XLX_db.service` `/etc/systemd/system/update_XLX_db.timer`        |
+| **Services**                 | `/etc/systemd/system/xlxd.service` `/etc/systemd/system/xlxecho.service` `/etc/systemd/system/ambed.service` `/etc/systemd/system/xlx_log.service` `/etc/systemd/system/update_XLX_db.service` `/etc/systemd/system/update_XLX_db.timer`        |
 | **Dashboard**                | `/var/www/html/xlxd/`                                                                                                                                                                                        |
 | **Configuration**            | `/var/www/html/xlxd/pgs/config.inc.php` `/etc/logrotate.d/xlx_logrotate.conf` `/xlxd/callinghome.php` `/xlxd/xlxd.blacklist` `/xlxd/xlxd.whitelist` `/xlxd/xlxd.interlink` `/xlxd/xlxd.terminal`            |
 | **User Manager**             | `/xlxd/users_db/reflector_user_manager.sh`                                                                                                                                                                   |
