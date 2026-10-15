@@ -200,11 +200,22 @@ This installer adds a software transcoder to the XLX reflector, so D-Star users 
 - The number of simultaneous transcoded streams (question 18) is stored in `AMBED_SOFT_PAIRS` inside `ambed.service`. Each stream uses about 8% of one modern x86_64 core.
 - If the patch no longer applies to the current `xlxd`, the installer warns and continues without the transcoder.
 
-Change the number of streams later:
+### Adjusting the transcoder
+
+All settings live in `/etc/systemd/system/ambed.service`:
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `AMBED_SOFT_PAIRS` | answer to question 18 | simultaneous transcoded streams |
+| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | `-8` | audio gain in dB, D-Star → DMR/YSF. Lower it if D-Star audio saturates on DMR/YSF radios |
+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | `4` | audio gain in dB, DMR/YSF → D-Star. Raise it if DMR/YSF audio is too quiet on D-Star radios |
+
+Gains are whole dB from `-24` to `24`; steps of 2-3 dB are a good start. Example:
 
 ```bash
-sudo sed -i 's/AMBED_SOFT_PAIRS=.*/AMBED_SOFT_PAIRS=4/' /etc/systemd/system/ambed.service
+sudo nano /etc/systemd/system/ambed.service      # edit the values
 sudo systemctl daemon-reload && sudo systemctl restart ambed xlxd
+journalctl -u ambed | grep 'SoftAMBE gains'      # confirm the values in use
 ```
 
 > **Patents:** AMBE and AMBE+2 are DVSI technologies. Check the patent situation in your country before enabling the software transcoder.

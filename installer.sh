@@ -133,6 +133,9 @@ SSL_OK=0
 INSTALL_AMBED="N"
 AMBED_PAIRS=0
 AMBED_DIR="/ambed"
+# Audio gains in dB, adjustable later in /etc/systemd/system/ambed.service
+AMBED_GAIN_DSTAR_TO_DMR=-8
+AMBED_GAIN_DMR_TO_DSTAR=4
 AMBED_PATCH="$XLXINS/patches/xlxd-ambed-softambe.patch"
 DEPAPP=(
 python3-certbot-apache
@@ -1346,6 +1349,10 @@ Type=simple
 User=root
 Group=root
 Environment=AMBED_SOFT_PAIRS=$AMBED_PAIRS
+# Audio levels in dB: lower the first if D-Star saturates on DMR/YSF,
+# raise the second if DMR/YSF is too quiet on D-Star
+Environment=AMBED_SOFT_GAIN_DSTAR_TO_DMR=$AMBED_GAIN_DSTAR_TO_DMR
+Environment=AMBED_SOFT_GAIN_DMR_TO_DSTAR=$AMBED_GAIN_DMR_TO_DSTAR
 ExecStart=$AMBED_DIR/ambed 127.0.0.1
 Restart=always
 RestartSec=5

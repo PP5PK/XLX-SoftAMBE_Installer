@@ -1,154 +1,9 @@
-From 0f31a87a0af871e53adec1475ebf269ce7865c58 Mon Sep 17 00:00:00 2001
-From: Daniel PP5PK <svrutz@gmail.com>
-Date: Thu, 15 Oct 2026 13:40:23 -0300
-Subject: [PATCH] ambed: add software AMBE/AMBE+2 vocoder (SoftAMBE)
-
-Adds CSoftAmbeInterface, a vocoder interface that transcodes D-Star
-(AMBE 3600x2400) <-> DMR/YSF (AMBE+2 3600x2450) in software using the
-open source DroidStar vocoder (mbelib + OP25 encoder + Pavel Yazev IMBE).
-
-- Enabled with AMBED_SOFT_PAIRS=<n>; hardware channels stay preferred
-- make NO_FTDI=1 builds without the proprietary libftd2xx
-- PIDs are carried through decode/encode
-- See ambed/SOFTWARE_VOCODER.md
-
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_014CYVEJi1F1MmpGVfPtgt2n
----
- ambed/SOFTWARE_VOCODER.md                     |   69 +
- ambed/csoftambeinterface.cpp                  |  295 ++
- ambed/csoftambeinterface.h                    |  103 +
- ambed/cvocodecs.cpp                           |   24 +
- ambed/makefile                                |   31 +-
- ambed/swvocoder/UPSTREAM                      |    1 +
- ambed/swvocoder/ftd2xx_stub.c                 |   41 +
- ambed/swvocoder/imbe_vocoder/aux_sub.cc       |  184 ++
- ambed/swvocoder/imbe_vocoder/aux_sub.h        |  133 +
- ambed/swvocoder/imbe_vocoder/basic_op.h       |   85 +
- ambed/swvocoder/imbe_vocoder/basicop2.cc      | 2157 ++++++++++++++
- ambed/swvocoder/imbe_vocoder/ch_decode.cc     |  185 ++
- ambed/swvocoder/imbe_vocoder/ch_decode.h      |   32 +
- ambed/swvocoder/imbe_vocoder/ch_encode.cc     |  110 +
- ambed/swvocoder/imbe_vocoder/ch_encode.h      |   32 +
- ambed/swvocoder/imbe_vocoder/dc_rmv.cc        |   66 +
- ambed/swvocoder/imbe_vocoder/dc_rmv.h         |   46 +
- ambed/swvocoder/imbe_vocoder/decode.cc        |  112 +
- ambed/swvocoder/imbe_vocoder/decode.h         |   31 +
- ambed/swvocoder/imbe_vocoder/dsp_sub.cc       |  278 ++
- ambed/swvocoder/imbe_vocoder/dsp_sub.h        |   81 +
- ambed/swvocoder/imbe_vocoder/encode.cc        |  142 +
- ambed/swvocoder/imbe_vocoder/encode.h         |   33 +
- ambed/swvocoder/imbe_vocoder/globals.h        |   62 +
- ambed/swvocoder/imbe_vocoder/imbe.h           |   69 +
- ambed/swvocoder/imbe_vocoder/imbe_vocoder.cc  |   37 +
- ambed/swvocoder/imbe_vocoder/imbe_vocoder.h   |   32 +
- .../swvocoder/imbe_vocoder/imbe_vocoder_api.h |   68 +
- .../imbe_vocoder/imbe_vocoder_impl.cc         |   42 +
- .../imbe_vocoder/imbe_vocoder_impl.h          |   92 +
- ambed/swvocoder/imbe_vocoder/math_sub.cc      |  355 +++
- ambed/swvocoder/imbe_vocoder/math_sub.h       |  130 +
- ambed/swvocoder/imbe_vocoder/pe_lpf.cc        |   74 +
- ambed/swvocoder/imbe_vocoder/pe_lpf.h         |   47 +
- ambed/swvocoder/imbe_vocoder/pitch_est.cc     |  349 +++
- ambed/swvocoder/imbe_vocoder/pitch_est.h      |   29 +
- ambed/swvocoder/imbe_vocoder/pitch_ref.cc     |  167 ++
- ambed/swvocoder/imbe_vocoder/pitch_ref.h      |   28 +
- ambed/swvocoder/imbe_vocoder/qnt_sub.cc       |  144 +
- ambed/swvocoder/imbe_vocoder/qnt_sub.h        |   86 +
- ambed/swvocoder/imbe_vocoder/rand_gen.cc      |   61 +
- ambed/swvocoder/imbe_vocoder/rand_gen.h       |   44 +
- ambed/swvocoder/imbe_vocoder/sa_decode.cc     |  200 ++
- ambed/swvocoder/imbe_vocoder/sa_decode.h      |   64 +
- ambed/swvocoder/imbe_vocoder/sa_encode.cc     |  296 ++
- ambed/swvocoder/imbe_vocoder/sa_encode.h      |   30 +
- ambed/swvocoder/imbe_vocoder/sa_enh.cc        |  202 ++
- ambed/swvocoder/imbe_vocoder/sa_enh.h         |   50 +
- ambed/swvocoder/imbe_vocoder/tbls.cc          |  368 +++
- ambed/swvocoder/imbe_vocoder/tbls.h           |   99 +
- ambed/swvocoder/imbe_vocoder/typedef.h        |   74 +
- ambed/swvocoder/imbe_vocoder/typedefs.h       |  201 ++
- ambed/swvocoder/imbe_vocoder/uv_synt.cc       |  147 +
- ambed/swvocoder/imbe_vocoder/uv_synt.h        |   29 +
- ambed/swvocoder/imbe_vocoder/v_synt.cc        |  248 ++
- ambed/swvocoder/imbe_vocoder/v_synt.h         |   30 +
- ambed/swvocoder/imbe_vocoder/v_uv_det.cc      |  370 +++
- ambed/swvocoder/imbe_vocoder/v_uv_det.h       |   28 +
- ambed/swvocoder/mbe/ambe.cpp                  | 1346 +++++++++
- ambed/swvocoder/mbe/ambe3600x2400.cpp         |  755 +++++
- ambed/swvocoder/mbe/ambe3600x2450.cpp         |  681 +++++
- ambed/swvocoder/mbe/mbevocoder.cpp            |  394 +++
- ambed/swvocoder/mbe/mbevocoder.h              |  143 +
- ambed/swvocoder/mbe/vocoder_tables.h          | 2590 +++++++++++++++++
- 64 files changed, 14528 insertions(+), 4 deletions(-)
- create mode 100644 ambed/SOFTWARE_VOCODER.md
- create mode 100644 ambed/csoftambeinterface.cpp
- create mode 100644 ambed/csoftambeinterface.h
- create mode 100644 ambed/swvocoder/UPSTREAM
- create mode 100644 ambed/swvocoder/ftd2xx_stub.c
- create mode 100644 ambed/swvocoder/imbe_vocoder/aux_sub.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/aux_sub.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/basic_op.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/basicop2.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/ch_decode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/ch_decode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/ch_encode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/ch_encode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/dc_rmv.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/dc_rmv.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/decode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/decode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/dsp_sub.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/dsp_sub.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/encode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/encode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/globals.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe_vocoder.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe_vocoder.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe_vocoder_api.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe_vocoder_impl.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/imbe_vocoder_impl.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/math_sub.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/math_sub.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/pe_lpf.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/pe_lpf.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/pitch_est.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/pitch_est.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/pitch_ref.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/pitch_ref.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/qnt_sub.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/qnt_sub.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/rand_gen.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/rand_gen.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_decode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_decode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_encode.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_encode.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_enh.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/sa_enh.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/tbls.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/tbls.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/typedef.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/typedefs.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/uv_synt.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/uv_synt.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/v_synt.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/v_synt.h
- create mode 100644 ambed/swvocoder/imbe_vocoder/v_uv_det.cc
- create mode 100644 ambed/swvocoder/imbe_vocoder/v_uv_det.h
- create mode 100644 ambed/swvocoder/mbe/ambe.cpp
- create mode 100644 ambed/swvocoder/mbe/ambe3600x2400.cpp
- create mode 100644 ambed/swvocoder/mbe/ambe3600x2450.cpp
- create mode 100644 ambed/swvocoder/mbe/mbevocoder.cpp
- create mode 100644 ambed/swvocoder/mbe/mbevocoder.h
- create mode 100644 ambed/swvocoder/mbe/vocoder_tables.h
-
 diff --git a/ambed/SOFTWARE_VOCODER.md b/ambed/SOFTWARE_VOCODER.md
 new file mode 100644
-index 0000000..a3660c0
+index 0000000..ce9b562
 --- /dev/null
 +++ b/ambed/SOFTWARE_VOCODER.md
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,81 @@
 +# ambed software vocoder (SoftAMBE)
 +
 +ambed can transcode D-Star (AMBE 3600x2400) to and from DMR/YSF (AMBE+2
@@ -196,18 +51,30 @@ index 0000000..a3660c0
 +
 +## Tuning
 +
-+`csoftambeinterface.h`:
++Audio levels can be changed at runtime, without recompiling, through
++environment variables (for example in `ambed.service`):
++
++| Variable | Default | Meaning |
++|---|---|---|
++| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -8 dB | gain on the D-Star to DMR/YSF path |
++| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | +4 dB | gain on the DMR/YSF to D-Star path |
++
++Values are whole dB, clamped to +/-24. Lower the first one if D-Star
++audio saturates on DMR/YSF radios; raise the second one if DMR/YSF
++audio is too quiet on D-Star radios. Steps of 2-3 dB are a good start.
++
++The software decoders are level-matched to each other, but radios decode
++AMBE+2 louder than AMBE, which is why the defaults are not 0 (the DVSI
++`CODECGAIN_*` values compensate the same way with -10/+10 dB).
++
++Compile-time defaults in `csoftambeinterface.h`:
 +
 +| Define | Default | Meaning |
 +|---|---|---|
-+| `SOFTAMBE_GAIN_AMBEPLUS` | 0 dB | gain on the D-Star to DMR path |
-+| `SOFTAMBE_GAIN_AMBE2PLUS` | 0 dB | gain on the DMR to D-Star path |
++| `SOFTAMBE_GAIN_AMBEPLUS` | -8 dB | default D-Star to DMR/YSF gain |
++| `SOFTAMBE_GAIN_AMBE2PLUS` | +4 dB | default DMR/YSF to D-Star gain |
 +| `SOFTAMBE_IDLE_RESET_MS` | 500 | vocoder state reset after this much silence |
 +| `SOFTAMBE_MAX_PAIRS` | 16 | upper limit for `AMBED_SOFT_PAIRS` |
-+
-+The hardware `CODECGAIN_*` values are not used here, because they
-+compensate for the DVSI chips' output levels and the software decoders are
-+already level-matched.
 +
 +## Measured (x86_64 Xeon 2.8 GHz)
 +
@@ -218,12 +85,27 @@ index 0000000..a3660c0
 +
 +AMBE and AMBE+2 are DVSI technologies. Check the patent situation in your
 +country before using this.
+diff --git a/ambed/cfixedgain.cpp b/ambed/cfixedgain.cpp
+index 600df13..8e3e2f1 100644
+--- a/ambed/cfixedgain.cpp
++++ b/ambed/cfixedgain.cpp
+@@ -46,6 +46,10 @@ inline void CFixedGain::ProcessSampleBlock(uint8* voice, int length)
+         //apply gain
+         float output = input * m_gainLinear;
+ 
++        //clamp, so a positive gain saturates instead of wrapping around
++        if ( output >  32767.0f ) output =  32767.0f;
++        if ( output < -32768.0f ) output = -32768.0f;
++
+         //write processed sample back
+         voice[i] = HIBYTE((short)output);
+         voice[i+1] = LOBYTE((short)output);
 diff --git a/ambed/csoftambeinterface.cpp b/ambed/csoftambeinterface.cpp
 new file mode 100644
-index 0000000..ce677d1
+index 0000000..f614055
 --- /dev/null
 +++ b/ambed/csoftambeinterface.cpp
-@@ -0,0 +1,295 @@
+@@ -0,0 +1,321 @@
 +//
 +//  csoftambeinterface.cpp
 +//  ambed
@@ -249,6 +131,7 @@ index 0000000..ce677d1
 +
 +#include "main.h"
 +#include <cstring>
++#include <cstdlib>
 +#include "ctimepoint.h"
 +#include "cambepacket.h"
 +#include "cvoicepacket.h"
@@ -314,8 +197,33 @@ index 0000000..ce677d1
 +    return CVocodecInterface::Init();
 +}
 +
++// Reads a gain in dB from the environment, falling back to the default
++// when unset or invalid, and clamps it to +/- SOFTAMBE_GAIN_LIMIT.
++static int ReadGainEnv(const char *name, int iDefault)
++{
++    const char *env = ::getenv(name);
++    if ( (env == NULL) || (*env == 0) )
++    {
++        return iDefault;
++    }
++    char *end = NULL;
++    long val = ::strtol(env, &end, 10);
++    if ( (end == env) || (*end != 0) )
++    {
++        std::cout << "SoftAMBE: invalid " << name << "=\"" << env << "\", using " << iDefault << " dB" << std::endl;
++        return iDefault;
++    }
++    if ( val >  SOFTAMBE_GAIN_LIMIT ) val =  SOFTAMBE_GAIN_LIMIT;
++    if ( val < -SOFTAMBE_GAIN_LIMIT ) val = -SOFTAMBE_GAIN_LIMIT;
++    return (int)val;
++}
++
 +int CSoftAmbeInterface::CreateChannels(std::vector<CVocodecChannel *> *channels)
 +{
++    int iGainToDmr   = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DMR,   SOFTAMBE_GAIN_AMBEPLUS);
++    int iGainToDstar = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DSTAR, SOFTAMBE_GAIN_AMBE2PLUS);
++    std::cout << "SoftAMBE gains : D-Star -> DMR/YSF " << iGainToDmr << " dB, DMR/YSF -> D-Star " << iGainToDstar << " dB" << std::endl;
++
 +    int n = 0;
 +    for ( int i = 0; i < m_iNbPairs; i++ )
 +    {
@@ -324,13 +232,13 @@ index 0000000..ce677d1
 +        CVocodecChannel *Channel;
 +
 +        // D-Star -> DMR
-+        Channel = new CVocodecChannel(this, iDstar, this, iDmr, SOFTAMBE_GAIN_AMBEPLUS);
++        Channel = new CVocodecChannel(this, iDstar, this, iDmr, iGainToDmr);
 +        channels->push_back(Channel);
 +        AddChannel(Channel);
 +        n++;
 +
 +        // DMR -> D-Star
-+        Channel = new CVocodecChannel(this, iDmr, this, iDstar, SOFTAMBE_GAIN_AMBE2PLUS);
++        Channel = new CVocodecChannel(this, iDmr, this, iDstar, iGainToDstar);
 +        channels->push_back(Channel);
 +        AddChannel(Channel);
 +        n++;
@@ -521,10 +429,10 @@ index 0000000..ce677d1
 +}
 diff --git a/ambed/csoftambeinterface.h b/ambed/csoftambeinterface.h
 new file mode 100644
-index 0000000..ea3ac5a
+index 0000000..8f56e44
 --- /dev/null
 +++ b/ambed/csoftambeinterface.h
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,109 @@
 +//
 +//  csoftambeinterface.h
 +//  ambed
@@ -572,11 +480,17 @@ index 0000000..ea3ac5a
 +// transmission does not inherit the previous speaker's parameters.
 +#define SOFTAMBE_IDLE_RESET_MS      500
 +
-+// Channel gains (dB) applied between decode and encode. The hardware
-+// CODECGAIN_* values compensate for the DVSI chips output levels; the
-+// software decoders are already level-matched, so these start at 0.
-+#define SOFTAMBE_GAIN_AMBEPLUS      0       // D-Star -> DMR
-+#define SOFTAMBE_GAIN_AMBE2PLUS     0       // DMR -> D-Star
++// Channel gains (dB) applied between decode and encode. The software
++// decoders are level-matched to each other, but radios decode AMBE+2
++// louder than AMBE, so D-Star -> DMR/YSF needs attenuation and
++// DMR/YSF -> D-Star a little boost (the DVSI CODECGAIN_* values do the
++// same with -10/+10 dB). Defaults come from on-air tests and can be
++// overridden at runtime with the environment variables below.
++#define SOFTAMBE_GAIN_AMBEPLUS      -8      // D-Star -> DMR/YSF
++#define SOFTAMBE_GAIN_AMBE2PLUS     4       // DMR/YSF -> D-Star
++#define SOFTAMBE_ENV_GAIN_TO_DMR    "AMBED_SOFT_GAIN_DSTAR_TO_DMR"
++#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
++#define SOFTAMBE_GAIN_LIMIT         24      // accepted range is +/- this, in dB
 +
 +////////////////////////////////////////////////////////////////////////////////////////
 +// class
@@ -15082,6 +14996,3 @@ index 0000000..bd51186
 +  256, 64, 13, 256, 2176, 2304, 8, 8, 8, 512, 1044, 32, 8, 1025, 34, 656, 8, 64, 128, 2054, 257, 512, 34, 69, 8, 512, 512, 512, 2176, 34,
 +  34, 256, 34, 512, 34, 1032, 80
 +};
--- 
-2.43.0
-
