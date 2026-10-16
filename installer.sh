@@ -133,12 +133,8 @@ SSL_OK=0
 INSTALL_AMBED="N"
 AMBED_PAIRS=0
 AMBED_DIR="/ambed"
-# Audio gains in dB, adjustable later in /etc/systemd/system/ambed.service
-AMBED_GAIN_DSTAR_TO_DMR=-20
-AMBED_GAIN_DMR_TO_DSTAR=16
-# DMR/YSF -> D-Star presence boost (dB, 0 = off) and expander threshold (dBFS, 0 = off)
-AMBED_EQ_DMR_TO_DSTAR=9
-AMBED_GATE_DMR_TO_DSTAR=-45
+# All transcoder audio settings live in this file, created from templates/ambed.conf
+AMBED_CONF="$AMBED_DIR/ambed.conf"
 AMBED_PATCH="$XLXINS/patches/xlxd-ambed-softambe.patch"
 DEPAPP=(
 python3-certbot-apache
@@ -1338,6 +1334,11 @@ if [ "$INSTALL_AMBED" == "Y" ]; then
         make install || error_exit "Failed to install ambed to $AMBED_DIR"
         [ -x "$AMBED_DIR/ambed" ] || error_exit "ambed binary not found at $AMBED_DIR/ambed"
 
+        echo "Creating $AMBED_CONF..."
+        sed "s|__PAIRS__|$AMBED_PAIRS|" "$XLXINS/templates/ambed.conf" > "$AMBED_CONF" \
+            || error_exit "Failed to create $AMBED_CONF"
+        chmod 644 "$AMBED_CONF"
+
         echo "Creating ambed.service..."
         # No DVSI hardware: the ftdi_sio/usb_serial rmmod lines are not needed.
         # ambed listens on 127.0.0.1, the transcoder address passed to xlxd.
@@ -1351,20 +1352,8 @@ Before=xlxd.service
 Type=simple
 User=root
 Group=root
-# Software transcoder settings. Change in steps of 2-3, then run:
-#   systemctl daemon-reload && systemctl restart ambed xlxd
-# Comments must stay on their own line: text after a value breaks it.
-#
-# PAIRS = simultaneous transcoded streams (1-16)
-Environment=AMBED_SOFT_PAIRS=$AMBED_PAIRS
-# GAIN D-Star -> DMR/YSF = value > louder, value < quieter (dB, -24 to 24; -18 is louder than -20)
-Environment=AMBED_SOFT_GAIN_DSTAR_TO_DMR=$AMBED_GAIN_DSTAR_TO_DMR
-# GAIN DMR/YSF -> D-Star = value > louder, value < quieter (dB, -24 to 24)
-Environment=AMBED_SOFT_GAIN_DMR_TO_DSTAR=$AMBED_GAIN_DMR_TO_DSTAR
-# EQ DMR/YSF -> D-Star = value > more treble, value < more bass (0 to 12, 0 = off)
-Environment=AMBED_SOFT_EQ_DMR_TO_DSTAR=$AMBED_EQ_DMR_TO_DSTAR
-# GATE DMR/YSF -> D-Star = value > less noise in pauses, value < keeps quieter words (dBFS, -90 to -1, 0 = off; -40 cuts more than -50)
-Environment=AMBED_SOFT_GATE_DMR_TO_DSTAR=$AMBED_GATE_DMR_TO_DSTAR
+# Audio settings (gain, EQ, noise gate...) are in $AMBED_CONF
+EnvironmentFile=$AMBED_CONF
 ExecStart=$AMBED_DIR/ambed 127.0.0.1
 Restart=always
 RestartSec=5

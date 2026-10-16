@@ -197,27 +197,36 @@ This installer adds a software transcoder to the XLX reflector, so D-Star users 
 - The `xlxd` source is cloned unchanged from [PP5PK/xlxd](https://github.com/PP5PK/xlxd); `patches/xlxd-ambed-softambe.patch` is applied on top of it during installation.
 - The patch adds a software backend to `ambed`, based on the open source AMBE/AMBE+2 vocoder from [DroidStar](https://github.com/nostar/DroidStar) (mbelib decoder, OP25-derived encoder, Pavel Yazev's IMBE analysis). No firmware or proprietary code is used.
 - `ambed` is built with `make NO_FTDI=1` and installed to `/ambed/`, running as `ambed.service`.
-- The number of simultaneous transcoded streams (question 18) is stored in `AMBED_SOFT_PAIRS` inside `ambed.service`. Each stream uses about 8% of one modern x86_64 core.
+- The number of simultaneous transcoded streams (question 18) is stored in `AMBED_SOFT_PAIRS` inside `/ambed/ambed.conf`. Each stream uses about 8% of one modern x86_64 core.
 - If the patch no longer applies to the current `xlxd`, the installer warns and continues without the transcoder.
 
 ### Adjusting the transcoder
 
-All settings live in `/etc/systemd/system/ambed.service`:
+All audio settings of the transcoder are in one file, **`/ambed/ambed.conf`**, each with a short description of what raising or lowering it does, its range and its default. `ambed.service` only points to it (`EnvironmentFile=`).
 
-| Variable | Default | Meaning |
+| Setting | Default | What it does |
 | --- | --- | --- |
 | `AMBED_SOFT_PAIRS` | answer to question 18 | simultaneous transcoded streams |
-| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | `-20` | audio gain in dB, D-Star → DMR/YSF. Lower it if D-Star audio saturates on DMR/YSF radios |
-| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | `16` | audio gain in dB, DMR/YSF → D-Star. Raise it if DMR/YSF audio is too quiet on D-Star radios |
-| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | `9` | clarity of DMR/YSF → D-Star audio: presence boost in dB (`0`-`12`, `0` = off). Raise it if the audio sounds muffled on D-Star radios |
-| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | `-45` | noise reduction in pauses, DMR/YSF → D-Star: threshold in dBFS (`0` = off). Raise it (e.g. `-40`) for less background noise, lower it (e.g. `-50`) if quiet words get cut |
+| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | `-20` | volume, D-Star → DMR/YSF (dB) |
+| `AMBED_SOFT_EQ_DSTAR_TO_DMR` | `0` | treble boost, D-Star → DMR/YSF (dB, `0` = off) |
+| `AMBED_SOFT_GATE_DSTAR_TO_DMR` | `0` | noise gate threshold, D-Star → DMR/YSF (dBFS, `0` = off) |
+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | `16` | volume, DMR/YSF → D-Star (dB) |
+| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | `9` | treble boost, DMR/YSF → D-Star (dB, `0` = off) |
+| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | `-45` | noise gate threshold, DMR/YSF → D-Star (dBFS, `0` = off) |
+| `AMBED_SOFT_EQ_LOWCUT_HZ` | `250` | equalizer low cut (Hz) |
+| `AMBED_SOFT_EQ_PEAK_HZ` | `1800` | centre of the equalizer boost (Hz) |
+| `AMBED_SOFT_GATE_RATIO` | `2` | noise gate strength (dB cut per dB under threshold) |
+| `AMBED_SOFT_GATE_MAX_DB` | `20` | largest noise gate cut (dB) |
+| `AMBED_SOFT_GATE_HOLD_MS` | `100` | noise gate hold after speech (ms) |
+| `AMBED_SOFT_GATE_RELEASE_MS` | `270` | noise gate fade time (ms) |
+| `AMBED_SOFT_IDLE_RESET_MS` | `500` | silence after which the vocoders start fresh (ms) |
 
-Gains are whole dB from `-24` to `24`; steps of 2-3 dB are a good start. The defaults come from on-air tests with a Yaesu FT-1DR and Icom radios. The gain is applied inside the encoder (not to the audio samples), so large values do not add hiss in pauses or clip the peaks. Example:
+The defaults come from on-air tests with a Yaesu FT-1DR and Icom radios. Gains are applied inside the encoder (not to the audio samples), so large values do not add hiss in pauses or clip the peaks. Change values in steps of 2-3, then:
 
 ```bash
-sudo nano /etc/systemd/system/ambed.service      # edit the values
-sudo systemctl daemon-reload && sudo systemctl restart ambed xlxd
-journalctl -u ambed | grep 'SoftAMBE gains'      # confirm the values in use
+sudo nano /ambed/ambed.conf
+sudo systemctl restart ambed xlxd
+journalctl -u ambed -b | grep SoftAMBE      # values in use
 ```
 
 > **Patents:** AMBE and AMBE+2 are DVSI technologies. Check the patent situation in your country before enabling the software transcoder.

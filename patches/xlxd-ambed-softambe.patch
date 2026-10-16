@@ -1,9 +1,9 @@
 diff --git a/ambed/SOFTWARE_VOCODER.md b/ambed/SOFTWARE_VOCODER.md
 new file mode 100644
-index 0000000..375b884
+index 0000000..b935a13
 --- /dev/null
 +++ b/ambed/SOFTWARE_VOCODER.md
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,118 @@
 +# ambed software vocoder (SoftAMBE)
 +
 +ambed can transcode D-Star (AMBE 3600x2400) to and from DMR/YSF (AMBE+2
@@ -51,23 +51,38 @@ index 0000000..375b884
 +
 +## Tuning
 +
-+Audio levels can be changed at runtime, without recompiling, through
-+environment variables (for example in `ambed.service`):
++All audio settings are read at startup from environment variables. With
++the XLX-SoftAMBE installer they live in `/ambed/ambed.conf`, loaded by
++`ambed.service` through `EnvironmentFile=`, each with a description. The
++startup log (`journalctl -u ambed | grep SoftAMBE`) prints the values in
++use. Whole numbers only; out-of-range values are clamped and invalid ones
++fall back to the default.
 +
 +| Variable | Default | Meaning |
 +|---|---|---|
-+| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -20 dB | output level of the D-Star to DMR/YSF path |
-+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | +16 dB | output level of the DMR/YSF to D-Star path |
-+| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | 9 dB | presence boost before the D-Star encoder (0-12, 0 = equalizer off) |
-+| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | -45 dBFS | expander threshold before the D-Star encoder (0 = off) |
++| `AMBED_SOFT_PAIRS` | 0 | transcoding pairs (0 = software vocoder off) |
++| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -20 | output level, D-Star -> DMR/YSF (dB, +/-24) |
++| `AMBED_SOFT_EQ_DSTAR_TO_DMR` | 0 | presence boost, D-Star -> DMR/YSF (dB, 0-12, 0 = EQ off) |
++| `AMBED_SOFT_GATE_DSTAR_TO_DMR` | 0 | expander threshold, D-Star -> DMR/YSF (dBFS, 0 = off) |
++| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | 16 | output level, DMR/YSF -> D-Star (dB, +/-24) |
++| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | 9 | presence boost, DMR/YSF -> D-Star (dB, 0-12, 0 = EQ off) |
++| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | -45 | expander threshold, DMR/YSF -> D-Star (dBFS, 0 = off) |
++| `AMBED_SOFT_EQ_LOWCUT_HZ` | 250 | equalizer high-pass (Hz, 0-600, 0 = none) |
++| `AMBED_SOFT_EQ_PEAK_HZ` | 1800 | equalizer peak centre (Hz, 500-3500) |
++| `AMBED_SOFT_GATE_RATIO` | 2 | expander dB of cut per dB under threshold (1-10) |
++| `AMBED_SOFT_GATE_MAX_DB` | 20 | largest expander cut (dB, 0-40) |
++| `AMBED_SOFT_GATE_HOLD_MS` | 100 | expander hold after speech (ms, 0-1000) |
++| `AMBED_SOFT_GATE_RELEASE_MS` | 270 | expander time to close fully (ms, 20-2000) |
++| `AMBED_SOFT_IDLE_RESET_MS` | 500 | vocoder reset after this much silence (ms, 100-5000) |
 +
-+Values are whole dB, clamped to +/-24. Lower the first one if D-Star
-+audio saturates on DMR/YSF radios; raise the second one if DMR/YSF
-+audio is too quiet on D-Star radios. Steps of 2-3 dB are a good start.
++The defaults (also in `csoftambeinterface.h`) come from on-air tests with
++a Yaesu FT-1DR and Icom radios.
++
++### Why the gains are large
 +
 +The software decoders are level-matched to each other, but radios decode
-+this encoder's AMBE+2 much louder and its AMBE much quieter, hence the
-+large defaults. They come from on-air tests (Yaesu FT-1DR and Icom).
++this encoder's AMBE+2 much louder and its AMBE much quieter (the DVSI
++`CODECGAIN_*` values compensate the same way with -10/+10 dB).
 +
 +The gain is applied to the encoder's quantized gain parameter, not to the
 +PCM. Attenuating the PCM by 20 dB pushes quiet passages under the IMBE
@@ -80,32 +95,23 @@ index 0000000..375b884
 +| D-Star -> DMR, -20 dB | 23.7 dB | 33.5 dB |
 +| DMR -> D-Star, +17 dB | 28.8 dB | 32.9 dB |
 +
-+### DMR/YSF to D-Star pre-processing
++### Equalizer and expander
 +
 +Radios decode this encoder's AMBE with too much energy under 400 Hz and
 +too little at 0.8-2.5 kHz, which sounds boomy and muffled; the software
 +decoders do not show it, so it was measured from on-air recordings. Before
-+the D-Star encoder, ambed applies:
++the encoder of a path, ambed can apply:
 +
-+- an equalizer: 250 Hz high-pass plus a broad peak at 1.8 kHz
-+  (`AMBED_SOFT_EQ_DMR_TO_DSTAR` sets the peak in dB);
-+- a downward expander: frames under the threshold are attenuated 2 dB per
-+  dB below it (up to 20 dB) on the encoder gain parameter, opening at once
-+  and closing over about 300 ms, so background noise in pauses is not
-+  raised by the large D-Star gain.
++- an equalizer: high-pass at `EQ_LOWCUT_HZ` plus a broad peak at
++  `EQ_PEAK_HZ` (Q 0.6), on by default for DMR/YSF -> D-Star;
++- a downward expander: frames under the threshold are attenuated
++  `GATE_RATIO` dB per dB below it, up to `GATE_MAX_DB`, on the encoder
++  gain parameter. It opens at once, holds `GATE_HOLD_MS`, then closes over
++  `GATE_RELEASE_MS`, so word endings are kept.
 +
 +On a test signal with -50 dBFS room noise, the expander lowers the noise
 +in pauses by about 10 dB (speech-to-pause 28.3 -> 36.7 dB with EQ 9 dB)
 +without changing the speech level.
-+
-+Compile-time settings in `csoftambeinterface.h`:
-+
-+| Define | Default | Meaning |
-+|---|---|---|
-+| `SOFTAMBE_GAIN_AMBEPLUS` | -20 dB | default D-Star to DMR/YSF gain |
-+| `SOFTAMBE_GAIN_AMBE2PLUS` | +16 dB | default DMR/YSF to D-Star gain |
-+| `SOFTAMBE_IDLE_RESET_MS` | 500 | vocoder state reset after this much silence |
-+| `SOFTAMBE_MAX_PAIRS` | 16 | upper limit for `AMBED_SOFT_PAIRS` |
 +
 +## Measured (x86_64 Xeon 2.8 GHz)
 +
@@ -133,10 +139,10 @@ index 600df13..8e3e2f1 100644
          voice[i+1] = LOBYTE((short)output);
 diff --git a/ambed/csoftambeinterface.cpp b/ambed/csoftambeinterface.cpp
 new file mode 100644
-index 0000000..e741da1
+index 0000000..19e60dc
 --- /dev/null
 +++ b/ambed/csoftambeinterface.cpp
-@@ -0,0 +1,437 @@
+@@ -0,0 +1,490 @@
 +//
 +//  csoftambeinterface.cpp
 +//  ambed
@@ -210,10 +216,11 @@ index 0000000..e741da1
 +    : CVocodecInterface()
 +{
 +    m_iNbPairs = MAX(0, MIN(iNbPairs, SOFTAMBE_MAX_PAIRS));
-+    m_fGainToDmrLog2 = 0.0f;
-+    m_fGainToDstarLog2 = 0.0f;
-+    m_iEqToDstar = 0;
-+    m_iGateToDstar = 0;
++    m_iIdleResetMs = SOFTAMBE_IDLE_RESET_MS;
++    m_fGateRatio = SOFTAMBE_GATE_RATIO;
++    m_fGateMaxDb = SOFTAMBE_GATE_MAX_DB;
++    m_iGateHoldFrames = SOFTAMBE_GATE_HOLD_MS / SOFTAMBE_FRAME_MS;
++    m_fGateReleaseDb = 1.5f;
 +}
 +
 +////////////////////////////////////////////////////////////////////////////////////////
@@ -260,36 +267,8 @@ index 0000000..e741da1
 +        m_LastEncode.push_back(now);
 +    }
 +
-+    // DMR/YSF -> D-Star pre-processing settings and filters
-+    m_iEqToDstar = ReadIntEnv(SOFTAMBE_ENV_EQ_TO_DSTAR, SOFTAMBE_EQ_TO_DSTAR, 0, 12);
-+    m_iGateToDstar = ReadIntEnv(SOFTAMBE_ENV_GATE_TO_DSTAR, SOFTAMBE_GATE_TO_DSTAR, -90, 0);
-+    CSoftDstarPreproc proto;
-+    {
-+        const float fs = 8000.0f;
-+        // 2nd order Butterworth high-pass
-+        float w = 2.0f * (float)M_PI * SOFTAMBE_EQ_HPF_HZ / fs;
-+        float al = ::sinf(w) / (2.0f * 0.7071f), cs = ::cosf(w), a0 = 1.0f + al;
-+        proto.hpf.b0 = ((1.0f + cs) / 2.0f) / a0;
-+        proto.hpf.b1 = -(1.0f + cs) / a0;
-+        proto.hpf.b2 = ((1.0f + cs) / 2.0f) / a0;
-+        proto.hpf.a1 = (-2.0f * cs) / a0;
-+        proto.hpf.a2 = (1.0f - al) / a0;
-+        // peaking EQ
-+        float A = ::powf(10.0f, (float)m_iEqToDstar / 40.0f);
-+        w = 2.0f * (float)M_PI * SOFTAMBE_EQ_PEAK_HZ / fs;
-+        al = ::sinf(w) / (2.0f * SOFTAMBE_EQ_PEAK_Q); cs = ::cosf(w); a0 = 1.0f + al / A;
-+        proto.peak.b0 = (1.0f + al * A) / a0;
-+        proto.peak.b1 = (-2.0f * cs) / a0;
-+        proto.peak.b2 = (1.0f - al * A) / a0;
-+        proto.peak.a1 = (-2.0f * cs) / a0;
-+        proto.peak.a2 = (1.0f - al / A) / a0;
-+    }
-+    m_DstarPreproc.assign(GetNbChannels(), proto);
-+    std::cout << "SoftAMBE DMR/YSF -> D-Star : equalizer ";
-+    if ( m_iEqToDstar != 0 ) std::cout << "+" << m_iEqToDstar << " dB"; else std::cout << "off";
-+    std::cout << ", expander ";
-+    if ( m_iGateToDstar != 0 ) std::cout << m_iGateToDstar << " dBFS"; else std::cout << "off";
-+    std::cout << std::endl;
++    LoadSettings();
++    m_Preproc.assign(GetNbChannels(), CSoftPreproc());
 +
 +    // starts the thread
 +    return CVocodecInterface::Init();
@@ -297,12 +276,6 @@ index 0000000..e741da1
 +
 +int CSoftAmbeInterface::CreateChannels(std::vector<CVocodecChannel *> *channels)
 +{
-+    int iGainToDmr   = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DMR,   SOFTAMBE_GAIN_AMBEPLUS);
-+    int iGainToDstar = ReadGainEnv(SOFTAMBE_ENV_GAIN_TO_DSTAR, SOFTAMBE_GAIN_AMBE2PLUS);
-+    m_fGainToDmrLog2   = (float)iGainToDmr   / SOFTAMBE_DB_PER_LOG2;
-+    m_fGainToDstarLog2 = (float)iGainToDstar / SOFTAMBE_DB_PER_LOG2;
-+    std::cout << "SoftAMBE gains : D-Star -> DMR/YSF " << iGainToDmr << " dB, DMR/YSF -> D-Star " << iGainToDstar << " dB" << std::endl;
-+
 +    int n = 0;
 +    for ( int i = 0; i < m_iNbPairs; i++ )
 +    {
@@ -462,9 +435,9 @@ index 0000000..e741da1
 +    }
 +
 +    int iCh = Channel->GetChannelOut();
-+    if ( ResetIfIdle(m_Encoders, m_LastEncode, iCh) && (iCh < (int)m_DstarPreproc.size()) )
++    if ( ResetIfIdle(m_Encoders, m_LastEncode, iCh) && (iCh < (int)m_Preproc.size()) )
 +    {
-+        m_DstarPreproc[iCh].Reset();
++        m_Preproc[iCh].Reset();
 +    }
 +
 +    int16_t pcm[SOFTAMBE_PCM_SAMPLES];
@@ -482,13 +455,16 @@ index 0000000..e741da1
 +    uint8 uiCodec = GetChannelCodec(iCh);
 +    if ( uiCodec == CODEC_AMBEPLUS )
 +    {
-+        float fGateDb = PreprocessToDstar(iCh, pcm, SOFTAMBE_PCM_SAMPLES);
-+        m_Encoders[iCh]->set_encode_gain_log2(m_fGainToDstarLog2 - fGateDb / SOFTAMBE_DB_PER_LOG2);
++        const CSoftPathSettings &path = m_Path[SOFTAMBE_PATH_TO_DSTAR];
++        float fGateDb = Preprocess(iCh, path, pcm, SOFTAMBE_PCM_SAMPLES);
++        m_Encoders[iCh]->set_encode_gain_log2(path.fGainLog2 - fGateDb / SOFTAMBE_DB_PER_LOG2);
 +        m_Encoders[iCh]->encode_2400x1200(pcm, ambe);
 +    }
 +    else
 +    {
-+        m_Encoders[iCh]->set_encode_gain_log2(m_fGainToDmrLog2);
++        const CSoftPathSettings &path = m_Path[SOFTAMBE_PATH_TO_DMR];
++        float fGateDb = Preprocess(iCh, path, pcm, SOFTAMBE_PCM_SAMPLES);
++        m_Encoders[iCh]->set_encode_gain_log2(path.fGainLog2 - fGateDb / SOFTAMBE_DB_PER_LOG2);
 +        m_Encoders[iCh]->encode_2450x1150(pcm, ambe);
 +    }
 +
@@ -506,7 +482,7 @@ index 0000000..e741da1
 +    auto now = std::chrono::steady_clock::now();
 +    auto idle = std::chrono::duration_cast<std::chrono::milliseconds>(now - last[iCh]).count();
 +    bool bReset = false;
-+    if ( idle > SOFTAMBE_IDLE_RESET_MS )
++    if ( idle > m_iIdleResetMs )
 +    {
 +        delete vocoders[iCh];
 +        vocoders[iCh] = new MBEVocoder();
@@ -517,15 +493,94 @@ index 0000000..e741da1
 +}
 +
 +////////////////////////////////////////////////////////////////////////////////////////
-+// DMR/YSF -> D-Star pre-processing
++// settings
 +
-+float CSoftAmbeInterface::PreprocessToDstar(int iCh, int16_t *pcm, int n)
++static void MakeHighPass(CSoftBiquad &f, float fHz)
 +{
-+    if ( (iCh < 0) || (iCh >= (int)m_DstarPreproc.size()) )
++    // 2nd order Butterworth high-pass (RBJ cookbook), fs = 8 kHz
++    float w = 2.0f * (float)M_PI * fHz / 8000.0f;
++    float al = ::sinf(w) / (2.0f * 0.7071f), cs = ::cosf(w), a0 = 1.0f + al;
++    f.b0 = ((1.0f + cs) / 2.0f) / a0;
++    f.b1 = -(1.0f + cs) / a0;
++    f.b2 = ((1.0f + cs) / 2.0f) / a0;
++    f.a1 = (-2.0f * cs) / a0;
++    f.a2 = (1.0f - al) / a0;
++}
++
++static void MakePeak(CSoftBiquad &f, float fHz, float fQ, float fGainDb)
++{
++    // peaking EQ (RBJ cookbook), fs = 8 kHz
++    float A = ::powf(10.0f, fGainDb / 40.0f);
++    float w = 2.0f * (float)M_PI * fHz / 8000.0f;
++    float al = ::sinf(w) / (2.0f * fQ), cs = ::cosf(w), a0 = 1.0f + al / A;
++    f.b0 = (1.0f + al * A) / a0;
++    f.b1 = (-2.0f * cs) / a0;
++    f.b2 = (1.0f - al * A) / a0;
++    f.a1 = (-2.0f * cs) / a0;
++    f.a2 = (1.0f - al / A) / a0;
++}
++
++void CSoftAmbeInterface::LoadSettings(void)
++{
++    m_iIdleResetMs = ReadIntEnv(SOFTAMBE_ENV_IDLE_RESET_MS, SOFTAMBE_IDLE_RESET_MS, 100, 5000);
++
++    int iLowCut = ReadIntEnv(SOFTAMBE_ENV_EQ_LOWCUT_HZ, SOFTAMBE_EQ_LOWCUT_HZ, 0, 600);
++    int iPeak   = ReadIntEnv(SOFTAMBE_ENV_EQ_PEAK_HZ, SOFTAMBE_EQ_PEAK_HZ, 500, 3500);
++
++    m_fGateRatio = (float)ReadIntEnv(SOFTAMBE_ENV_GATE_RATIO, SOFTAMBE_GATE_RATIO, 1, 10);
++    m_fGateMaxDb = (float)ReadIntEnv(SOFTAMBE_ENV_GATE_MAX_DB, SOFTAMBE_GATE_MAX_DB, 0, 40);
++    int iHoldMs = ReadIntEnv(SOFTAMBE_ENV_GATE_HOLD_MS, SOFTAMBE_GATE_HOLD_MS, 0, 1000);
++    int iRelMs  = ReadIntEnv(SOFTAMBE_ENV_GATE_RELEASE_MS, SOFTAMBE_GATE_RELEASE_MS, SOFTAMBE_FRAME_MS, 2000);
++    m_iGateHoldFrames = iHoldMs / SOFTAMBE_FRAME_MS;
++    m_fGateReleaseDb = m_fGateMaxDb * (float)SOFTAMBE_FRAME_MS / (float)iRelMs;
++
++    const char *names[2][3] = {
++        { SOFTAMBE_ENV_GAIN_TO_DSTAR, SOFTAMBE_ENV_EQ_TO_DSTAR, SOFTAMBE_ENV_GATE_TO_DSTAR },
++        { SOFTAMBE_ENV_GAIN_TO_DMR,   SOFTAMBE_ENV_EQ_TO_DMR,   SOFTAMBE_ENV_GATE_TO_DMR   } };
++    const int defaults[2][3] = {
++        { SOFTAMBE_GAIN_TO_DSTAR, SOFTAMBE_EQ_TO_DSTAR, SOFTAMBE_GATE_TO_DSTAR },
++        { SOFTAMBE_GAIN_TO_DMR,   SOFTAMBE_EQ_TO_DMR,   SOFTAMBE_GATE_TO_DMR   } };
++    const char *labels[2] = { "DMR/YSF -> D-Star", "D-Star -> DMR/YSF" };
++
++    for ( int p = 0; p < 2; p++ )
++    {
++        CSoftPathSettings &path = m_Path[p];
++        path.iGainDb   = ReadGainEnv(names[p][0], defaults[p][0]);
++        path.iEqDb     = ReadIntEnv(names[p][1], defaults[p][1], 0, SOFTAMBE_EQ_LIMIT);
++        path.iGateDbfs = ReadIntEnv(names[p][2], defaults[p][2], -90, 0);
++        path.fGainLog2 = (float)path.iGainDb / SOFTAMBE_DB_PER_LOG2;
++        if ( iLowCut > 0 )
++        {
++            MakeHighPass(path.hpf, (float)iLowCut);
++        }
++        MakePeak(path.peak, (float)iPeak, SOFTAMBE_EQ_PEAK_Q, (float)path.iEqDb);
++
++        std::cout << "SoftAMBE " << labels[p] << " : gain " << path.iGainDb << " dB, equalizer ";
++        if ( path.iEqDb != 0 ) std::cout << "+" << path.iEqDb << " dB"; else std::cout << "off";
++        std::cout << ", expander ";
++        if ( path.iGateDbfs != 0 ) std::cout << path.iGateDbfs << " dBFS"; else std::cout << "off";
++        std::cout << std::endl;
++    }
++    std::cout << "SoftAMBE equalizer : low cut " << iLowCut << " Hz, peak " << iPeak << " Hz"
++              << " | expander : ratio " << (int)m_fGateRatio << ", max " << (int)m_fGateMaxDb << " dB"
++              << ", hold " << iHoldMs << " ms, release " << iRelMs << " ms"
++              << " | idle reset " << m_iIdleResetMs << " ms" << std::endl;
++}
++
++////////////////////////////////////////////////////////////////////////////////////////
++// pre-processing before the encoder
++
++float CSoftAmbeInterface::Preprocess(int iCh, const CSoftPathSettings &path, int16_t *pcm, int n)
++{
++    if ( (iCh < 0) || (iCh >= (int)m_Preproc.size()) )
 +    {
 +        return 0.0f;
 +    }
-+    CSoftDstarPreproc &st = m_DstarPreproc[iCh];
++    if ( (path.iEqDb == 0) && (path.iGateDbfs == 0) )
++    {
++        return 0.0f;
++    }
++    CSoftPreproc &st = m_Preproc[iCh];
 +
 +    // level of the decoded frame, before equalization
 +    float fEnergy = 0.0f;
@@ -536,9 +591,13 @@ index 0000000..e741da1
 +    }
 +    float fLevelDb = 10.0f * ::log10f(fEnergy / (float)n + 1e-10f);
 +
-+    // equalizer
-+    if ( m_iEqToDstar != 0 )
++    // equalizer, coefficients from the path settings, state per channel
++    if ( path.iEqDb != 0 )
 +    {
++        st.hpf.b0 = path.hpf.b0; st.hpf.b1 = path.hpf.b1; st.hpf.b2 = path.hpf.b2;
++        st.hpf.a1 = path.hpf.a1; st.hpf.a2 = path.hpf.a2;
++        st.peak.b0 = path.peak.b0; st.peak.b1 = path.peak.b1; st.peak.b2 = path.peak.b2;
++        st.peak.a1 = path.peak.a1; st.peak.a2 = path.peak.a2;
 +        for ( int i = 0; i < n; i++ )
 +        {
 +            float y = st.peak.Process(st.hpf.Process((float)pcm[i]));
@@ -549,20 +608,20 @@ index 0000000..e741da1
 +    }
 +
 +    // downward expander: opens at once, holds, then closes slowly
-+    if ( m_iGateToDstar == 0 )
++    if ( path.iGateDbfs == 0 )
 +    {
 +        return 0.0f;
 +    }
 +    float fTarget = 0.0f;
-+    if ( fLevelDb < (float)m_iGateToDstar )
++    if ( fLevelDb < (float)path.iGateDbfs )
 +    {
-+        fTarget = ((float)m_iGateToDstar - fLevelDb) * SOFTAMBE_GATE_RATIO;
-+        if ( fTarget > SOFTAMBE_GATE_MAX_DB ) fTarget = SOFTAMBE_GATE_MAX_DB;
++        fTarget = ((float)path.iGateDbfs - fLevelDb) * m_fGateRatio;
++        if ( fTarget > m_fGateMaxDb ) fTarget = m_fGateMaxDb;
 +    }
 +    if ( fTarget <= st.fGateDb )
 +    {
 +        st.fGateDb = fTarget;
-+        if ( fTarget == 0.0f ) st.iHold = SOFTAMBE_GATE_HOLD_FRAMES;
++        if ( fTarget == 0.0f ) st.iHold = m_iGateHoldFrames;
 +    }
 +    else if ( st.iHold > 0 )
 +    {
@@ -570,16 +629,16 @@ index 0000000..e741da1
 +    }
 +    else
 +    {
-+        st.fGateDb += MIN(fTarget - st.fGateDb, SOFTAMBE_GATE_RELEASE_DB);
++        st.fGateDb += MIN(fTarget - st.fGateDb, m_fGateReleaseDb);
 +    }
 +    return st.fGateDb;
 +}
 diff --git a/ambed/csoftambeinterface.h b/ambed/csoftambeinterface.h
 new file mode 100644
-index 0000000..5fcc46d
+index 0000000..c1e3a19
 --- /dev/null
 +++ b/ambed/csoftambeinterface.h
-@@ -0,0 +1,172 @@
+@@ -0,0 +1,211 @@
 +//
 +//  csoftambeinterface.h
 +//  ambed
@@ -623,51 +682,75 @@ index 0000000..5fcc46d
 +#define SOFTAMBE_ENV_PAIRS          "AMBED_SOFT_PAIRS"
 +#define SOFTAMBE_MAX_PAIRS          16
 +
++// All audio settings below are read at startup from environment variables,
++// normally set in /ambed/ambed.conf (EnvironmentFile= of ambed.service).
++// The values here are only the defaults used when a variable is unset.
++// Integer values; anything out of range is clamped, anything invalid
++// falls back to the default with a message in the log.
++
 +// A vocoder that sees no traffic for this long is reset, so a new
 +// transmission does not inherit the previous speaker's parameters.
++#define SOFTAMBE_ENV_IDLE_RESET_MS  "AMBED_SOFT_IDLE_RESET_MS"
 +#define SOFTAMBE_IDLE_RESET_MS      500
 +
-+// Output gains (dB) of each path. The software decoders are level-matched
-+// to each other, but radios decode this encoder's AMBE+2 much louder and
-+// its AMBE much quieter, so D-Star -> DMR/YSF needs attenuation and
-+// DMR/YSF -> D-Star a boost. Defaults come from on-air tests with Yaesu
-+// and Icom radios and can be overridden at runtime with the environment
-+// variables below.
++// Per path settings. Two paths: D-Star -> DMR/YSF (AMBE+2 encoder) and
++// DMR/YSF -> D-Star (AMBE encoder).
 +//
-+// The gain is applied to the encoder's quantized gain parameter, not to
-+// the PCM: attenuating the PCM pushes quiet passages under the analysis
-+// floor (harmonic amplitudes are clamped to 1), which shows up as a
-+// constant hiss in pauses, and boosting it clips. 1 dB here is 1 dB of
-+// output level either way.
-+#define SOFTAMBE_GAIN_AMBEPLUS      -20     // D-Star -> DMR/YSF
-+#define SOFTAMBE_GAIN_AMBE2PLUS     16      // DMR/YSF -> D-Star
++// GAIN (dB): output level. The software decoders are level-matched to each
++// other, but radios decode this encoder's AMBE+2 much louder and its AMBE
++// much quieter, so D-Star -> DMR/YSF needs attenuation and DMR/YSF -> D-Star
++// a boost. Defaults come from on-air tests with Yaesu and Icom radios.
++// The gain is applied to the encoder's quantized gain parameter, not to the
++// PCM: attenuating the PCM pushes quiet passages under the analysis floor
++// (harmonic amplitudes are clamped to 1), heard as a constant hiss in
++// pauses, and boosting it clips. 1 dB here is 1 dB of output level.
++//
++// EQ (dB): presence peak before the encoder, together with a low cut.
++// Radios decode this encoder's AMBE with too much energy under 400 Hz and
++// too little at 0.8-2.5 kHz (boomy, muffled), so it is on for DMR/YSF ->
++// D-Star. 0 disables the whole equalizer of that path.
++//
++// GATE (dBFS): downward expander threshold. Frames whose decoded level is
++// under it are attenuated on the encoder gain, so background noise in
++// pauses is not raised by a large gain. 0 disables it.
 +#define SOFTAMBE_ENV_GAIN_TO_DMR    "AMBED_SOFT_GAIN_DSTAR_TO_DMR"
-+#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
-+#define SOFTAMBE_GAIN_LIMIT         24      // accepted range is +/- this, in dB
++#define SOFTAMBE_ENV_EQ_TO_DMR      "AMBED_SOFT_EQ_DSTAR_TO_DMR"
++#define SOFTAMBE_ENV_GATE_TO_DMR    "AMBED_SOFT_GATE_DSTAR_TO_DMR"
++#define SOFTAMBE_GAIN_TO_DMR        -20
++#define SOFTAMBE_EQ_TO_DMR          0
++#define SOFTAMBE_GATE_TO_DMR        0
 +
-+// DMR/YSF -> D-Star pre-processing, before the AMBE encoder.
-+//
-+// Equalizer: radios decode this encoder's AMBE with too much energy under
-+// 400 Hz and too little at 0.8-2.5 kHz (boomy, muffled). A 250 Hz high-pass
-+// plus a broad presence peak at 1.8 kHz compensates. The variable sets the
-+// peak in dB; 0 disables the whole equalizer.
++#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
 +#define SOFTAMBE_ENV_EQ_TO_DSTAR    "AMBED_SOFT_EQ_DMR_TO_DSTAR"
-+#define SOFTAMBE_EQ_TO_DSTAR        9       // dB
-+#define SOFTAMBE_EQ_HPF_HZ          250.0f
-+#define SOFTAMBE_EQ_PEAK_HZ         1800.0f
-+#define SOFTAMBE_EQ_PEAK_Q          0.6f
-+//
-+// Downward expander: frames whose decoded level is under the threshold
-+// (dBFS) are attenuated by SOFTAMBE_GATE_RATIO dB per dB below it, up to
-+// SOFTAMBE_GATE_MAX_DB, so background noise in pauses is not amplified by
-+// the large D-Star gain. It opens at once and closes slowly, so word
-+// endings are kept. 0 disables it.
 +#define SOFTAMBE_ENV_GATE_TO_DSTAR  "AMBED_SOFT_GATE_DMR_TO_DSTAR"
-+#define SOFTAMBE_GATE_TO_DSTAR      -45     // dBFS
-+#define SOFTAMBE_GATE_RATIO         2.0f
-+#define SOFTAMBE_GATE_MAX_DB        20.0f
-+#define SOFTAMBE_GATE_HOLD_FRAMES   5       // 100 ms
-+#define SOFTAMBE_GATE_RELEASE_DB    1.5f    // per 20 ms frame
++#define SOFTAMBE_GAIN_TO_DSTAR      16
++#define SOFTAMBE_EQ_TO_DSTAR        9
++#define SOFTAMBE_GATE_TO_DSTAR      -45
++
++#define SOFTAMBE_GAIN_LIMIT         24      // gains accepted in +/- this, dB
++#define SOFTAMBE_EQ_LIMIT           12      // EQ accepted in 0..this, dB
++
++// Equalizer shape, shared by both paths
++#define SOFTAMBE_ENV_EQ_LOWCUT_HZ   "AMBED_SOFT_EQ_LOWCUT_HZ"   // 2nd order high-pass, 0 = none
++#define SOFTAMBE_EQ_LOWCUT_HZ       250
++#define SOFTAMBE_ENV_EQ_PEAK_HZ     "AMBED_SOFT_EQ_PEAK_HZ"     // presence peak centre
++#define SOFTAMBE_EQ_PEAK_HZ         1800
++#define SOFTAMBE_EQ_PEAK_Q          0.6f                        // broad, about 0.8-3 kHz
++
++// Expander shape, shared by both paths. It opens at once when speech
++// returns, holds, then closes slowly, so word endings are kept.
++#define SOFTAMBE_ENV_GATE_RATIO     "AMBED_SOFT_GATE_RATIO"     // dB of cut per dB under threshold
++#define SOFTAMBE_GATE_RATIO         2
++#define SOFTAMBE_ENV_GATE_MAX_DB    "AMBED_SOFT_GATE_MAX_DB"    // largest cut
++#define SOFTAMBE_GATE_MAX_DB        20
++#define SOFTAMBE_ENV_GATE_HOLD_MS   "AMBED_SOFT_GATE_HOLD_MS"   // stays open after speech
++#define SOFTAMBE_GATE_HOLD_MS       100
++#define SOFTAMBE_ENV_GATE_RELEASE_MS "AMBED_SOFT_GATE_RELEASE_MS" // time to close fully
++#define SOFTAMBE_GATE_RELEASE_MS    270
++
++#define SOFTAMBE_FRAME_MS           20
++#define SOFTAMBE_PATH_TO_DSTAR      0
++#define SOFTAMBE_PATH_TO_DMR        1
 +
 +// One RBJ biquad, direct form I
 +struct CSoftBiquad
@@ -684,14 +767,26 @@ index 0000000..5fcc46d
 +    }
 +};
 +
-+// Per-channel state of the DMR/YSF -> D-Star pre-processing
-+struct CSoftDstarPreproc
++// Settings of one path, read once at startup
++struct CSoftPathSettings
++{
++    int         iGainDb;
++    int         iEqDb;          // 0 = equalizer off
++    int         iGateDbfs;      // 0 = expander off
++    float       fGainLog2;      // iGainDb in encoder gain units
++    CSoftBiquad hpf;            // filter coefficients, used as prototypes
++    CSoftBiquad peak;
++    CSoftPathSettings() : iGainDb(0), iEqDb(0), iGateDbfs(0), fGainLog2(0) {}
++};
++
++// Per-channel pre-processing state (filters and expander)
++struct CSoftPreproc
 +{
 +    CSoftBiquad hpf;
 +    CSoftBiquad peak;
 +    float       fGateDb;        // current expander attenuation, dB
 +    int         iHold;          // frames left before the expander may close
-+    CSoftDstarPreproc() : fGateDb(0), iHold(0) {}
++    CSoftPreproc() : fGateDb(0), iHold(0) {}
 +    void Reset(void)            { hpf.Reset(); peak.Reset(); fGateDb = 0; iHold = 0; }
 +};
 +
@@ -732,16 +827,19 @@ index 0000000..5fcc46d
 +    bool ProcessDecoder(CVocodecChannel *Channel);
 +    bool ProcessEncoder(CVocodecChannel *Channel);
 +    bool ResetIfIdle(std::vector<MBEVocoder *> &vocoders, std::vector<std::chrono::steady_clock::time_point> &last, int iCh);
-+    // returns the expander attenuation (dB, >= 0) for this frame
-+    float PreprocessToDstar(int iCh, int16_t *pcm, int n);
++    void LoadSettings(void);
++    // equalizes pcm in place, returns the expander attenuation (dB, >= 0)
++    float Preprocess(int iCh, const CSoftPathSettings &path, int16_t *pcm, int n);
 +
 +protected:
 +    int                         m_iNbPairs;
-+    float                       m_fGainToDmrLog2;     // encoder gain, log2 amplitude units
-+    float                       m_fGainToDstarLog2;
-+    int                         m_iEqToDstar;         // presence peak dB, 0 = off
-+    int                         m_iGateToDstar;       // threshold dBFS, 0 = off
-+    std::vector<CSoftDstarPreproc> m_DstarPreproc;
++    CSoftPathSettings           m_Path[2];            // SOFTAMBE_PATH_TO_DSTAR / _TO_DMR
++    int                         m_iIdleResetMs;
++    float                       m_fGateRatio;
++    float                       m_fGateMaxDb;
++    int                         m_iGateHoldFrames;
++    float                       m_fGateReleaseDb;     // per frame
++    std::vector<CSoftPreproc>   m_Preproc;            // one per internal channel
 +
 +    // one decoder and one encoder per internal channel, both are stateful
 +    std::vector<MBEVocoder *>   m_Decoders;
