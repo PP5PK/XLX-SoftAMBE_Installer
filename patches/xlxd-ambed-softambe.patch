@@ -1,9 +1,9 @@
 diff --git a/ambed/SOFTWARE_VOCODER.md b/ambed/SOFTWARE_VOCODER.md
 new file mode 100644
-index 0000000..b935a13
+index 0000000..5ed48e2
 --- /dev/null
 +++ b/ambed/SOFTWARE_VOCODER.md
-@@ -0,0 +1,118 @@
+@@ -0,0 +1,119 @@
 +# ambed software vocoder (SoftAMBE)
 +
 +ambed can transcode D-Star (AMBE 3600x2400) to and from DMR/YSF (AMBE+2
@@ -64,8 +64,8 @@ index 0000000..b935a13
 +| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -20 | output level, D-Star -> DMR/YSF (dB, +/-24) |
 +| `AMBED_SOFT_EQ_DSTAR_TO_DMR` | 0 | presence boost, D-Star -> DMR/YSF (dB, 0-12, 0 = EQ off) |
 +| `AMBED_SOFT_GATE_DSTAR_TO_DMR` | 0 | expander threshold, D-Star -> DMR/YSF (dBFS, 0 = off) |
-+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | 16 | output level, DMR/YSF -> D-Star (dB, +/-24) |
-+| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | 9 | presence boost, DMR/YSF -> D-Star (dB, 0-12, 0 = EQ off) |
++| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | 17 | output level, DMR/YSF -> D-Star (dB, +/-24) |
++| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | 0 | presence boost, DMR/YSF -> D-Star (dB, 0-12, 0 = EQ off) |
 +| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | -45 | expander threshold, DMR/YSF -> D-Star (dBFS, 0 = off) |
 +| `AMBED_SOFT_EQ_LOWCUT_HZ` | 250 | equalizer high-pass (Hz, 0-600, 0 = none) |
 +| `AMBED_SOFT_EQ_PEAK_HZ` | 1800 | equalizer peak centre (Hz, 500-3500) |
@@ -103,7 +103,8 @@ index 0000000..b935a13
 +the encoder of a path, ambed can apply:
 +
 +- an equalizer: high-pass at `EQ_LOWCUT_HZ` plus a broad peak at
-+  `EQ_PEAK_HZ` (Q 0.6), on by default for DMR/YSF -> D-Star;
++  `EQ_PEAK_HZ` (Q 0.6), off by default (on-air tests preferred the plain
++  DMR/YSF -> D-Star sound once the gain moved into the encoder);
 +- a downward expander: frames under the threshold are attenuated
 +  `GATE_RATIO` dB per dB below it, up to `GATE_MAX_DB`, on the encoder
 +  gain parameter. It opens at once, holds `GATE_HOLD_MS`, then closes over
@@ -635,7 +636,7 @@ index 0000000..19e60dc
 +}
 diff --git a/ambed/csoftambeinterface.h b/ambed/csoftambeinterface.h
 new file mode 100644
-index 0000000..c1e3a19
+index 0000000..5f85f0d
 --- /dev/null
 +++ b/ambed/csoftambeinterface.h
 @@ -0,0 +1,211 @@
@@ -723,8 +724,8 @@ index 0000000..c1e3a19
 +#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
 +#define SOFTAMBE_ENV_EQ_TO_DSTAR    "AMBED_SOFT_EQ_DMR_TO_DSTAR"
 +#define SOFTAMBE_ENV_GATE_TO_DSTAR  "AMBED_SOFT_GATE_DMR_TO_DSTAR"
-+#define SOFTAMBE_GAIN_TO_DSTAR      16
-+#define SOFTAMBE_EQ_TO_DSTAR        9
++#define SOFTAMBE_GAIN_TO_DSTAR      17
++#define SOFTAMBE_EQ_TO_DSTAR        0
 +#define SOFTAMBE_GATE_TO_DSTAR      -45
 +
 +#define SOFTAMBE_GAIN_LIMIT         24      // gains accepted in +/- this, dB
