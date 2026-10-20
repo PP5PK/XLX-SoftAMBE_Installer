@@ -1505,28 +1505,14 @@ center_wrap_color $BLUE "================================"
 echo ""
 echo ""
 
-#  Starting ambed.service (if the software transcoder is installed)
-if [ "$INSTALL_AMBED" == "Y" ]; then
-    systemctl enable --now ambed.service >> "$LOGFILE" 2>&1 \
-        || error_exit "Failed to enable/start ambed.service. Check with: systemctl status ambed.service"
-    if ! systemctl is-active --quiet ambed.service; then
-        msg_warn "Warning: ambed service may not have started correctly. Check with: systemctl status ambed"
-    fi
-fi
-
-#  Starting xlxd.service
-systemctl enable --now xlxd.service >> "$LOGFILE" 2>&1 &
+#  Starting xlx_log service
+systemctl enable --now xlx_log.service >> "$LOGFILE" 2>&1 &
 pid=$!
-for ((i=10; i>0; i--)); do
-    printf "\r${YELLOW}Initializing $XRFNUM %2d seconds${NC}" "$i"
+for ((i=5; i>0; i--)); do
+    printf "\r${YELLOW}Initializing XLX log %2d seconds${NC}" "$i"
     sleep 1
 done
-wait $pid || error_exit "Failed to enable/start xlxd.service. Check with: systemctl status xlxd.service"
-
-# Verify service started successfully
-if ! systemctl is-active --quiet xlxd.service; then
-    msg_warn "Warning: xlxd service may not have started correctly. Check with: systemctl status xlxd"
-fi
+wait $pid || error_exit "Failed to enable/start xlx_log.service. Check with: systemctl status xlx_log.service"
 
 #  Starting users_db timer
 echo ""
@@ -1538,15 +1524,21 @@ for ((i=5; i>0; i--)); do
 done
 wait $pid || error_exit "Failed to enable/start update_XLX_db.timer. Check with: systemctl status update_XLX_db.timer"
 
-#  Starting xlx_log service
+#  Starting ambed.service (if the software transcoder is installed)
 echo ""
-systemctl enable --now xlx_log.service >> "$LOGFILE" 2>&1 &
-pid=$!
-for ((i=5; i>0; i--)); do
-    printf "\r${YELLOW}Initializing XLX log %2d seconds${NC}" "$i"
-    sleep 1
-done
-wait $pid || error_exit "Failed to enable/start xlx_log.service. Check with: systemctl status xlx_log.service"
+if [ "$INSTALL_AMBED" == "Y" ]; then
+    systemctl enable --now ambed.service >> "$LOGFILE" 2>&1 &
+    pid=$!
+    for ((i=5; i>0; i--)); do
+        printf "\r${YELLOW}Initializing SoftAMBE Server %2d seconds${NC}" "$i"
+        sleep 1
+    done
+    wait $pid || error_exit "Failed to enable/start ambed.service. Check with: systemctl status ambed.service"
+    # Verufy if service started
+    if ! systemctl is-active --quiet ambed.service; then
+        msg_warn "Warning: ambed service may not have started correctly."
+    fi
+fi
 
 # Enable and start xlxecho.service (if Echo Test is installed)
 echo ""
@@ -1558,12 +1550,26 @@ if [ "$INSTALL_ECHO" == "Y" ]; then
         sleep 1
     done
     wait $pid || error_exit "Failed to enable/start xlxecho.service. Check with: systemctl status xlxecho.service"
-
     # Verify echo service started
     if ! systemctl is-active --quiet xlxecho.service; then
         msg_warn "Warning: xlxecho service may not have started correctly"
     fi
 fi
+
+#  Starting xlxd.service
+echo ""
+systemctl enable --now xlxd.service >> "$LOGFILE" 2>&1 &
+pid=$!
+for ((i=10; i>0; i--)); do
+    printf "\r${YELLOW}Initializing $XRFNUM %2d seconds${NC}" "$i"
+    sleep 1
+done
+wait $pid || error_exit "Failed to enable/start xlxd.service. Check with: systemctl status xlxd.service"
+# Verify service started successfully
+if ! systemctl is-active --quiet xlxd.service; then
+    msg_warn "Warning: xlxd service may not have started correctly. Check with: systemctl status xlxd"
+fi
+
 echo ""
 echo ""
 msg_success "Initialization completed!"
