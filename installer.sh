@@ -1338,30 +1338,11 @@ if [ "$INSTALL_AMBED" == "Y" ]; then
             || error_exit "Failed to create $AMBED_CONF"
         chmod 644 "$AMBED_CONF"
 
-        echo "Creating ambed.service..."
-        # No DVSI hardware: the ftdi_sio/usb_serial rmmod lines are not needed.
-        # ambed listens on 127.0.0.1, the transcoder address passed to xlxd.
-        cat > /etc/systemd/system/ambed.service <<EOF
-[Unit]
-Description=AMBE Software Transcoder Daemon
-After=network.target
-Before=xlxd.service
-
-[Service]
-Type=simple
-User=root
-Group=root
-# Audio settings (gain, EQ, noise gate...) are in $AMBED_CONF
-EnvironmentFile=$AMBED_CONF
-ExecStart=$AMBED_DIR/ambed 127.0.0.1
-Restart=always
-RestartSec=5
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=multi-user.target
-EOF
+        echo "Copying ambed.service..."
+        # The unit file comes from the xlxd repository (scripts/ambed.service),
+        # like xlxd.service. It reads its settings from /ambed/ambed.conf.
+        cp "$USRSRC/xlxd/scripts/ambed.service" /etc/systemd/system/ \
+            || error_exit "Failed to copy ambed.service"
         chmod 644 /etc/systemd/system/ambed.service
         echo ""
         msg_success "Software transcoder successfully installed! ($AMBED_PAIRS stream(s))"

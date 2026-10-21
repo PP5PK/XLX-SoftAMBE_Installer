@@ -247,7 +247,7 @@ DMR/YSF → D-Star :  decode AMBE+2 → [EQ] → [noise gate] → encode AMBE   
 - Clones `xlxd` unchanged from [PP5PK/xlxd](https://github.com/PP5PK/xlxd) and applies `patches/xlxd-ambed-softambe.patch`, which adds the SoftAMBE backend to `ambed`.
 - Builds `ambed` without hardware support (`make NO_FTDI=1`) and installs it to `/ambed/`.
 - Creates `/ambed/ambed.conf` with the tuned audio settings and the number of streams from question 18.
-- Creates and starts `ambed.service`, before `xlxd.service`.
+- Installs `ambed.service` from the `xlxd` repository (`scripts/ambed.service`) and starts it before `xlxd.service`.
 - If the patch no longer applies to the current `xlxd`, it warns and installs the reflector without the transcoder instead of stopping.
 
 ### Under the hood
