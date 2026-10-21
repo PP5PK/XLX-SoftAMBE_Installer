@@ -1,748 +1,0 @@
-[H[2J[3J::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-[38;5;46m                    XLX MULTIPROTOCOL AMATEUR RADIO REFLECTOR INSTALLER PROGRAM[0m
-
-[38;5;46mNext, you will be asked some questions. Answer with the requested information or, if applicable, to [0m
-[38;5;46m                             accept the suggested value, press [ENTER][0m
-
-[38;5;208m              [*] At any prompt, type X and press [ENTER] to cancel the installation.[0m
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-[1;34m                                      (ℹ) REFLECTOR DATA INPUT[0m
-[38;5;39m                                      ========================[0m
-
-
-[38;5;196m(⚠) Mandatory[0m
-01. XLX Reflector ID, 3 alphanumeric characters. (e.g., 300, US1, BRA)
-> [38;5;226mUsing: XLX300[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-[38;5;196m(⚠) Mandatory[0m
-02. Dashboard FQDN (fully qualified domain name). (e.g., xlxbra.net)
-> [38;5;226mUsing: xlx300.net[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-[38;5;196m(⚠) Mandatory[0m
-03. Sysop e-mail address
-> [38;5;226mUsing: svrutz@gmail.com[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-[38;5;196m(⚠) Mandatory[0m
-04. Sysop callsign. Only letters and numbers allowed, max 6 characters.
-> [38;5;226mUsing: PP5PK[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-[38;5;196m(⚠) Mandatory[0m
-05. What's the country of the Reflector?
-> [38;5;226mUsing: Brazil[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-[38;5;196m(⚠) Mandatory[0m
-06. Local timezone. Detected: America/Sao_Paulo (UTC-03:00)
-[38;5;250mPress ENTER to keep it or type another timezone.[0m
-> [38;5;226mUsing: America/Sao_Paulo (UTC-03:00)[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-07. Comment to XLX Reflectors list.
-[38;5;250mSuggested: "XLX300 Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com" | [ENTER] to accept...[0m
-> [38;5;226mUsing: XLX300 Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-08. Custom text for the dashboard tab. (max 25 characters)
-[38;5;250mSuggested: "XLX300 by PP5PK" | [ENTER] to accept...[0m
-> [38;5;226mUsing: XLX300[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-09. Custom text on footer of the dashboard webpage.
-[38;5;250mSuggested: "Provided by PP5PK, info: svrutz@gmail.com" | [ENTER] to accept...[0m
-> [38;5;226mUsing: Provided by PP5PK, info: svrutz@gmail.com[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-10. Create an SSL certificate (https) for the dashboard webpage? (Y/N)
-[38;5;250mSuggested: Y | [ENTER] to accept...[0m
-> [38;5;226mUsing: N[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-11. Install Echo Test on module E? (Y/N)
-[38;5;250mSuggested: Y | [ENTER] to accept...[0m
-> [38;5;226mUsing: Y[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-12. Number of active modules for the DStar Reflector. (5 - 26)
-[38;5;250mSuggested: 5 | [ENTER] to accept...[0m
-> [38;5;226mUsing: 5[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-13. YSF Reflector UDP port number. (1-65535)
-[38;5;250mSuggested: 42000 | [ENTER] to accept...[0m
-> [38;5;226mUsing: 42300[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-14. YSF Wires-X frequency. In Hertz, 9 digits.
-[38;5;250mSuggested: 433125000 | [ENTER] to accept...[0m
-> [38;5;226mUsing: 433125000[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-15. Auto-link YSF to a module? (Y/N)
-[38;5;250mSuggested: Y | [ENTER] to accept...[0m
-> [38;5;226mUsing: Y[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-16. Module to Auto-link YSF. (Choose from A to E)
-[38;5;250mSuggested: C | [ENTER] to accept...[0m
-> [38;5;226mUsing: C[0m
-
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-17. Install the software transcoder (ambed)? D-Star <-> DMR/YSF without a DVSI USB stick. (Y/N)
-[38;5;250mUses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: 
-check the patent situation in your country before enabling it.[0m
-[38;5;250mSuggested: Y | [ENTER] to accept...[0m
-> [38;5;226mUsing: Y[0m
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-18. Number of simultaneous transcoded streams. (1-16)
-[38;5;250mEach stream handles one D-Star to DMR/YSF and one DMR/YSF to D-Star transmission at the same time. 
-This machine has 1 CPU core(s).[0m
-[38;5;250mSuggested: 1 | [ENTER] to accept...[0m
-> [38;5;226mUsing: 4[0m
-____________________________________________________________________________________________________
-
-[38;5;208m                                  (ℹ) PLEASE REVIEW YOUR SETTINGS:[0m
-[38;5;226m                                  ================================[0m
-
-01. Reflector ID:        XLX300
-02. FQDN:                xlx300.net
-03. E-mail:              svrutz@gmail.com
-04. Callsign:            PP5PK
-05. Country:             Brazil
-06. Time Zone:           America/Sao_Paulo (UTC-03:00)
-07. XLX list comment:    XLX300 Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com
-08. Tab page text:       XLX300
-09. Dashboard footnote:  Provided by PP5PK, info: svrutz@gmail.com
-10. SSL certification:   N
-11. Echo Test:           Y
-12. Modules:             5
-13. YSF UDP Port:        42300
-14. YSF frequency:       433125000
-15. YSF Auto-link:       Y
-16. YSF module:          C
-17. Soft transcoder:     Y
-18. Transcoded streams:  4
-
-[38;5;226mSettings correct? Press [ENTER] to confirm, type a question number to edit it, or [X] to cancel the 
-installation.[0m
-> [38;5;46m✔ Information verified, installation starting![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                         (ℹ) UPDATING OS...[0m
-[38;5;39m                                         ==================[0m
-
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Hit:1 http://apt-cacher.1984.is/debian stable InRelease
-Get:2 http://apt-cacher.1984.is/debian-security stable-security InRelease [43.4 kB]
-Get:3 http://apt-cacher.1984.is/debian-security stable-security/main amd64 Packages [269 kB]
-Get:4 http://apt-cacher.1984.is/debian-security stable-security/main Translation-en [166 kB]
-Get:5 http://apt-cacher.1984.is/debian-security stable-security/contrib amd64 Packages [3,152 B]
-Fetched 482 kB in 2s (316 kB/s)
-Reading package lists...
-Building dependency tree...
-Reading state information...
-39 packages can be upgraded. Run 'apt list --upgradable' to see them.
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Calculating upgrade...
-Upgrading:
-  apache2                libexpat1          nodejs-doc
-  apache2-bin            liblzma5           openssl
-  apache2-data           libnode-dev        openssl-provider-legacy
-  apache2-utils          libnode115         php8.4
-  bind9                  libpcre2-32-0      php8.4-cli
-  bind9-dnsutils         libpcre2-8-0       php8.4-common
-  bind9-host             libpng16-16t64     php8.4-curl
-  bind9-libs             libssl-dev         php8.4-mbstring
-  bind9-utils            libssl3t64         php8.4-opcache
-  curl                   linux-image-amd64  php8.4-readline
-  libapache2-mod-php8.4  linux-libc-dev     php8.4-sqlite3
-  libcurl3t64-gnutls     node-shell-quote   php8.4-xml
-  libcurl4t64            nodejs             xz-utils
-
-Installing dependencies:
-  linux-image-6.12.113+deb13-amd64
-
-Suggested packages:
-  linux-doc-6.12  debian-kernel-handbook
-
-Summary:
-  Upgrading: 39, Installing: 1, Removing: 0, Not Upgrading: 0
-  Download size: 151 MB
-  Space needed: 152 MB / 14.2 GB available
-
-Get:1 http://apt-cacher.1984.is/debian-security stable-security/main amd64 curl amd64 8.14.1-2+deb13u7 [270 kB]
-Get:2 http://apt-cacher.1984.is/debian-security stable-security/main amd64 openssl-provider-legacy amd64 3.5.7-1~deb13u3 [316 kB]
-Get:3 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libssl-dev amd64 3.5.7-1~deb13u3 [2,968 kB]
-Get:4 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libssl3t64 amd64 3.5.7-1~deb13u3 [2,458 kB]
-Get:5 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u7 [392 kB]
-Get:6 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libpcre2-8-0 amd64 10.46-1~deb13u3 [299 kB]
-Get:7 http://apt-cacher.1984.is/debian-security stable-security/main amd64 apache2 amd64 2.4.69-1~deb13u1 [230 kB]
-Get:8 http://apt-cacher.1984.is/debian-security stable-security/main amd64 apache2-bin amd64 2.4.69-1~deb13u1 [1,416 kB]
-Get:9 http://apt-cacher.1984.is/debian-security stable-security/main amd64 apache2-data all 2.4.69-1~deb13u1 [160 kB]
-Get:10 http://apt-cacher.1984.is/debian-security stable-security/main amd64 apache2-utils amd64 2.4.69-1~deb13u1 [222 kB]
-Get:11 http://apt-cacher.1984.is/debian-security stable-security/main amd64 bind9 amd64 1:9.20.29-1~deb13u1 [257 kB]
-Get:12 http://apt-cacher.1984.is/debian-security stable-security/main amd64 bind9-utils amd64 1:9.20.29-1~deb13u1 [187 kB]
-Get:13 http://apt-cacher.1984.is/debian-security stable-security/main amd64 bind9-host amd64 1:9.20.29-1~deb13u1 [56.5 kB]
-Get:14 http://apt-cacher.1984.is/debian-security stable-security/main amd64 bind9-dnsutils amd64 1:9.20.29-1~deb13u1 [167 kB]
-Get:15 http://apt-cacher.1984.is/debian-security stable-security/main amd64 bind9-libs amd64 1:9.20.29-1~deb13u1 [1,248 kB]
-Get:16 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libexpat1 amd64 2.9.0-1~deb13u1 [126 kB]
-Get:17 http://apt-cacher.1984.is/debian-security stable-security/main amd64 linux-image-6.12.113+deb13-amd64 amd64 6.12.113-1 [108 MB]
-Get:18 http://apt-cacher.1984.is/debian-security stable-security/main amd64 liblzma5 amd64 5.8.1-1+deb13u2 [310 kB]
-Get:19 http://apt-cacher.1984.is/debian-security stable-security/main amd64 xz-utils amd64 5.8.1-1+deb13u2 [660 kB]
-Get:20 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-xml amd64 8.4.26-1~deb13u1 [580 kB]
-Get:21 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-sqlite3 amd64 8.4.26-1~deb13u1 [35.1 kB]
-Get:22 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-readline amd64 8.4.26-1~deb13u1 [12.7 kB]
-Get:23 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-opcache amd64 8.4.26-1~deb13u1 [471 kB]
-Get:24 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-mbstring amd64 8.4.26-1~deb13u1 [454 kB]
-Get:25 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-curl amd64 8.4.26-1~deb13u1 [39.7 kB]
-Get:26 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libapache2-mod-php8.4 amd64 8.4.26-1~deb13u1 [1,799 kB]
-Get:27 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-cli amd64 8.4.26-1~deb13u1 [1,862 kB]
-Get:28 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4-common amd64 8.4.26-1~deb13u1 [781 kB]
-Get:29 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libcurl3t64-gnutls amd64 8.14.1-2+deb13u7 [385 kB]
-Get:30 http://apt-cacher.1984.is/debian-security stable-security/main amd64 nodejs amd64 20.19.2+dfsg-1+deb13u3 [355 kB]
-Get:31 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libnode-dev amd64 20.19.2+dfsg-1+deb13u3 [538 kB]
-Get:32 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libnode115 amd64 20.19.2+dfsg-1+deb13u3 [12.1 MB]
-Get:33 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libpcre2-32-0 amd64 10.46-1~deb13u3 [269 kB]
-Get:34 http://apt-cacher.1984.is/debian-security stable-security/main amd64 libpng16-16t64 amd64 1.6.48-1+deb13u6 [283 kB]
-Get:35 http://apt-cacher.1984.is/debian-security stable-security/main amd64 linux-image-amd64 amd64 6.12.113-1 [1,480 B]
-Get:36 http://apt-cacher.1984.is/debian-security stable-security/main amd64 linux-libc-dev all 6.12.113-1 [3,021 kB]
-Get:37 http://apt-cacher.1984.is/debian-security stable-security/main amd64 node-shell-quote all 1.7.4+~1.7.1-1+deb13u2 [15.4 kB]
-Get:38 http://apt-cacher.1984.is/debian-security stable-security/main amd64 nodejs-doc all 20.19.2+dfsg-1+deb13u3 [6,088 kB]
-Get:39 http://apt-cacher.1984.is/debian-security stable-security/main amd64 openssl amd64 3.5.7-1~deb13u3 [1,508 kB]
-Get:40 http://apt-cacher.1984.is/debian-security stable-security/main amd64 php8.4 all 8.4.26-1~deb13u1 [55.3 kB]
-Fetched 151 MB in 13s (11.9 MB/s)
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 86266 files and directories currently installed.)
-Preparing to unpack .../curl_8.14.1-2+deb13u7_amd64.deb ...
-Unpacking curl (8.14.1-2+deb13u7) over (8.14.1-2+deb13u5) ...
-Preparing to unpack .../openssl-provider-legacy_3.5.7-1~deb13u3_amd64.deb ...
-Unpacking openssl-provider-legacy (3.5.7-1~deb13u3) over (3.5.7-1~deb13u2) ...
-Setting up openssl-provider-legacy (3.5.7-1~deb13u3) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 86266 files and directories currently installed.)
-Preparing to unpack .../libssl-dev_3.5.7-1~deb13u3_amd64.deb ...
-Unpacking libssl-dev:amd64 (3.5.7-1~deb13u3) over (3.5.7-1~deb13u2) ...
-Preparing to unpack .../libssl3t64_3.5.7-1~deb13u3_amd64.deb ...
-Unpacking libssl3t64:amd64 (3.5.7-1~deb13u3) over (3.5.7-1~deb13u2) ...
-Setting up libssl3t64:amd64 (3.5.7-1~deb13u3) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 86266 files and directories currently installed.)
-Preparing to unpack .../libcurl4t64_8.14.1-2+deb13u7_amd64.deb ...
-Unpacking libcurl4t64:amd64 (8.14.1-2+deb13u7) over (8.14.1-2+deb13u5) ...
-Preparing to unpack .../libpcre2-8-0_10.46-1~deb13u3_amd64.deb ...
-Unpacking libpcre2-8-0:amd64 (10.46-1~deb13u3) over (10.46-1~deb13u2) ...
-Setting up libpcre2-8-0:amd64 (10.46-1~deb13u3) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 86266 files and directories currently installed.)
-Preparing to unpack .../00-apache2_2.4.69-1~deb13u1_amd64.deb ...
-Unpacking apache2 (2.4.69-1~deb13u1) over (2.4.68-1~deb13u1) ...
-Preparing to unpack .../01-apache2-bin_2.4.69-1~deb13u1_amd64.deb ...
-Unpacking apache2-bin (2.4.69-1~deb13u1) over (2.4.68-1~deb13u1) ...
-Preparing to unpack .../02-apache2-data_2.4.69-1~deb13u1_all.deb ...
-Unpacking apache2-data (2.4.69-1~deb13u1) over (2.4.68-1~deb13u1) ...
-Preparing to unpack .../03-apache2-utils_2.4.69-1~deb13u1_amd64.deb ...
-Unpacking apache2-utils (2.4.69-1~deb13u1) over (2.4.68-1~deb13u1) ...
-Preparing to unpack .../04-bind9_1%3a9.20.29-1~deb13u1_amd64.deb ...
-Unpacking bind9 (1:9.20.29-1~deb13u1) over (1:9.20.26-1~deb13u1) ...
-Preparing to unpack .../05-bind9-utils_1%3a9.20.29-1~deb13u1_amd64.deb ...
-Unpacking bind9-utils (1:9.20.29-1~deb13u1) over (1:9.20.26-1~deb13u1) ...
-Preparing to unpack .../06-bind9-host_1%3a9.20.29-1~deb13u1_amd64.deb ...
-Unpacking bind9-host (1:9.20.29-1~deb13u1) over (1:9.20.26-1~deb13u1) ...
-Preparing to unpack .../07-bind9-dnsutils_1%3a9.20.29-1~deb13u1_amd64.deb ...
-Unpacking bind9-dnsutils (1:9.20.29-1~deb13u1) over (1:9.20.26-1~deb13u1) ...
-Preparing to unpack .../08-bind9-libs_1%3a9.20.29-1~deb13u1_amd64.deb ...
-Unpacking bind9-libs:amd64 (1:9.20.29-1~deb13u1) over (1:9.20.26-1~deb13u1) ...
-Preparing to unpack .../09-libexpat1_2.9.0-1~deb13u1_amd64.deb ...
-Unpacking libexpat1:amd64 (2.9.0-1~deb13u1) over (2.8.3-1~deb13u1) ...
-Selecting previously unselected package linux-image-6.12.113+deb13-amd64.
-Preparing to unpack .../10-linux-image-6.12.113+deb13-amd64_6.12.113-1_amd64.deb ...
-Unpacking linux-image-6.12.113+deb13-amd64 (6.12.113-1) ...
-Preparing to unpack .../11-liblzma5_5.8.1-1+deb13u2_amd64.deb ...
-Unpacking liblzma5:amd64 (5.8.1-1+deb13u2) over (5.8.1-1+deb13u1) ...
-Setting up liblzma5:amd64 (5.8.1-1+deb13u2) ...
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 91468 files and directories currently installed.)
-Preparing to unpack .../00-xz-utils_5.8.1-1+deb13u2_amd64.deb ...
-Unpacking xz-utils (5.8.1-1+deb13u2) over (5.8.1-1+deb13u1) ...
-Preparing to unpack .../01-php8.4-xml_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-xml (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../02-php8.4-sqlite3_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-sqlite3 (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../03-php8.4-readline_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-readline (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../04-php8.4-opcache_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-opcache (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../05-php8.4-mbstring_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-mbstring (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../06-php8.4-curl_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-curl (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../07-libapache2-mod-php8.4_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking libapache2-mod-php8.4 (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../08-php8.4-cli_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-cli (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../09-php8.4-common_8.4.26-1~deb13u1_amd64.deb ...
-Unpacking php8.4-common (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Preparing to unpack .../10-libcurl3t64-gnutls_8.14.1-2+deb13u7_amd64.deb ...
-Unpacking libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u7) over (8.14.1-2+deb13u5) ...
-Preparing to unpack .../11-nodejs_20.19.2+dfsg-1+deb13u3_amd64.deb ...
-Unpacking nodejs (20.19.2+dfsg-1+deb13u3) over (20.19.2+dfsg-1+deb13u2) ...
-Preparing to unpack .../12-libnode-dev_20.19.2+dfsg-1+deb13u3_amd64.deb ...
-Unpacking libnode-dev (20.19.2+dfsg-1+deb13u3) over (20.19.2+dfsg-1+deb13u2) ...
-Preparing to unpack .../13-libnode115_20.19.2+dfsg-1+deb13u3_amd64.deb ...
-Unpacking libnode115:amd64 (20.19.2+dfsg-1+deb13u3) over (20.19.2+dfsg-1+deb13u2) ...
-Preparing to unpack .../14-libpcre2-32-0_10.46-1~deb13u3_amd64.deb ...
-Unpacking libpcre2-32-0:amd64 (10.46-1~deb13u3) over (10.46-1~deb13u2) ...
-Preparing to unpack .../15-libpng16-16t64_1.6.48-1+deb13u6_amd64.deb ...
-Unpacking libpng16-16t64:amd64 (1.6.48-1+deb13u6) over (1.6.48-1+deb13u5) ...
-Preparing to unpack .../16-linux-image-amd64_6.12.113-1_amd64.deb ...
-Unpacking linux-image-amd64 (6.12.113-1) over (6.12.107-1) ...
-Preparing to unpack .../17-linux-libc-dev_6.12.113-1_all.deb ...
-Unpacking linux-libc-dev (6.12.113-1) over (6.12.107-1) ...
-Preparing to unpack .../18-node-shell-quote_1.7.4+~1.7.1-1+deb13u2_all.deb ...
-Unpacking node-shell-quote (1.7.4+~1.7.1-1+deb13u2) over (1.7.4+~1.7.1-1+deb13u1) ...
-Preparing to unpack .../19-nodejs-doc_20.19.2+dfsg-1+deb13u3_all.deb ...
-Unpacking nodejs-doc (20.19.2+dfsg-1+deb13u3) over (20.19.2+dfsg-1+deb13u2) ...
-Preparing to unpack .../20-openssl_3.5.7-1~deb13u3_amd64.deb ...
-Unpacking openssl (3.5.7-1~deb13u3) over (3.5.7-1~deb13u2) ...
-Preparing to unpack .../21-php8.4_8.4.26-1~deb13u1_all.deb ...
-Unpacking php8.4 (8.4.26-1~deb13u1) over (8.4.24-1~deb13u1) ...
-Setting up libexpat1:amd64 (2.9.0-1~deb13u1) ...
-Setting up libnode115:amd64 (20.19.2+dfsg-1+deb13u3) ...
-Setting up libcurl4t64:amd64 (8.14.1-2+deb13u7) ...
-Setting up bind9-libs:amd64 (1:9.20.29-1~deb13u1) ...
-Setting up linux-image-6.12.113+deb13-amd64 (6.12.113-1) ...
-I: /vmlinuz.old is now a symlink to boot/vmlinuz-6.12.107+deb13-amd64
-I: /initrd.img.old is now a symlink to boot/initrd.img-6.12.107+deb13-amd64
-I: /vmlinuz is now a symlink to boot/vmlinuz-6.12.113+deb13-amd64
-I: /initrd.img is now a symlink to boot/initrd.img-6.12.113+deb13-amd64
-/etc/kernel/postinst.d/initramfs-tools:
-update-initramfs: Generating /boot/initrd.img-6.12.113+deb13-amd64
-/etc/kernel/postinst.d/zz-update-grub:
-Generating grub configuration file ...
-Found linux image: /boot/vmlinuz-6.12.113+deb13-amd64
-Found initrd image: /boot/initrd.img-6.12.113+deb13-amd64
-Found linux image: /boot/vmlinuz-6.12.107+deb13-amd64
-Found initrd image: /boot/initrd.img-6.12.107+deb13-amd64
-Found linux image: /boot/vmlinuz-6.12.95+deb13-amd64
-Found initrd image: /boot/initrd.img-6.12.95+deb13-amd64
-Warning: os-prober will not be executed to detect other bootable partitions.
-Systems on them will not be added to the GRUB boot configuration.
-Check GRUB_DISABLE_OS_PROBER documentation entry.
-Adding boot menu entry for UEFI Firmware Settings ...
-done
-Setting up node-shell-quote (1.7.4+~1.7.1-1+deb13u2) ...
-Setting up php8.4-common (8.4.26-1~deb13u1) ...
-Setting up libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u7) ...
-Setting up linux-libc-dev (6.12.113-1) ...
-Setting up linux-image-amd64 (6.12.113-1) ...
-Setting up apache2-bin (2.4.69-1~deb13u1) ...
-Setting up nodejs (20.19.2+dfsg-1+deb13u3) ...
-Setting up php8.4-curl (8.4.26-1~deb13u1) ...
-Setting up bind9-utils (1:9.20.29-1~deb13u1) ...
-Setting up php8.4-sqlite3 (8.4.26-1~deb13u1) ...
-Setting up libpcre2-32-0:amd64 (10.46-1~deb13u3) ...
-Setting up xz-utils (5.8.1-1+deb13u2) ...
-Setting up libssl-dev:amd64 (3.5.7-1~deb13u3) ...
-Setting up libpng16-16t64:amd64 (1.6.48-1+deb13u6) ...
-Setting up nodejs-doc (20.19.2+dfsg-1+deb13u3) ...
-Setting up bind9 (1:9.20.29-1~deb13u1) ...
-named-resolvconf.service is a disabled or a static unit not running, not starting it.
-Setting up apache2-data (2.4.69-1~deb13u1) ...
-Setting up curl (8.14.1-2+deb13u7) ...
-Setting up php8.4-xml (8.4.26-1~deb13u1) ...
-Setting up bind9-host (1:9.20.29-1~deb13u1) ...
-Setting up openssl (3.5.7-1~deb13u3) ...
-Setting up php8.4-opcache (8.4.26-1~deb13u1) ...
-Setting up apache2-utils (2.4.69-1~deb13u1) ...
-Setting up php8.4-readline (8.4.26-1~deb13u1) ...
-Setting up libnode-dev (20.19.2+dfsg-1+deb13u3) ...
-Setting up php8.4-mbstring (8.4.26-1~deb13u1) ...
-Setting up apache2 (2.4.69-1~deb13u1) ...
-apache-htcacheclean.service is a disabled or a static unit not running, not starting it.
-Setting up bind9-dnsutils (1:9.20.29-1~deb13u1) ...
-Setting up php8.4-cli (8.4.26-1~deb13u1) ...
-Setting up libapache2-mod-php8.4 (8.4.26-1~deb13u1) ...
-libapache2-mod-php8.4: not switching MPM - already enabled
-Setting up php8.4 (8.4.26-1~deb13u1) ...
-Processing triggers for man-db (2.13.1-1) ...
-Processing triggers for libc-bin (2.41-12+deb13u4) ...
-Processing triggers for php8.4-cli (8.4.26-1~deb13u1) ...
-Processing triggers for libapache2-mod-php8.4 (8.4.26-1~deb13u1) ...
-
-Timezone adjustment:
-[38;5;250mDetected system timezone preserved: America/Sao_Paulo[0m
-
-[38;5;46m✔ System updated successfully![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                   (ℹ) INSTALLING DEPENDENCIES...[0m
-[38;5;39m                                   ==============================[0m
-
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-Reading package lists...
-Building dependency tree...
-Reading state information...
-python3-certbot-apache is already the newest version (4.0.0-2).
-build-essential is already the newest version (12.12).
-php is already the newest version (2:8.4+96).
-php-mbstring is already the newest version (2:8.4+96).
-php-sqlite3 is already the newest version (2:8.4+96).
-php-curl is already the newest version (2:8.4+96).
-php-xml is already the newest version (2:8.4+96).
-sqlite3 is already the newest version (3.46.1-7+deb13u2).
-vnstat is already the newest version (2.13-1).
-The following package was automatically installed and is no longer required:
-  linux-image-6.12.95+deb13-amd64
-Use 'apt autoremove' to remove it.
-
-Summary:
-  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 0
-
-[38;5;250mPHP version: 8.4[0m
-
-[38;5;46m✔ Dependencies installed![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                   (ℹ) DOWNLOADING THE XLX APP...[0m
-[38;5;39m                                   ==============================[0m
-
-
-Cloning repository...
-Cloning into 'xlxd'...
-Applying SoftAMBE patch to ambed...
-/usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch:1008: trailing whitespace.
- * 
-/usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch:1013: trailing whitespace.
- * 
-/usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch:1018: trailing whitespace.
- * 
-/usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch:1032: trailing whitespace.
-//		Return pointer to bit allocation array 
-/usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch:1042: trailing whitespace.
-//		Pointer to bits allocation array 
-warning: squelched 1662 whitespace errors
-warning: 1667 lines add whitespace errors.
-[38;5;46m✔ SoftAMBE patch applied.[0m
-rm -f xlxd *.o
-Seeding customizations...
-
-Reflector XLX300
-Ethernet IP address: 93.95.227.114
-Public IP address: 93.95.227.114
-Network adapter name: ens3
-
-[38;5;46m✔ Repository cloned and customizations applied![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                          (ℹ) COMPILING...[0m
-[38;5;39m                                          ================[0m
-
-
-g++ -c -std=c++11 -pthread cbmclient.cpp -o cbmclient.o
-g++ -c -std=c++11 -pthread cbmpeer.cpp -o cbmpeer.o
-g++ -c -std=c++11 -pthread cbptc19696.cpp -o cbptc19696.o
-g++ -c -std=c++11 -pthread cbuffer.cpp -o cbuffer.o
-g++ -c -std=c++11 -pthread ccallsign.cpp -o ccallsign.o
-g++ -c -std=c++11 -pthread ccallsignlist.cpp -o ccallsignlist.o
-g++ -c -std=c++11 -pthread ccallsignlistitem.cpp -o ccallsignlistitem.o
-g++ -c -std=c++11 -pthread cclient.cpp -o cclient.o
-g++ -c -std=c++11 -pthread cclients.cpp -o cclients.o
-g++ -c -std=c++11 -pthread ccodecstream.cpp -o ccodecstream.o
-g++ -c -std=c++11 -pthread ccrc.cpp -o ccrc.o
-g++ -c -std=c++11 -pthread cdcsclient.cpp -o cdcsclient.o
-g++ -c -std=c++11 -pthread cdcsprotocol.cpp -o cdcsprotocol.o
-g++ -c -std=c++11 -pthread cdextraclient.cpp -o cdextraclient.o
-g++ -c -std=c++11 -pthread cdextraprotocol.cpp -o cdextraprotocol.o
-g++ -c -std=c++11 -pthread cdmriddir.cpp -o cdmriddir.o
-g++ -c -std=c++11 -pthread cdmriddirfile.cpp -o cdmriddirfile.o
-g++ -c -std=c++11 -pthread cdmriddirhttp.cpp -o cdmriddirhttp.o
-g++ -c -std=c++11 -pthread cdmrmmdvmclient.cpp -o cdmrmmdvmclient.o
-g++ -c -std=c++11 -pthread cdmrmmdvmprotocol.cpp -o cdmrmmdvmprotocol.o
-g++ -c -std=c++11 -pthread cdmrplusclient.cpp -o cdmrplusclient.o
-g++ -c -std=c++11 -pthread cdmrplusprotocol.cpp -o cdmrplusprotocol.o
-g++ -c -std=c++11 -pthread cdplusclient.cpp -o cdplusclient.o
-g++ -c -std=c++11 -pthread cdplusprotocol.cpp -o cdplusprotocol.o
-g++ -c -std=c++11 -pthread cdvframepacket.cpp -o cdvframepacket.o
-g++ -c -std=c++11 -pthread cdvheaderpacket.cpp -o cdvheaderpacket.o
-g++ -c -std=c++11 -pthread cdvlastframepacket.cpp -o cdvlastframepacket.o
-g++ -c -std=c++11 -pthread cg3client.cpp -o cg3client.o
-g++ -c -std=c++11 -pthread cg3protocol.cpp -o cg3protocol.o
-g++ -c -std=c++11 -pthread cgatekeeper.cpp -o cgatekeeper.o
-g++ -c -std=c++11 -pthread cgolay2087.cpp -o cgolay2087.o
-g++ -c -std=c++11 -pthread cgolay24128.cpp -o cgolay24128.o
-g++ -c -std=c++11 -pthread chamming.cpp -o chamming.o
-g++ -c -std=c++11 -pthread cimrsclient.cpp -o cimrsclient.o
-g++ -c -std=c++11 -pthread cimrsprotocol.cpp -o cimrsprotocol.o
-g++ -c -std=c++11 -pthread cip.cpp -o cip.o
-g++ -c -std=c++11 -pthread cnotification.cpp -o cnotification.o
-g++ -c -std=c++11 -pthread cpacket.cpp -o cpacket.o
-g++ -c -std=c++11 -pthread cpacketstream.cpp -o cpacketstream.o
-g++ -c -std=c++11 -pthread cpeercallsignlist.cpp -o cpeercallsignlist.o
-g++ -c -std=c++11 -pthread cpeer.cpp -o cpeer.o
-g++ -c -std=c++11 -pthread cpeers.cpp -o cpeers.o
-g++ -c -std=c++11 -pthread cprotocol.cpp -o cprotocol.o
-g++ -c -std=c++11 -pthread cprotocols.cpp -o cprotocols.o
-g++ -c -std=c++11 -pthread cqr1676.cpp -o cqr1676.o
-g++ -c -std=c++11 -pthread crawsocket.cpp -o crawsocket.o
-g++ -c -std=c++11 -pthread creflector.cpp -o creflector.o
-g++ -c -std=c++11 -pthread crs129.cpp -o crs129.o
-g++ -c -std=c++11 -pthread csemaphore.cpp -o csemaphore.o
-g++ -c -std=c++11 -pthread ctimepoint.cpp -o ctimepoint.o
-g++ -c -std=c++11 -pthread ctranscoder.cpp -o ctranscoder.o
-g++ -c -std=c++11 -pthread cudpmsgsocket.cpp -o cudpmsgsocket.o
-g++ -c -std=c++11 -pthread cudpsocket.cpp -o cudpsocket.o
-g++ -c -std=c++11 -pthread cuser.cpp -o cuser.o
-g++ -c -std=c++11 -pthread cusers.cpp -o cusers.o
-g++ -c -std=c++11 -pthread cutils.cpp -o cutils.o
-g++ -c -std=c++11 -pthread cversion.cpp -o cversion.o
-g++ -c -std=c++11 -pthread cwiresxcmd.cpp -o cwiresxcmd.o
-g++ -c -std=c++11 -pthread cwiresxcmdhandler.cpp -o cwiresxcmdhandler.o
-g++ -c -std=c++11 -pthread cwiresxinfo.cpp -o cwiresxinfo.o
-g++ -c -std=c++11 -pthread cxlxclient.cpp -o cxlxclient.o
-g++ -c -std=c++11 -pthread cxlxpeer.cpp -o cxlxpeer.o
-g++ -c -std=c++11 -pthread cxlxprotocol.cpp -o cxlxprotocol.o
-g++ -c -std=c++11 -pthread cysfclient.cpp -o cysfclient.o
-g++ -c -std=c++11 -pthread cysfconvolution.cpp -o cysfconvolution.o
-g++ -c -std=c++11 -pthread cysffich.cpp -o cysffich.o
-g++ -c -std=c++11 -pthread cysfnode.cpp -o cysfnode.o
-g++ -c -std=c++11 -pthread cysfnodedir.cpp -o cysfnodedir.o
-g++ -c -std=c++11 -pthread cysfnodedirfile.cpp -o cysfnodedirfile.o
-g++ -c -std=c++11 -pthread cysfnodedirhttp.cpp -o cysfnodedirhttp.o
-g++ -c -std=c++11 -pthread cysfpayload.cpp -o cysfpayload.o
-g++ -c -std=c++11 -pthread cysfprotocol.cpp -o cysfprotocol.o
-g++ -c -std=c++11 -pthread cysfutils.cpp -o cysfutils.o
-g++ -c -std=c++11 -pthread main.cpp -o main.o
-g++ -std=c++11 -pthread cbmclient.o cbmpeer.o cbptc19696.o cbuffer.o ccallsign.o ccallsignlist.o ccallsignlistitem.o cclient.o cclients.o ccodecstream.o ccrc.o cdcsclient.o cdcsprotocol.o cdextraclient.o cdextraprotocol.o cdmriddir.o cdmriddirfile.o cdmriddirhttp.o cdmrmmdvmclient.o cdmrmmdvmprotocol.o cdmrplusclient.o cdmrplusprotocol.o cdplusclient.o cdplusprotocol.o cdvframepacket.o cdvheaderpacket.o cdvlastframepacket.o cg3client.o cg3protocol.o cgatekeeper.o cgolay2087.o cgolay24128.o chamming.o cimrsclient.o cimrsprotocol.o cip.o cnotification.o cpacket.o cpacketstream.o cpeercallsignlist.o cpeer.o cpeers.o cprotocol.o cprotocols.o cqr1676.o crawsocket.o creflector.o crs129.o csemaphore.o ctimepoint.o ctranscoder.o cudpmsgsocket.o cudpsocket.o cuser.o cusers.o cutils.o cversion.o cwiresxcmd.o cwiresxcmdhandler.o cwiresxinfo.o cxlxclient.o cxlxpeer.o cxlxprotocol.o cysfclient.o cysfconvolution.o cysffich.o cysfnode.o cysfnodedir.o cysfnodedirfile.o cysfnodedirhttp.o cysfpayload.o cysfprotocol.o cysfutils.o main.o -o xlxd
-mkdir -p /xlxd
-cp -f xlxd /xlxd/
-[ -f /xlxd/xlxd.blacklist ] && \
-	cp ../config/xlxd.blacklist /xlxd/xlxd.blacklist.sample || \
-	cp ../config/xlxd.blacklist /xlxd/xlxd.blacklist
-[ -f /xlxd/xlxd.whitelist ] && \
-	cp ../config/xlxd.whitelist /xlxd/xlxd.whitelist.sample || \
-	cp ../config/xlxd.whitelist /xlxd/xlxd.whitelist
-[ -f /xlxd/xlxd.interlink ] && \
-	cp ../config/xlxd.interlink /xlxd/xlxd.interlink.sample || \
-	cp ../config/xlxd.interlink /xlxd/xlxd.interlink
-[ -f /xlxd/xlxd.terminal ] && \
-	cp ../config/xlxd.terminal /xlxd/xlxd.terminal.sample || \
-	cp ../config/xlxd.terminal /xlxd/xlxd.terminal
-
-[38;5;46m✔ COMPILATION SUCCESSFUL!!![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                     (ℹ) COPYING COMPONENTS...[0m
-[38;5;39m                                     =========================[0m
-
-
-Downloading DMR ID file...
-Downloading...
-5.17MiB 0:00:00 [5.78MiB/s] [<=>                                               ]
-[2026-10-16 20:39:20] DMR ID download: SUCCESS (5416164 bytes)
-[38;5;46m✔ DMR ID file downloaded successfully.[0m
-Creating custom XLX log...
-Seeding customizations...
-
-[38;5;46m✔ Components copied and configured![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                 (ℹ) INSTALLING ECHO TEST SERVER...[0m
-[38;5;39m                                 ==================================[0m
-
-
-Cloning repository...
-Cloning into 'XLXEcho'...
-Compiling Echo Test...
-Copying files and adjusting properties...
-
-[38;5;46m✔ Echo Test server successfully installed![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                               (ℹ) INSTALLING SOFTWARE TRANSCODER...[0m
-[38;5;39m                               ======================================[0m
-
-
-Compiling ambed (software only, no FTDI)...
-g++ -c -std=c++11 -pthread -Iswvocoder cagc.cpp -o cagc.o
-g++ -c -std=c++11 -pthread -Iswvocoder cambepacket.cpp -o cambepacket.o
-g++ -c -std=c++11 -pthread -Iswvocoder cambeserver.cpp -o cambeserver.o
-g++ -c -std=c++11 -pthread -Iswvocoder cbuffer.cpp -o cbuffer.o
-g++ -c -std=c++11 -pthread -Iswvocoder ccallsign.cpp -o ccallsign.o
-g++ -c -std=c++11 -pthread -Iswvocoder ccontroller.cpp -o ccontroller.o
-g++ -c -std=c++11 -pthread -Iswvocoder cfirfilter.cpp -o cfirfilter.o
-g++ -c -std=c++11 -pthread -Iswvocoder cfixedgain.cpp -o cfixedgain.o
-g++ -c -std=c++11 -pthread -Iswvocoder cftdidevicedescr.cpp -o cftdidevicedescr.o
-g++ -c -std=c++11 -pthread -Iswvocoder cip.cpp -o cip.o
-g++ -c -std=c++11 -pthread -Iswvocoder cpacket.cpp -o cpacket.o
-g++ -c -std=c++11 -pthread -Iswvocoder cpacketqueue.cpp -o cpacketqueue.o
-g++ -c -std=c++11 -pthread -Iswvocoder csignalprocessor.cpp -o csignalprocessor.o
-g++ -c -std=c++11 -pthread -Iswvocoder csoftambeinterface.cpp -o csoftambeinterface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cstream.cpp -o cstream.o
-g++ -c -std=c++11 -pthread -Iswvocoder ctimepoint.cpp -o ctimepoint.o
-g++ -c -std=c++11 -pthread -Iswvocoder cudpsocket.cpp -o cudpsocket.o
-g++ -c -std=c++11 -pthread -Iswvocoder cusb3000interface.cpp -o cusb3000interface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cusb3003df2etinterface.cpp -o cusb3003df2etinterface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cusb3003hrinterface.cpp -o cusb3003hrinterface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cusb3003interface.cpp -o cusb3003interface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cusb3xxxinterface.cpp -o cusb3xxxinterface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cvocodecchannel.cpp -o cvocodecchannel.o
-g++ -c -std=c++11 -pthread -Iswvocoder cvocodecinterface.cpp -o cvocodecinterface.o
-g++ -c -std=c++11 -pthread -Iswvocoder cvocodecs.cpp -o cvocodecs.o
-g++ -c -std=c++11 -pthread -Iswvocoder cvoicepacket.cpp -o cvoicepacket.o
-g++ -c -std=c++11 -pthread -Iswvocoder main.cpp -o main.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe3600x2400.cpp -o swvocoder/mbe/ambe3600x2400.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe3600x2450.cpp -o swvocoder/mbe/ambe3600x2450.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe.cpp -o swvocoder/mbe/ambe.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/mbevocoder.cpp -o swvocoder/mbe/mbevocoder.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/aux_sub.cc -o swvocoder/imbe_vocoder/aux_sub.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/basicop2.cc -o swvocoder/imbe_vocoder/basicop2.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/ch_decode.cc -o swvocoder/imbe_vocoder/ch_decode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/ch_encode.cc -o swvocoder/imbe_vocoder/ch_encode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/dc_rmv.cc -o swvocoder/imbe_vocoder/dc_rmv.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/decode.cc -o swvocoder/imbe_vocoder/decode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/dsp_sub.cc -o swvocoder/imbe_vocoder/dsp_sub.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/encode.cc -o swvocoder/imbe_vocoder/encode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/imbe_vocoder.cc -o swvocoder/imbe_vocoder/imbe_vocoder.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/imbe_vocoder_impl.cc -o swvocoder/imbe_vocoder/imbe_vocoder_impl.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/math_sub.cc -o swvocoder/imbe_vocoder/math_sub.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pe_lpf.cc -o swvocoder/imbe_vocoder/pe_lpf.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pitch_est.cc -o swvocoder/imbe_vocoder/pitch_est.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pitch_ref.cc -o swvocoder/imbe_vocoder/pitch_ref.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/qnt_sub.cc -o swvocoder/imbe_vocoder/qnt_sub.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/rand_gen.cc -o swvocoder/imbe_vocoder/rand_gen.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_decode.cc -o swvocoder/imbe_vocoder/sa_decode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_encode.cc -o swvocoder/imbe_vocoder/sa_encode.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_enh.cc -o swvocoder/imbe_vocoder/sa_enh.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/tbls.cc -o swvocoder/imbe_vocoder/tbls.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/uv_synt.cc -o swvocoder/imbe_vocoder/uv_synt.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/v_synt.cc -o swvocoder/imbe_vocoder/v_synt.o
-g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/v_uv_det.cc -o swvocoder/imbe_vocoder/v_uv_det.o
-gcc -c swvocoder/ftd2xx_stub.c -o swvocoder/ftd2xx_stub.o
-g++ -std=c++11 -pthread  cagc.o cambepacket.o cambeserver.o cbuffer.o ccallsign.o ccontroller.o cfirfilter.o cfixedgain.o cftdidevicedescr.o cip.o cpacket.o cpacketqueue.o csignalprocessor.o csoftambeinterface.o cstream.o ctimepoint.o cudpsocket.o cusb3000interface.o cusb3003df2etinterface.o cusb3003hrinterface.o cusb3003interface.o cusb3xxxinterface.o cvocodecchannel.o cvocodecinterface.o cvocodecs.o cvoicepacket.o main.o swvocoder/mbe/ambe3600x2400.o swvocoder/mbe/ambe3600x2450.o swvocoder/mbe/ambe.o swvocoder/mbe/mbevocoder.o swvocoder/imbe_vocoder/aux_sub.o swvocoder/imbe_vocoder/basicop2.o swvocoder/imbe_vocoder/ch_decode.o swvocoder/imbe_vocoder/ch_encode.o swvocoder/imbe_vocoder/dc_rmv.o swvocoder/imbe_vocoder/decode.o swvocoder/imbe_vocoder/dsp_sub.o swvocoder/imbe_vocoder/encode.o swvocoder/imbe_vocoder/imbe_vocoder.o swvocoder/imbe_vocoder/imbe_vocoder_impl.o swvocoder/imbe_vocoder/math_sub.o swvocoder/imbe_vocoder/pe_lpf.o swvocoder/imbe_vocoder/pitch_est.o swvocoder/imbe_vocoder/pitch_ref.o swvocoder/imbe_vocoder/qnt_sub.o swvocoder/imbe_vocoder/rand_gen.o swvocoder/imbe_vocoder/sa_decode.o swvocoder/imbe_vocoder/sa_encode.o swvocoder/imbe_vocoder/sa_enh.o swvocoder/imbe_vocoder/tbls.o swvocoder/imbe_vocoder/uv_synt.o swvocoder/imbe_vocoder/v_synt.o swvocoder/imbe_vocoder/v_uv_det.o swvocoder/ftd2xx_stub.o  -o ambed
-mkdir -p /ambed
-cp ambed /ambed/
-cp ./run /ambed/
-Creating /ambed/ambed.conf...
-Creating ambed.service...
-
-[38;5;46m✔ Software transcoder successfully installed! (4 stream(s))[0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                    (ℹ) INSTALLING DASHBOARD...[0m
-[38;5;39m                                    ===========================[0m
-
-
-Cloning repository...
-Cloning into 'XLX_Dark_Dashboard'...
-Seeding customizations...
-Updating permissions...
-Creating user_db update service...
-
-Updating database file
-
-File size: 17147790 bytes
- 431KiB 0:00:01 [ 404KiB/s] [>                                            ]   2%7.19MiB 0:00:02 [7.25MiB/s] [==================>                          ]  43%16.4MiB 0:00:02 [5.49MiB/s] [============================================>] 100%
-Merge complete. users_base.csv updated.
-Creating database
-Processed 1000 rows in 0.01 seconds   Processed 2000 rows in 0.02 seconds   Processed 3000 rows in 0.02 seconds   Processed 4000 rows in 0.03 seconds   Processed 5000 rows in 0.04 seconds   Processed 6000 rows in 0.04 seconds   Processed 7000 rows in 0.05 seconds   Processed 8000 rows in 0.06 seconds   Processed 9000 rows in 0.06 seconds   Processed 10000 rows in 0.07 seconds   Processed 11000 rows in 0.07 seconds   Processed 12000 rows in 0.08 seconds   Processed 13000 rows in 0.08 seconds   Processed 14000 rows in 0.09 seconds   Processed 15000 rows in 0.10 seconds   Processed 16000 rows in 0.10 seconds   Processed 17000 rows in 0.11 seconds   Processed 18000 rows in 0.11 seconds   Processed 19000 rows in 0.12 seconds   Processed 20000 rows in 0.12 seconds   Processed 21000 rows in 0.13 seconds   Processed 22000 rows in 0.13 seconds   Processed 23000 rows in 0.14 seconds   Processed 24000 rows in 0.15 seconds   Processed 25000 rows in 0.15 seconds   Processed 26000 rows in 0.16 seconds   Processed 27000 rows in 0.17 seconds   Processed 28000 rows in 0.18 seconds   Processed 29000 rows in 0.20 seconds   Processed 30000 rows in 0.20 seconds   Processed 31000 rows in 0.21 seconds   Processed 32000 rows in 0.21 seconds   Processed 33000 rows in 0.22 seconds   Processed 34000 rows in 0.23 seconds   Processed 35000 rows in 0.23 seconds   Processed 36000 rows in 0.24 seconds   Processed 37000 rows in 0.24 seconds   Processed 38000 rows in 0.25 seconds   Processed 39000 rows in 0.25 seconds   Processed 40000 rows in 0.26 seconds   Processed 41000 rows in 0.27 seconds   Processed 42000 rows in 0.27 seconds   Processed 43000 rows in 0.28 seconds   Processed 44000 rows in 0.28 seconds   Processed 45000 rows in 0.29 seconds   Processed 46000 rows in 0.30 seconds   Processed 47000 rows in 0.30 seconds   Processed 48000 rows in 0.31 seconds   Processed 49000 rows in 0.32 seconds   Processed 50000 rows in 0.32 seconds   Processed 51000 rows in 0.33 seconds   Processed 52000 rows in 0.33 seconds   Processed 53000 rows in 0.34 seconds   Processed 54000 rows in 0.35 seconds   Processed 55000 rows in 0.35 seconds   Processed 56000 rows in 0.36 seconds   Processed 57000 rows in 0.36 seconds   Processed 58000 rows in 0.37 seconds   Processed 59000 rows in 0.38 seconds   Processed 60000 rows in 0.38 seconds   Processed 61000 rows in 0.39 seconds   Processed 62000 rows in 0.39 seconds   Processed 63000 rows in 0.40 seconds   Processed 64000 rows in 0.41 seconds   Processed 65000 rows in 0.41 seconds   Processed 66000 rows in 0.42 seconds   Processed 67000 rows in 0.43 seconds   Processed 68000 rows in 0.43 seconds   Processed 69000 rows in 0.44 seconds   Processed 70000 rows in 0.45 seconds   Processed 71000 rows in 0.45 seconds   Processed 72000 rows in 0.46 seconds   Processed 73000 rows in 0.47 seconds   Processed 74000 rows in 0.47 seconds   Processed 75000 rows in 0.48 seconds   Processed 76000 rows in 0.48 seconds   Processed 77000 rows in 0.49 seconds   Processed 78000 rows in 0.49 seconds   Processed 79000 rows in 0.50 seconds   Processed 80000 rows in 0.51 seconds   Processed 81000 rows in 0.51 seconds   Processed 82000 rows in 0.52 seconds   Processed 83000 rows in 0.53 seconds   Processed 84000 rows in 0.53 seconds   Processed 85000 rows in 0.54 seconds   Processed 86000 rows in 0.54 seconds   Processed 87000 rows in 0.55 seconds   Processed 88000 rows in 0.56 seconds   Processed 89000 rows in 0.56 seconds   Processed 90000 rows in 0.57 seconds   Processed 91000 rows in 0.57 seconds   Processed 92000 rows in 0.58 seconds   Processed 93000 rows in 0.59 seconds   Processed 94000 rows in 0.59 seconds   Processed 95000 rows in 0.60 seconds   Processed 96000 rows in 0.60 seconds   Processed 97000 rows in 0.61 seconds   Processed 98000 rows in 0.61 seconds   Processed 99000 rows in 0.62 seconds   Processed 100000 rows in 0.63 seconds   Processed 101000 rows in 0.63 seconds   Processed 102000 rows in 0.64 seconds   Processed 103000 rows in 0.65 seconds   Processed 104000 rows in 0.65 seconds   Processed 105000 rows in 0.66 seconds   Processed 106000 rows in 0.66 seconds   Processed 107000 rows in 0.67 seconds   Processed 108000 rows in 0.68 seconds   Processed 109000 rows in 0.68 seconds   Processed 110000 rows in 0.69 seconds   Processed 111000 rows in 0.69 seconds   Processed 112000 rows in 0.70 seconds   Processed 113000 rows in 0.70 seconds   Processed 114000 rows in 0.71 seconds   Processed 115000 rows in 0.72 seconds   Processed 116000 rows in 0.72 seconds   Processed 117000 rows in 0.73 seconds   Processed 118000 rows in 0.73 seconds   Processed 119000 rows in 0.74 seconds   Processed 120000 rows in 0.75 seconds   Processed 121000 rows in 0.75 seconds   Processed 122000 rows in 0.76 seconds   Processed 123000 rows in 0.77 seconds   Processed 124000 rows in 0.77 seconds   Processed 125000 rows in 0.78 seconds   Processed 126000 rows in 0.79 seconds   Processed 127000 rows in 0.79 seconds   Processed 128000 rows in 0.80 seconds   Processed 129000 rows in 0.80 seconds   Processed 130000 rows in 0.81 seconds   Processed 131000 rows in 0.82 seconds   Processed 132000 rows in 0.83 seconds   Processed 133000 rows in 0.83 seconds   Processed 134000 rows in 0.84 seconds   Processed 135000 rows in 0.85 seconds   Processed 136000 rows in 0.85 seconds   Processed 137000 rows in 0.86 seconds   Processed 138000 rows in 0.87 seconds   Processed 139000 rows in 0.88 seconds   Processed 140000 rows in 0.88 seconds   Processed 141000 rows in 0.89 seconds   Processed 142000 rows in 0.90 seconds   Processed 143000 rows in 0.90 seconds   Processed 144000 rows in 0.91 seconds   Processed 145000 rows in 0.92 seconds   Processed 146000 rows in 0.93 seconds   Processed 147000 rows in 0.93 seconds   Processed 148000 rows in 0.94 seconds   Processed 149000 rows in 0.95 seconds   Processed 150000 rows in 0.95 seconds   Processed 151000 rows in 0.96 seconds   Processed 152000 rows in 0.97 seconds   Processed 153000 rows in 0.98 seconds   Processed 154000 rows in 0.98 seconds   Processed 155000 rows in 0.99 seconds   Processed 156000 rows in 1.00 seconds   Processed 157000 rows in 1.00 seconds   Processed 158000 rows in 1.01 seconds   Processed 159000 rows in 1.02 seconds   Processed 160000 rows in 1.03 seconds   Processed 161000 rows in 1.03 seconds   Processed 162000 rows in 1.04 seconds   Processed 163000 rows in 1.05 seconds   Processed 164000 rows in 1.06 seconds   Processed 165000 rows in 1.06 seconds   Processed 166000 rows in 1.07 seconds   Processed 167000 rows in 1.08 seconds   Processed 168000 rows in 1.09 seconds   Processed 169000 rows in 1.09 seconds   Processed 170000 rows in 1.10 seconds   Processed 171000 rows in 1.11 seconds   Processed 172000 rows in 1.12 seconds   Processed 173000 rows in 1.12 seconds   Processed 174000 rows in 1.13 seconds   Processed 175000 rows in 1.14 seconds   Processed 176000 rows in 1.15 seconds   Processed 177000 rows in 1.16 seconds   Processed 178000 rows in 1.16 seconds   Processed 179000 rows in 1.17 seconds   Processed 180000 rows in 1.18 seconds   Processed 181000 rows in 1.18 seconds   Processed 182000 rows in 1.19 seconds   Processed 183000 rows in 1.20 seconds   Processed 184000 rows in 1.21 seconds   Processed 185000 rows in 1.22 seconds   Processed 186000 rows in 1.22 seconds   Processed 187000 rows in 1.23 seconds   Processed 188000 rows in 1.24 seconds   Processed 189000 rows in 1.25 seconds   Processed 190000 rows in 1.26 seconds   Processed 191000 rows in 1.27 seconds   Processed 192000 rows in 1.28 seconds   Processed 193000 rows in 1.29 seconds   Processed 194000 rows in 1.30 seconds   Processed 195000 rows in 1.31 seconds   Processed 196000 rows in 1.31 seconds   Processed 197000 rows in 1.32 seconds   Processed 198000 rows in 1.33 seconds   Processed 199000 rows in 1.34 seconds   Processed 200000 rows in 1.34 seconds   Processed 201000 rows in 1.35 seconds   Processed 202000 rows in 1.36 seconds   Processed 203000 rows in 1.37 seconds   Processed 204000 rows in 1.37 seconds   Processed 205000 rows in 1.38 seconds   Processed 206000 rows in 1.39 seconds   Processed 207000 rows in 1.40 seconds   Processed 208000 rows in 1.40 seconds   Processed 209000 rows in 1.41 seconds   Processed 210000 rows in 1.42 seconds   Processed 211000 rows in 1.43 seconds   Processed 212000 rows in 1.43 seconds   Processed 213000 rows in 1.44 seconds   Processed 214000 rows in 1.45 seconds   Processed 215000 rows in 1.46 seconds   Processed 216000 rows in 1.46 seconds   Processed 217000 rows in 1.47 seconds   Processed 218000 rows in 1.48 seconds   Processed 219000 rows in 1.49 seconds   Processed 220000 rows in 1.49 seconds   Processed 221000 rows in 1.50 seconds   Processed 222000 rows in 1.51 seconds   Processed 223000 rows in 1.52 seconds   Processed 224000 rows in 1.52 seconds   Processed 225000 rows in 1.53 seconds   Processed 226000 rows in 1.54 seconds   Processed 227000 rows in 1.55 seconds   Processed 228000 rows in 1.55 seconds   Processed 229000 rows in 1.56 seconds   Processed 230000 rows in 1.57 seconds   Processed 231000 rows in 1.58 seconds   Processed 232000 rows in 1.58 seconds   Processed 233000 rows in 1.59 seconds   Processed 234000 rows in 1.60 seconds   Processed 235000 rows in 1.61 seconds   Processed 236000 rows in 1.62 seconds   Processed 237000 rows in 1.62 seconds   Processed 238000 rows in 1.63 seconds   Processed 239000 rows in 1.64 seconds   Processed 240000 rows in 1.65 seconds   Processed 241000 rows in 1.65 seconds   Processed 242000 rows in 1.66 seconds   Processed 243000 rows in 1.67 seconds   Processed 244000 rows in 1.68 seconds   Processed 245000 rows in 1.68 seconds   Processed 246000 rows in 1.69 seconds   Processed 247000 rows in 1.70 seconds   Processed 248000 rows in 1.71 seconds   Processed 249000 rows in 1.72 seconds   Processed 250000 rows in 1.72 seconds   Processed 251000 rows in 1.73 seconds   Processed 252000 rows in 1.74 seconds   Processed 253000 rows in 1.75 seconds   Processed 254000 rows in 1.76 seconds   Processed 255000 rows in 1.76 seconds   Processed 256000 rows in 1.77 seconds   Processed 257000 rows in 1.78 seconds   Processed 258000 rows in 1.79 seconds   Processed 259000 rows in 1.80 seconds   Processed 260000 rows in 1.80 seconds   Processed 261000 rows in 1.81 seconds   Processed 262000 rows in 1.82 seconds   Processed 263000 rows in 1.82 seconds   Processed 264000 rows in 1.83 seconds   Processed 265000 rows in 1.84 seconds   Processed 266000 rows in 1.85 seconds   Processed 267000 rows in 1.85 seconds   Processed 268000 rows in 1.86 seconds   Processed 269000 rows in 1.87 seconds   Processed 270000 rows in 1.87 seconds   Processed 271000 rows in 1.88 seconds   Processed 272000 rows in 1.89 seconds   Processed 273000 rows in 1.89 seconds   Processed 274000 rows in 1.90 seconds   Processed 275000 rows in 1.91 seconds   Processed 276000 rows in 1.91 seconds   Processed 277000 rows in 1.92 seconds   Processed 278000 rows in 1.93 seconds   Processed 279000 rows in 1.94 seconds   Processed 280000 rows in 1.95 seconds   Processed 281000 rows in 1.95 seconds   Processed 282000 rows in 1.97 seconds   Processed 283000 rows in 1.98 seconds   Processed 284000 rows in 1.99 seconds   Processed 285000 rows in 2.00 seconds   Processed 286000 rows in 2.02 seconds   Processed 287000 rows in 2.03 seconds   Processed 288000 rows in 2.04 seconds   Processed 289000 rows in 2.05 seconds   Processed 290000 rows in 2.07 seconds   Processed 291000 rows in 2.08 seconds   Processed 292000 rows in 2.09 seconds   Processed 293000 rows in 2.10 seconds   Processed 294000 rows in 2.12 seconds   Processed 295000 rows in 2.13 seconds   Processed 296000 rows in 2.14 seconds   Processed 297000 rows in 2.16 seconds   Processed 298000 rows in 2.17 seconds   Processed 299000 rows in 2.18 seconds   Processed 300000 rows in 2.20 seconds   Processed 301000 rows in 2.21 seconds   Processed 302000 rows in 2.22 seconds   Processed 303000 rows in 2.24 seconds   Processed 304000 rows in 2.25 seconds   Processed 305000 rows in 2.26 seconds   Processed 306000 rows in 2.27 seconds   Processed 307000 rows in 2.29 seconds   Processed 308000 rows in 2.30 seconds   Processed 309000 rows in 2.31 seconds   Processed 310000 rows in 2.33 seconds   Processed 311000 rows in 2.34 seconds   Processed 312000 rows in 2.35 seconds   Processed 313000 rows in 2.37 seconds   Processed 314000 rows in 2.38 seconds   Processed 315000 rows in 2.39 seconds   Processed 316000 rows in 2.40 seconds   Processed 317000 rows in 2.41 seconds   Processed 318000 rows in 2.43 seconds   Processed 319000 rows in 2.44 seconds   Processed 320000 rows in 2.45 seconds   Processed 321000 rows in 2.46 seconds   
-Database updated successfully. Processed 321086 rows in 2.58 seconds
-Database updated successfully!
-
-Enabling site xlx300.net.
-Site 000-default disabled.
-
-[38;5;46m✔ Dashboard successfully installed![0m
-
-
-[38;5;46m✔ Configuration completed![0m
-
-____________________________________________________________________________________________________
-
-[1;34m                                  (ℹ) STARTING XLX300 REFLECTOR...[0m
-[38;5;39m                                  ================================[0m
-
-
-Created symlink '/etc/systemd/system/multi-user.target.wants/ambed.service' → '/etc/systemd/system/ambed.service'.
-[38;5;226mInitializing XLX300 10 seconds[0mCreated symlink '/etc/systemd/system/multi-user.target.wants/xlxd.service' → '/etc/systemd/system/xlxd.service'.
-[38;5;226mInitializing XLX300  9 seconds[0m[38;5;226mInitializing XLX300  8 seconds[0m[38;5;226mInitializing XLX300  7 seconds[0m[38;5;226mInitializing XLX300  6 seconds[0m[38;5;226mInitializing XLX300  5 seconds[0m[38;5;226mInitializing XLX300  4 seconds[0m[38;5;226mInitializing XLX300  3 seconds[0m[38;5;226mInitializing XLX300  2 seconds[0m[38;5;226mInitializing XLX300  1 seconds[0m
-[38;5;226mInitializing users_db  5 seconds[0mCreated symlink '/etc/systemd/system/timers.target.wants/update_XLX_db.timer' → '/etc/systemd/system/update_XLX_db.timer'.
-[38;5;226mInitializing users_db  4 seconds[0m[38;5;226mInitializing users_db  3 seconds[0m[38;5;226mInitializing users_db  2 seconds[0m[38;5;226mInitializing users_db  1 seconds[0m
-[38;5;226mInitializing XLX log  5 seconds[0mCreated symlink '/etc/systemd/system/multi-user.target.wants/xlx_log.service' → '/etc/systemd/system/xlx_log.service'.
-Created symlink '/etc/systemd/system/xlxd.service.wants/xlx_log.service' → '/etc/systemd/system/xlx_log.service'.
-[38;5;226mInitializing XLX log  4 seconds[0m[38;5;226mInitializing XLX log  3 seconds[0m[38;5;226mInitializing XLX log  2 seconds[0m[38;5;226mInitializing XLX log  1 seconds[0m
-[38;5;226mInitializing Echo Test  5 seconds[0mCreated symlink '/etc/systemd/system/multi-user.target.wants/xlxecho.service' → '/etc/systemd/system/xlxecho.service'.
-Created symlink '/etc/systemd/system/xlxd.service.wants/xlxecho.service' → '/etc/systemd/system/xlxecho.service'.
-[38;5;226mInitializing Echo Test  4 seconds[0m[38;5;226mInitializing Echo Test  3 seconds[0m[38;5;226mInitializing Echo Test  2 seconds[0m[38;5;226mInitializing Echo Test  1 seconds[0m
-
-[38;5;46m✔ Initialization completed![0m
-
-[38;5;250m🛈 Running post-installation validation...[0m
-
-[38;5;46m✔ XLXD binary found[0m
-[38;5;46m✔ XLXD service is running[0m
-[38;5;46m✔ XLX log service is running[0m
-[38;5;46m✔ update_db.sh file found[0m
-[38;5;46m✔ update_XLX_db.service file found[0m
-[38;5;46m✔ Update users_db timer is running[0m
-[38;5;46m✔ Apache service is running[0m
-[38;5;46m✔ Dashboard files found[0m
-[38;5;46m✔ Echo Test service is running[0m
-[38;5;46m✔ Software transcoder (ambed) is running[0m
-
-====================================================================================================
-
-
-[1;34m                               ✔ REFLECTOR INSTALLED SUCCESSFULLY!!![0m
-
-
-====================================================================================================
-
-[38;5;46m                        Your Reflector XLX300 is now installed and running![0m
-
-[38;5;46m                                       For Public Reflectors:[0m
-
-[38;5;46m     • If your XLX number is available it's expected to be listed on the public list shortly, [0m
-[38;5;46m typically within an hour. If you don't want the reflector to be published just set callinghome to [0m
-[38;5;46m           [false] in the main configuration file: /var/www/html/xlxd/pgs/config.inc.php.[0m
-[38;5;46m                         • Many other settings can be changed in this file.[0m
-[38;5;46m                  • More Information about XLX Reflectors: https://xlxbbs.epf.lu/[0m
-[38;5;46m               • Your XLX300 dashboard should now be accessible at http://xlx300.net[0m
-
-====================================================================================================
