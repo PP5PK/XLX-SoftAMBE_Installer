@@ -338,7 +338,7 @@ To bring an existing installation to the latest SoftAMBE version, keeping your `
 cd /usr/src/XLX-SoftAMBE_Installer && sudo git pull
 cd /usr/src/xlxd
 sudo git checkout -- ambed && sudo git clean -fdq ambed
-sudo git apply /usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch
+sudo git apply --whitespace=nowarn /usr/src/XLX-SoftAMBE_Installer/patches/xlxd-ambed-softambe.patch
 cd ambed && sudo make clean && sudo make NO_FTDI=1
 sudo systemctl stop ambed && sudo make install
 sudo systemctl start ambed && sudo systemctl restart xlxd

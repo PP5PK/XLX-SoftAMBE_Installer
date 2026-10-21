@@ -1152,8 +1152,8 @@ if [ "$INSTALL_AMBED" == "Y" ]; then
     if [ ! -f "$AMBED_PATCH" ]; then
         msg_warn "Warning: $AMBED_PATCH not found. Skipping the software transcoder."
         INSTALL_AMBED="N"
-    elif git -C "$USRSRC/xlxd" apply --check "$AMBED_PATCH" 2>/dev/null; then
-        git -C "$USRSRC/xlxd" apply "$AMBED_PATCH" || error_exit "Failed to apply $AMBED_PATCH"
+    elif git -C "$USRSRC/xlxd" apply --check --whitespace=nowarn "$AMBED_PATCH" 2>/dev/null; then
+        git -C "$USRSRC/xlxd" apply --whitespace=nowarn "$AMBED_PATCH" || error_exit "Failed to apply $AMBED_PATCH"
         msg_success "SoftAMBE patch applied."
     else
         msg_warn "Warning: SoftAMBE patch does not apply to this xlxd version. Skipping the software transcoder."
