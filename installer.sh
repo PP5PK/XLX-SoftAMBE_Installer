@@ -876,7 +876,7 @@ question_17() {
     echo "$SEPQUE"
     echo ""
     print_wrapped "17. Install the software transcoder (ambed)? D-Star <-> DMR/YSF without a DVSI USB stick. (Y/N)"
-    print_gray "Uses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: check the patent situation in your country before enabling it."
+    msg_caution "Uses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: Check the patent situation in your country before enabling it."
     print_gray "Suggested: Y $ACCEPT"
     while true; do
         read_or_abort INSTALL_AMBED
