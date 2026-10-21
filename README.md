@@ -64,7 +64,7 @@ SoftAMBE is not just a vocoder swap: its audio chain was measured and tuned with
 
 ### 🔊 Gain inside the encoder — no hiss, no clipping
 
-Radios decode a software encoder's audio at very different levels than its own decoder suggests, so each direction needs a large level correction (around -20 dB towards DMR/YSF and +17 dB towards D-Star). Applying that to the audio samples, as usual, makes quiet passages fall under the vocoder's analysis floor (heard as a constant hiss in pauses) or clips the peaks.
+Radios decode a software encoder's audio at very different levels than its own decoder suggests, so each direction needs a large level correction (around -20 dB towards DMR/YSF and +19 dB towards D-Star). Applying that to the audio samples, as usual, makes quiet passages fall under the vocoder's analysis floor (heard as a constant hiss in pauses) or clips the peaks.
 
 SoftAMBE applies the gain **inside the encoder**, on its quantized gain parameter, so the voice analysis always works with full-scale audio. Measured speech-to-pause ratio on a test signal with background noise:
 
@@ -263,15 +263,15 @@ All audio settings are in **`/ambed/ambed.conf`**. Each line has a short descrip
 ```ini
 # --- DMR/YSF -> D-Star ---------------------------------------------------------
 
-# GAIN = value > louder, value < quieter (dB, -24 to 24) [17]
-AMBED_SOFT_GAIN_DMR_TO_DSTAR=17
+# GAIN = value > louder, value < quieter (dB, -24 to 24) [19]
+AMBED_SOFT_GAIN_DMR_TO_DSTAR=19
 
 # EQ = value > more treble, value < more bass (dB, 0 to 12, 0 = off) [0]
 AMBED_SOFT_EQ_DMR_TO_DSTAR=0
 
 # GATE = value > less noise in pauses, value < keeps quieter words
-#        (dBFS, -90 to -1, 0 = off; -40 cuts more than -50) [-45]
-AMBED_SOFT_GATE_DMR_TO_DSTAR=-45
+#        (dBFS, -90 to -1, 0 = off; -40 cuts more than -50) [-50]
+AMBED_SOFT_GATE_DMR_TO_DSTAR=-50
 ```
 
 Apply changes and check the values in use:
@@ -283,9 +283,9 @@ journalctl -u ambed -b | grep SoftAMBE
 ```
 
 ```
-SoftAMBE DMR/YSF -> D-Star : gain 17 dB, equalizer off, expander -45 dBFS
+SoftAMBE DMR/YSF -> D-Star : gain 19 dB, equalizer off, expander -50 dBFS
 SoftAMBE D-Star -> DMR/YSF : gain -20 dB, equalizer off, expander off
-SoftAMBE equalizer : low cut 250 Hz, peak 1800 Hz | expander : ratio 2, max 20 dB, hold 100 ms, release 270 ms | idle reset 500 ms
+SoftAMBE equalizer : low cut 250 Hz, peak 1800 Hz | expander : ratio 2, max 15 dB, hold 100 ms, release 270 ms | idle reset 500 ms
 ```
 
 ### All settings
@@ -298,15 +298,15 @@ SoftAMBE equalizer : low cut 250 Hz, peak 1800 Hz | expander : ratio 2, max 20 d
 | `AMBED_SOFT_EQ_DSTAR_TO_DMR`    | `0`                   | presence / treble boost (dB, 0 to 12, `0` = equalizer off)     |
 | `AMBED_SOFT_GATE_DSTAR_TO_DMR`  | `0`                   | noise gate threshold (dBFS, `0` = off)                         |
 | **DMR/YSF → D-Star**            |                       |                                                                |
-| `AMBED_SOFT_GAIN_DMR_TO_DSTAR`  | `17`                  | volume (dB, -24 to 24)                                         |
+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR`  | `19`                  | volume (dB, -24 to 24)                                         |
 | `AMBED_SOFT_EQ_DMR_TO_DSTAR`    | `0`                   | presence / treble boost (dB, 0 to 12, `0` = equalizer off)     |
-| `AMBED_SOFT_GATE_DMR_TO_DSTAR`  | `-45`                 | noise gate threshold (dBFS, `0` = off)                         |
+| `AMBED_SOFT_GATE_DMR_TO_DSTAR`  | `-50`                 | noise gate threshold (dBFS, `0` = off)                         |
 | **Equalizer shape**             |                       | *both directions, only where EQ is not 0*                      |
 | `AMBED_SOFT_EQ_LOWCUT_HZ`       | `250`                 | low cut against boominess (Hz, 0 to 600, `0` = none)           |
 | `AMBED_SOFT_EQ_PEAK_HZ`         | `1800`                | centre of the boost (Hz, 500 to 3500)                          |
 | **Noise gate shape**            |                       | *both directions, only where GATE is not 0*                    |
 | `AMBED_SOFT_GATE_RATIO`         | `2`                   | strength: dB of cut per dB below the threshold (1 to 10)       |
-| `AMBED_SOFT_GATE_MAX_DB`        | `20`                  | largest cut (dB, 0 to 40)                                      |
+| `AMBED_SOFT_GATE_MAX_DB`        | `15`                  | largest cut (dB, 0 to 40)                                      |
 | `AMBED_SOFT_GATE_HOLD_MS`       | `100`                 | time it stays open after speech (ms, 0 to 1000)                |
 | `AMBED_SOFT_GATE_RELEASE_MS`    | `270`                 | fade time into silence (ms, 20 to 2000)                        |
 | **Vocoder**                     |                       |                                                                |
@@ -321,12 +321,12 @@ Change one setting at a time, in steps of 2-3, and test on air between changes.
 | What you hear                                  | Direction        | What to change                                  |
 | ---------------------------------------------- | ---------------- | ----------------------------------------------- |
 | D-Star too loud or distorted on DMR/C4FM radios | D-Star → DMR/YSF | lower `GAIN_DSTAR_TO_DMR` (e.g. -20 → -22)      |
-| DMR/C4FM too quiet on D-Star radios            | DMR/YSF → D-Star | raise `GAIN_DMR_TO_DSTAR` (e.g. 17 → 19)        |
+| DMR/C4FM too quiet on D-Star radios            | DMR/YSF → D-Star | raise `GAIN_DMR_TO_DSTAR` (e.g. 19 → 21)        |
 | Voice muffled or boomy                         | that direction   | set `EQ_…` to 6-9; raise `EQ_LOWCUT_HZ` if still boomy |
 | Voice too sharp or thin                        | that direction   | lower `EQ_…`, or lower `EQ_PEAK_HZ`             |
-| Hiss or background noise in pauses             | that direction   | enable or raise `GATE_…` (e.g. -45 → -40)       |
-| Quiet words or word endings cut                | that direction   | lower `GATE_…` (e.g. -45 → -50) or raise `GATE_HOLD_MS` |
-| Silence sounds unnaturally "dead"              | both             | lower `GATE_MAX_DB` (e.g. 20 → 12)              |
+| Hiss or background noise in pauses             | that direction   | enable or raise `GATE_…` (e.g. -50 → -45)       |
+| Quiet words or word endings cut                | that direction   | lower `GATE_…` (e.g. -50 → -55) or raise `GATE_HOLD_MS` |
+| Silence sounds unnaturally "dead"              | both             | lower `GATE_MAX_DB` (e.g. 15 → 10)              |
 
 > **Tip:** the easiest test is two radios on the same module, one D-Star and one DMR or C4FM: talk on one, listen on the other, then swap. Keep them a few metres apart so the speaker of one does not feed the microphone of the other.
 

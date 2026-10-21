@@ -916,7 +916,7 @@ question_18() {
         fi
     done
     print_yellow "Using: $AMBED_PAIRS"
-echo ""
+    echo ""
 }
 
 collect_all_questions() {
@@ -1533,7 +1533,7 @@ if [ "$INSTALL_AMBED" == "Y" ]; then
         sleep 1
     done
     wait $pid || error_exit "Failed to enable/start ambed.service. Check with: systemctl status ambed.service"
-    # Verufy if service started
+    # Verify if service started
     if ! systemctl is-active --quiet ambed.service; then
         msg_warn "Warning: ambed service may not have started correctly."
     fi

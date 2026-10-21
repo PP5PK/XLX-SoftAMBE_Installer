@@ -1,6 +1,6 @@
 diff --git a/ambed/SOFTWARE_VOCODER.md b/ambed/SOFTWARE_VOCODER.md
 new file mode 100644
-index 0000000..5ed48e2
+index 0000000..02f19b1
 --- /dev/null
 +++ b/ambed/SOFTWARE_VOCODER.md
 @@ -0,0 +1,119 @@
@@ -64,13 +64,13 @@ index 0000000..5ed48e2
 +| `AMBED_SOFT_GAIN_DSTAR_TO_DMR` | -20 | output level, D-Star -> DMR/YSF (dB, +/-24) |
 +| `AMBED_SOFT_EQ_DSTAR_TO_DMR` | 0 | presence boost, D-Star -> DMR/YSF (dB, 0-12, 0 = EQ off) |
 +| `AMBED_SOFT_GATE_DSTAR_TO_DMR` | 0 | expander threshold, D-Star -> DMR/YSF (dBFS, 0 = off) |
-+| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | 17 | output level, DMR/YSF -> D-Star (dB, +/-24) |
++| `AMBED_SOFT_GAIN_DMR_TO_DSTAR` | 19 | output level, DMR/YSF -> D-Star (dB, +/-24) |
 +| `AMBED_SOFT_EQ_DMR_TO_DSTAR` | 0 | presence boost, DMR/YSF -> D-Star (dB, 0-12, 0 = EQ off) |
-+| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | -45 | expander threshold, DMR/YSF -> D-Star (dBFS, 0 = off) |
++| `AMBED_SOFT_GATE_DMR_TO_DSTAR` | -50 | expander threshold, DMR/YSF -> D-Star (dBFS, 0 = off) |
 +| `AMBED_SOFT_EQ_LOWCUT_HZ` | 250 | equalizer high-pass (Hz, 0-600, 0 = none) |
 +| `AMBED_SOFT_EQ_PEAK_HZ` | 1800 | equalizer peak centre (Hz, 500-3500) |
 +| `AMBED_SOFT_GATE_RATIO` | 2 | expander dB of cut per dB under threshold (1-10) |
-+| `AMBED_SOFT_GATE_MAX_DB` | 20 | largest expander cut (dB, 0-40) |
++| `AMBED_SOFT_GATE_MAX_DB` | 15 | largest expander cut (dB, 0-40) |
 +| `AMBED_SOFT_GATE_HOLD_MS` | 100 | expander hold after speech (ms, 0-1000) |
 +| `AMBED_SOFT_GATE_RELEASE_MS` | 270 | expander time to close fully (ms, 20-2000) |
 +| `AMBED_SOFT_IDLE_RESET_MS` | 500 | vocoder reset after this much silence (ms, 100-5000) |
@@ -636,7 +636,7 @@ index 0000000..19e60dc
 +}
 diff --git a/ambed/csoftambeinterface.h b/ambed/csoftambeinterface.h
 new file mode 100644
-index 0000000..5f85f0d
+index 0000000..1b00b74
 --- /dev/null
 +++ b/ambed/csoftambeinterface.h
 @@ -0,0 +1,211 @@
@@ -724,9 +724,9 @@ index 0000000..5f85f0d
 +#define SOFTAMBE_ENV_GAIN_TO_DSTAR  "AMBED_SOFT_GAIN_DMR_TO_DSTAR"
 +#define SOFTAMBE_ENV_EQ_TO_DSTAR    "AMBED_SOFT_EQ_DMR_TO_DSTAR"
 +#define SOFTAMBE_ENV_GATE_TO_DSTAR  "AMBED_SOFT_GATE_DMR_TO_DSTAR"
-+#define SOFTAMBE_GAIN_TO_DSTAR      17
++#define SOFTAMBE_GAIN_TO_DSTAR      19
 +#define SOFTAMBE_EQ_TO_DSTAR        0
-+#define SOFTAMBE_GATE_TO_DSTAR      -45
++#define SOFTAMBE_GATE_TO_DSTAR      -50
 +
 +#define SOFTAMBE_GAIN_LIMIT         24      // gains accepted in +/- this, dB
 +#define SOFTAMBE_EQ_LIMIT           12      // EQ accepted in 0..this, dB
@@ -743,7 +743,7 @@ index 0000000..5f85f0d
 +#define SOFTAMBE_ENV_GATE_RATIO     "AMBED_SOFT_GATE_RATIO"     // dB of cut per dB under threshold
 +#define SOFTAMBE_GATE_RATIO         2
 +#define SOFTAMBE_ENV_GATE_MAX_DB    "AMBED_SOFT_GATE_MAX_DB"    // largest cut
-+#define SOFTAMBE_GATE_MAX_DB        20
++#define SOFTAMBE_GATE_MAX_DB        15
 +#define SOFTAMBE_ENV_GATE_HOLD_MS   "AMBED_SOFT_GATE_HOLD_MS"   // stays open after speech
 +#define SOFTAMBE_GATE_HOLD_MS       100
 +#define SOFTAMBE_ENV_GATE_RELEASE_MS "AMBED_SOFT_GATE_RELEASE_MS" // time to close fully
