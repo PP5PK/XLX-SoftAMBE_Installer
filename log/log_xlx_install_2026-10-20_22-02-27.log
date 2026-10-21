@@ -1,0 +1,552 @@
+[H[2J[3J::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+[38;5;46m                    XLX MULTIPROTOCOL AMATEUR RADIO REFLECTOR INSTALLER PROGRAM[0m
+
+[38;5;46mNext, you will be asked some questions. Answer with the requested information or, if applicable, to [0m
+[38;5;46m                             accept the suggested value, press [ENTER][0m
+
+[38;5;208m              [*] At any prompt, type X and press [ENTER] to cancel the installation.[0m
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+[1;34m                                      (ℹ) REFLECTOR DATA INPUT[0m
+[38;5;39m                                      ========================[0m
+
+
+[38;5;196m(⚠) Mandatory[0m
+01. XLX Reflector ID, 3 alphanumeric characters. (e.g., 300, US1, BRA)
+> [38;5;226mUsing: XLXBRA[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[38;5;196m(⚠) Mandatory[0m
+02. Dashboard FQDN (fully qualified domain name). (e.g., xlxbra.net)
+> [38;5;226mUsing: xlxbra.net[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[38;5;196m(⚠) Mandatory[0m
+03. Sysop e-mail address
+> [38;5;226mUsing: svrutz@gmail.com[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[38;5;196m(⚠) Mandatory[0m
+04. Sysop callsign. Only letters and numbers allowed, max 6 characters.
+> [38;5;226mUsing: PP5PK[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[38;5;196m(⚠) Mandatory[0m
+05. What's the country of the Reflector?
+> [38;5;226mUsing: Brazil[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[38;5;196m(⚠) Mandatory[0m
+06. Local timezone. Detected: America/Sao_Paulo (UTC-03:00)
+[38;5;250mPress ENTER to keep it or type another timezone.[0m
+> [38;5;226mUsing: America/Sao_Paulo (UTC-03:00)[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+07. Comment to XLX Reflectors list.
+[38;5;250mSuggested: "XLXBRA Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com" | [ENTER] to accept...[0m
+> [38;5;226mUsing: XLXBRA Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+08. Custom text for the dashboard tab. (max 25 characters)
+[38;5;250mSuggested: "XLXBRA by PP5PK" | [ENTER] to accept...[0m
+> [38;5;226mUsing: XLXBRA[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+09. Custom text on footer of the dashboard webpage.
+[38;5;250mSuggested: "Provided by PP5PK, info: svrutz@gmail.com" | [ENTER] to accept...[0m
+> [38;5;226mUsing: Provided by PP5PK, info: svrutz@gmail.com[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+10. Create an SSL certificate (https) for the dashboard webpage? (Y/N)
+[38;5;250mSuggested: Y | [ENTER] to accept...[0m
+> [38;5;226mUsing: Y[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+11. Install Echo Test on module E? (Y/N)
+[38;5;250mSuggested: Y | [ENTER] to accept...[0m
+> [38;5;226mUsing: Y[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+12. Number of active modules for the DStar Reflector. (5 - 26)
+[38;5;250mSuggested: 5 | [ENTER] to accept...[0m
+> [38;5;226mUsing: 5[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+13. YSF Reflector UDP port number. (1-65535)
+[38;5;250mSuggested: 42000 | [ENTER] to accept...[0m
+> [38;5;226mUsing: 42000[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+14. YSF Wires-X frequency. In Hertz, 9 digits.
+[38;5;250mSuggested: 433125000 | [ENTER] to accept...[0m
+> [38;5;226mUsing: 433125000[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+15. Auto-link YSF to a module? (Y/N)
+[38;5;250mSuggested: Y | [ENTER] to accept...[0m
+> [38;5;226mUsing: Y[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+16. Module to Auto-link YSF. (Choose from A to E)
+[38;5;250mSuggested: C | [ENTER] to accept...[0m
+> [38;5;226mUsing: C[0m
+
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+17. Install the software transcoder (ambed)? D-Star <-> DMR/YSF without a DVSI USB stick. (Y/N)
+[38;5;250mUses the open source AMBE/AMBE+2 vocoder from DroidStar. AMBE and AMBE+2 are DVSI technologies: 
+check the patent situation in your country before enabling it.[0m
+[38;5;250mSuggested: Y | [ENTER] to accept...[0m
+> [38;5;226mUsing: Y[0m
+
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+18. Number of simultaneous transcoded streams. (1-16)
+[38;5;250mEach stream handles one D-Star to DMR/YSF and one DMR/YSF to D-Star transmission at the same time. 
+This machine has 4 CPU core(s).[0m
+[38;5;250mSuggested: 4 | [ENTER] to accept...[0m
+> [38;5;226mUsing: 4[0m
+____________________________________________________________________________________________________
+
+[38;5;208m                                  (ℹ) PLEASE REVIEW YOUR SETTINGS:[0m
+[38;5;226m                                  ================================[0m
+
+01. Reflector ID:        XLXBRA
+02. FQDN:                xlxbra.net
+03. E-mail:              svrutz@gmail.com
+04. Callsign:            PP5PK
+05. Country:             Brazil
+06. Time Zone:           America/Sao_Paulo (UTC-03:00)
+07. XLX list comment:    XLXBRA Multiprotocol Reflector by PP5PK, info: svrutz@gmail.com
+08. Tab page text:       XLXBRA
+09. Dashboard footnote:  Provided by PP5PK, info: svrutz@gmail.com
+10. SSL certification:   Y
+11. Echo Test:           Y
+12. Modules:             5
+13. YSF UDP Port:        42000
+14. YSF frequency:       433125000
+15. YSF Auto-link:       Y
+16. YSF module:          C
+17. Soft transcoder:     Y
+18. Transcoded streams:  4
+
+[38;5;226mSettings correct? Press [ENTER] to confirm, type a question number to edit it, or [X] to cancel the 
+installation.[0m
+> [38;5;46m✔ Information verified, installation starting![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                         (ℹ) UPDATING OS...[0m
+[38;5;39m                                         ==================[0m
+
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Hit:2 http://deb.debian.org/debian-security bookworm-security InRelease
+Hit:3 http://deb.debian.org/debian bookworm-updates InRelease
+Get:4 http://download.zerotier.com/debian/bookworm bookworm InRelease [36.9 kB]
+Hit:5 https://linux.teamviewer.com/deb stable InRelease
+Hit:6 https://deb.nodesource.com/node_22.x nodistro InRelease
+Hit:7 https://repo.ivpn.net/stable/debian ./generic InRelease
+Hit:8 http://archive.raspberrypi.com/debian bookworm InRelease
+Hit:9 https://adoptium.jfrog.io/artifactory/deb bookworm InRelease
+Fetched 36.9 kB in 1s (39.3 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+All packages are up to date.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages were automatically installed and are no longer required:
+  chromium-sandbox linux-headers-6.12.93+rpt-common-rpi
+  linux-kbuild-6.12.93+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+Timezone adjustment:
+[38;5;250mDetected system timezone preserved: America/Sao_Paulo[0m
+
+[38;5;46m✔ System updated successfully![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                   (ℹ) INSTALLING DEPENDENCIES...[0m
+[38;5;39m                                   ==============================[0m
+
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+python3-certbot-apache is already the newest version (2.1.0-2).
+build-essential is already the newest version (12.9).
+php is already the newest version (2:8.2+93).
+php-mbstring is already the newest version (2:8.2+93).
+php-sqlite3 is already the newest version (2:8.2+93).
+php-curl is already the newest version (2:8.2+93).
+php-xml is already the newest version (2:8.2+93).
+sqlite3 is already the newest version (3.40.1-2+deb12u2).
+vnstat is already the newest version (2.10-2).
+The following packages were automatically installed and are no longer required:
+  chromium-sandbox linux-headers-6.12.93+rpt-common-rpi
+  linux-kbuild-6.12.93+rpt
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+[38;5;250mPHP version: 8.2[0m
+
+[38;5;46m✔ Dependencies installed![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                   (ℹ) DOWNLOADING THE XLX APP...[0m
+[38;5;39m                                   ==============================[0m
+
+
+Cloning repository...
+Cloning into 'xlxd'...
+Applying SoftAMBE patch to ambed...
+[38;5;46m✔ SoftAMBE patch applied.[0m
+rm -f xlxd *.o
+Seeding customizations...
+
+Reflector XLXBRA
+Ethernet IP address: 172.23.127.155
+Public IP address: 177.131.119.153
+Network adapter name: end0
+
+[38;5;46m✔ Repository cloned and customizations applied![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                          (ℹ) COMPILING...[0m
+[38;5;39m                                          ================[0m
+
+
+g++ -c -std=c++11 -pthread cbmclient.cpp -o cbmclient.o
+g++ -c -std=c++11 -pthread cbmpeer.cpp -o cbmpeer.o
+g++ -c -std=c++11 -pthread cbptc19696.cpp -o cbptc19696.o
+g++ -c -std=c++11 -pthread cbuffer.cpp -o cbuffer.o
+g++ -c -std=c++11 -pthread ccallsign.cpp -o ccallsign.o
+g++ -c -std=c++11 -pthread ccallsignlist.cpp -o ccallsignlist.o
+g++ -c -std=c++11 -pthread ccallsignlistitem.cpp -o ccallsignlistitem.o
+g++ -c -std=c++11 -pthread cclient.cpp -o cclient.o
+g++ -c -std=c++11 -pthread cclients.cpp -o cclients.o
+g++ -c -std=c++11 -pthread ccodecstream.cpp -o ccodecstream.o
+g++ -c -std=c++11 -pthread ccrc.cpp -o ccrc.o
+g++ -c -std=c++11 -pthread cdcsclient.cpp -o cdcsclient.o
+g++ -c -std=c++11 -pthread cdcsprotocol.cpp -o cdcsprotocol.o
+g++ -c -std=c++11 -pthread cdextraclient.cpp -o cdextraclient.o
+g++ -c -std=c++11 -pthread cdextraprotocol.cpp -o cdextraprotocol.o
+g++ -c -std=c++11 -pthread cdmriddir.cpp -o cdmriddir.o
+g++ -c -std=c++11 -pthread cdmriddirfile.cpp -o cdmriddirfile.o
+g++ -c -std=c++11 -pthread cdmriddirhttp.cpp -o cdmriddirhttp.o
+g++ -c -std=c++11 -pthread cdmrmmdvmclient.cpp -o cdmrmmdvmclient.o
+g++ -c -std=c++11 -pthread cdmrmmdvmprotocol.cpp -o cdmrmmdvmprotocol.o
+g++ -c -std=c++11 -pthread cdmrplusclient.cpp -o cdmrplusclient.o
+g++ -c -std=c++11 -pthread cdmrplusprotocol.cpp -o cdmrplusprotocol.o
+g++ -c -std=c++11 -pthread cdplusclient.cpp -o cdplusclient.o
+g++ -c -std=c++11 -pthread cdplusprotocol.cpp -o cdplusprotocol.o
+g++ -c -std=c++11 -pthread cdvframepacket.cpp -o cdvframepacket.o
+g++ -c -std=c++11 -pthread cdvheaderpacket.cpp -o cdvheaderpacket.o
+g++ -c -std=c++11 -pthread cdvlastframepacket.cpp -o cdvlastframepacket.o
+g++ -c -std=c++11 -pthread cg3client.cpp -o cg3client.o
+g++ -c -std=c++11 -pthread cg3protocol.cpp -o cg3protocol.o
+g++ -c -std=c++11 -pthread cgatekeeper.cpp -o cgatekeeper.o
+g++ -c -std=c++11 -pthread cgolay2087.cpp -o cgolay2087.o
+g++ -c -std=c++11 -pthread cgolay24128.cpp -o cgolay24128.o
+g++ -c -std=c++11 -pthread chamming.cpp -o chamming.o
+g++ -c -std=c++11 -pthread cimrsclient.cpp -o cimrsclient.o
+g++ -c -std=c++11 -pthread cimrsprotocol.cpp -o cimrsprotocol.o
+g++ -c -std=c++11 -pthread cip.cpp -o cip.o
+g++ -c -std=c++11 -pthread cnotification.cpp -o cnotification.o
+g++ -c -std=c++11 -pthread cpacket.cpp -o cpacket.o
+g++ -c -std=c++11 -pthread cpacketstream.cpp -o cpacketstream.o
+g++ -c -std=c++11 -pthread cpeercallsignlist.cpp -o cpeercallsignlist.o
+g++ -c -std=c++11 -pthread cpeer.cpp -o cpeer.o
+g++ -c -std=c++11 -pthread cpeers.cpp -o cpeers.o
+g++ -c -std=c++11 -pthread cprotocol.cpp -o cprotocol.o
+g++ -c -std=c++11 -pthread cprotocols.cpp -o cprotocols.o
+g++ -c -std=c++11 -pthread cqr1676.cpp -o cqr1676.o
+g++ -c -std=c++11 -pthread crawsocket.cpp -o crawsocket.o
+g++ -c -std=c++11 -pthread creflector.cpp -o creflector.o
+g++ -c -std=c++11 -pthread crs129.cpp -o crs129.o
+g++ -c -std=c++11 -pthread csemaphore.cpp -o csemaphore.o
+g++ -c -std=c++11 -pthread ctimepoint.cpp -o ctimepoint.o
+g++ -c -std=c++11 -pthread ctranscoder.cpp -o ctranscoder.o
+g++ -c -std=c++11 -pthread cudpmsgsocket.cpp -o cudpmsgsocket.o
+g++ -c -std=c++11 -pthread cudpsocket.cpp -o cudpsocket.o
+g++ -c -std=c++11 -pthread cuser.cpp -o cuser.o
+g++ -c -std=c++11 -pthread cusers.cpp -o cusers.o
+g++ -c -std=c++11 -pthread cutils.cpp -o cutils.o
+g++ -c -std=c++11 -pthread cversion.cpp -o cversion.o
+g++ -c -std=c++11 -pthread cwiresxcmd.cpp -o cwiresxcmd.o
+g++ -c -std=c++11 -pthread cwiresxcmdhandler.cpp -o cwiresxcmdhandler.o
+g++ -c -std=c++11 -pthread cwiresxinfo.cpp -o cwiresxinfo.o
+g++ -c -std=c++11 -pthread cxlxclient.cpp -o cxlxclient.o
+g++ -c -std=c++11 -pthread cxlxpeer.cpp -o cxlxpeer.o
+g++ -c -std=c++11 -pthread cxlxprotocol.cpp -o cxlxprotocol.o
+g++ -c -std=c++11 -pthread cysfclient.cpp -o cysfclient.o
+g++ -c -std=c++11 -pthread cysfconvolution.cpp -o cysfconvolution.o
+g++ -c -std=c++11 -pthread cysffich.cpp -o cysffich.o
+g++ -c -std=c++11 -pthread cysfnode.cpp -o cysfnode.o
+g++ -c -std=c++11 -pthread cysfnodedir.cpp -o cysfnodedir.o
+g++ -c -std=c++11 -pthread cysfnodedirfile.cpp -o cysfnodedirfile.o
+g++ -c -std=c++11 -pthread cysfnodedirhttp.cpp -o cysfnodedirhttp.o
+g++ -c -std=c++11 -pthread cysfpayload.cpp -o cysfpayload.o
+g++ -c -std=c++11 -pthread cysfprotocol.cpp -o cysfprotocol.o
+g++ -c -std=c++11 -pthread cysfutils.cpp -o cysfutils.o
+g++ -c -std=c++11 -pthread main.cpp -o main.o
+g++ -std=c++11 -pthread cbmclient.o cbmpeer.o cbptc19696.o cbuffer.o ccallsign.o ccallsignlist.o ccallsignlistitem.o cclient.o cclients.o ccodecstream.o ccrc.o cdcsclient.o cdcsprotocol.o cdextraclient.o cdextraprotocol.o cdmriddir.o cdmriddirfile.o cdmriddirhttp.o cdmrmmdvmclient.o cdmrmmdvmprotocol.o cdmrplusclient.o cdmrplusprotocol.o cdplusclient.o cdplusprotocol.o cdvframepacket.o cdvheaderpacket.o cdvlastframepacket.o cg3client.o cg3protocol.o cgatekeeper.o cgolay2087.o cgolay24128.o chamming.o cimrsclient.o cimrsprotocol.o cip.o cnotification.o cpacket.o cpacketstream.o cpeercallsignlist.o cpeer.o cpeers.o cprotocol.o cprotocols.o cqr1676.o crawsocket.o creflector.o crs129.o csemaphore.o ctimepoint.o ctranscoder.o cudpmsgsocket.o cudpsocket.o cuser.o cusers.o cutils.o cversion.o cwiresxcmd.o cwiresxcmdhandler.o cwiresxinfo.o cxlxclient.o cxlxpeer.o cxlxprotocol.o cysfclient.o cysfconvolution.o cysffich.o cysfnode.o cysfnodedir.o cysfnodedirfile.o cysfnodedirhttp.o cysfpayload.o cysfprotocol.o cysfutils.o main.o -o xlxd
+mkdir -p /xlxd
+cp -f xlxd /xlxd/
+[ -f /xlxd/xlxd.blacklist ] && \
+	cp ../config/xlxd.blacklist /xlxd/xlxd.blacklist.sample || \
+	cp ../config/xlxd.blacklist /xlxd/xlxd.blacklist
+[ -f /xlxd/xlxd.whitelist ] && \
+	cp ../config/xlxd.whitelist /xlxd/xlxd.whitelist.sample || \
+	cp ../config/xlxd.whitelist /xlxd/xlxd.whitelist
+[ -f /xlxd/xlxd.interlink ] && \
+	cp ../config/xlxd.interlink /xlxd/xlxd.interlink.sample || \
+	cp ../config/xlxd.interlink /xlxd/xlxd.interlink
+[ -f /xlxd/xlxd.terminal ] && \
+	cp ../config/xlxd.terminal /xlxd/xlxd.terminal.sample || \
+	cp ../config/xlxd.terminal /xlxd/xlxd.terminal
+
+[38;5;46m✔ COMPILATION SUCCESSFUL!!![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                     (ℹ) COPYING COMPONENTS...[0m
+[38;5;39m                                     =========================[0m
+
+
+Downloading DMR ID file...
+Downloading...
+44.2KiB 0:00:01 [44.2KiB/s] [<=>                                               ]1.73MiB 0:00:02 [1.60MiB/s] [ <=>                                              ]5.17MiB 0:00:02 [2.26MiB/s] [  <=>                                             ]
+[2026-10-20 22:05:52] DMR ID download: SUCCESS (5425101 bytes)
+[38;5;46m✔ DMR ID file downloaded successfully.[0m
+Creating custom XLX log...
+Seeding customizations...
+
+[38;5;46m✔ Components copied and configured![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                 (ℹ) INSTALLING ECHO TEST SERVER...[0m
+[38;5;39m                                 ==================================[0m
+
+
+Cloning repository...
+Cloning into 'XLXEcho'...
+Compiling Echo Test...
+Copying files and adjusting properties...
+
+[38;5;46m✔ Echo Test server successfully installed![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                               (ℹ) INSTALLING SOFTWARE TRANSCODER...[0m
+[38;5;39m                               ======================================[0m
+
+
+Compiling ambed (software only, no FTDI)...
+g++ -c -std=c++11 -pthread -Iswvocoder cagc.cpp -o cagc.o
+g++ -c -std=c++11 -pthread -Iswvocoder cambepacket.cpp -o cambepacket.o
+g++ -c -std=c++11 -pthread -Iswvocoder cambeserver.cpp -o cambeserver.o
+g++ -c -std=c++11 -pthread -Iswvocoder cbuffer.cpp -o cbuffer.o
+g++ -c -std=c++11 -pthread -Iswvocoder ccallsign.cpp -o ccallsign.o
+g++ -c -std=c++11 -pthread -Iswvocoder ccontroller.cpp -o ccontroller.o
+g++ -c -std=c++11 -pthread -Iswvocoder cfirfilter.cpp -o cfirfilter.o
+g++ -c -std=c++11 -pthread -Iswvocoder cfixedgain.cpp -o cfixedgain.o
+g++ -c -std=c++11 -pthread -Iswvocoder cftdidevicedescr.cpp -o cftdidevicedescr.o
+g++ -c -std=c++11 -pthread -Iswvocoder cip.cpp -o cip.o
+g++ -c -std=c++11 -pthread -Iswvocoder cpacket.cpp -o cpacket.o
+g++ -c -std=c++11 -pthread -Iswvocoder cpacketqueue.cpp -o cpacketqueue.o
+g++ -c -std=c++11 -pthread -Iswvocoder csignalprocessor.cpp -o csignalprocessor.o
+g++ -c -std=c++11 -pthread -Iswvocoder csoftambeinterface.cpp -o csoftambeinterface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cstream.cpp -o cstream.o
+g++ -c -std=c++11 -pthread -Iswvocoder ctimepoint.cpp -o ctimepoint.o
+g++ -c -std=c++11 -pthread -Iswvocoder cudpsocket.cpp -o cudpsocket.o
+g++ -c -std=c++11 -pthread -Iswvocoder cusb3000interface.cpp -o cusb3000interface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cusb3003df2etinterface.cpp -o cusb3003df2etinterface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cusb3003hrinterface.cpp -o cusb3003hrinterface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cusb3003interface.cpp -o cusb3003interface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cusb3xxxinterface.cpp -o cusb3xxxinterface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cvocodecchannel.cpp -o cvocodecchannel.o
+g++ -c -std=c++11 -pthread -Iswvocoder cvocodecinterface.cpp -o cvocodecinterface.o
+g++ -c -std=c++11 -pthread -Iswvocoder cvocodecs.cpp -o cvocodecs.o
+g++ -c -std=c++11 -pthread -Iswvocoder cvoicepacket.cpp -o cvoicepacket.o
+g++ -c -std=c++11 -pthread -Iswvocoder main.cpp -o main.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe3600x2400.cpp -o swvocoder/mbe/ambe3600x2400.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe3600x2450.cpp -o swvocoder/mbe/ambe3600x2450.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/ambe.cpp -o swvocoder/mbe/ambe.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/mbe/mbevocoder.cpp -o swvocoder/mbe/mbevocoder.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/aux_sub.cc -o swvocoder/imbe_vocoder/aux_sub.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/basicop2.cc -o swvocoder/imbe_vocoder/basicop2.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/ch_decode.cc -o swvocoder/imbe_vocoder/ch_decode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/ch_encode.cc -o swvocoder/imbe_vocoder/ch_encode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/dc_rmv.cc -o swvocoder/imbe_vocoder/dc_rmv.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/decode.cc -o swvocoder/imbe_vocoder/decode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/dsp_sub.cc -o swvocoder/imbe_vocoder/dsp_sub.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/encode.cc -o swvocoder/imbe_vocoder/encode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/imbe_vocoder.cc -o swvocoder/imbe_vocoder/imbe_vocoder.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/imbe_vocoder_impl.cc -o swvocoder/imbe_vocoder/imbe_vocoder_impl.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/math_sub.cc -o swvocoder/imbe_vocoder/math_sub.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pe_lpf.cc -o swvocoder/imbe_vocoder/pe_lpf.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pitch_est.cc -o swvocoder/imbe_vocoder/pitch_est.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/pitch_ref.cc -o swvocoder/imbe_vocoder/pitch_ref.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/qnt_sub.cc -o swvocoder/imbe_vocoder/qnt_sub.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/rand_gen.cc -o swvocoder/imbe_vocoder/rand_gen.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_decode.cc -o swvocoder/imbe_vocoder/sa_decode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_encode.cc -o swvocoder/imbe_vocoder/sa_encode.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/sa_enh.cc -o swvocoder/imbe_vocoder/sa_enh.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/tbls.cc -o swvocoder/imbe_vocoder/tbls.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/uv_synt.cc -o swvocoder/imbe_vocoder/uv_synt.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/v_synt.cc -o swvocoder/imbe_vocoder/v_synt.o
+g++ -c -std=c++11 -pthread -O2 -Iswvocoder -Iswvocoder/imbe_vocoder swvocoder/imbe_vocoder/v_uv_det.cc -o swvocoder/imbe_vocoder/v_uv_det.o
+gcc -c swvocoder/ftd2xx_stub.c -o swvocoder/ftd2xx_stub.o
+g++ -std=c++11 -pthread  cagc.o cambepacket.o cambeserver.o cbuffer.o ccallsign.o ccontroller.o cfirfilter.o cfixedgain.o cftdidevicedescr.o cip.o cpacket.o cpacketqueue.o csignalprocessor.o csoftambeinterface.o cstream.o ctimepoint.o cudpsocket.o cusb3000interface.o cusb3003df2etinterface.o cusb3003hrinterface.o cusb3003interface.o cusb3xxxinterface.o cvocodecchannel.o cvocodecinterface.o cvocodecs.o cvoicepacket.o main.o swvocoder/mbe/ambe3600x2400.o swvocoder/mbe/ambe3600x2450.o swvocoder/mbe/ambe.o swvocoder/mbe/mbevocoder.o swvocoder/imbe_vocoder/aux_sub.o swvocoder/imbe_vocoder/basicop2.o swvocoder/imbe_vocoder/ch_decode.o swvocoder/imbe_vocoder/ch_encode.o swvocoder/imbe_vocoder/dc_rmv.o swvocoder/imbe_vocoder/decode.o swvocoder/imbe_vocoder/dsp_sub.o swvocoder/imbe_vocoder/encode.o swvocoder/imbe_vocoder/imbe_vocoder.o swvocoder/imbe_vocoder/imbe_vocoder_impl.o swvocoder/imbe_vocoder/math_sub.o swvocoder/imbe_vocoder/pe_lpf.o swvocoder/imbe_vocoder/pitch_est.o swvocoder/imbe_vocoder/pitch_ref.o swvocoder/imbe_vocoder/qnt_sub.o swvocoder/imbe_vocoder/rand_gen.o swvocoder/imbe_vocoder/sa_decode.o swvocoder/imbe_vocoder/sa_encode.o swvocoder/imbe_vocoder/sa_enh.o swvocoder/imbe_vocoder/tbls.o swvocoder/imbe_vocoder/uv_synt.o swvocoder/imbe_vocoder/v_synt.o swvocoder/imbe_vocoder/v_uv_det.o swvocoder/ftd2xx_stub.o  -o ambed
+mkdir -p /ambed
+cp ambed /ambed/
+cp ./run /ambed/
+Creating /ambed/ambed.conf...
+Creating ambed.service...
+
+[38;5;46m✔ Software transcoder successfully installed! (4 stream(s))[0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                    (ℹ) INSTALLING DASHBOARD...[0m
+[38;5;39m                                    ===========================[0m
+
+
+Cloning repository...
+Cloning into 'XLX_Dark_Dashboard'...
+Seeding customizations...
+Updating permissions...
+Creating user_db update service...
+
+Updating database file
+
+File size: 17163939 bytes
+ 207KiB 0:00:01 [ 205KiB/s] [>                                             ]  1%12.5MiB 0:00:02 [12.2MiB/s] [=================================>            ] 76%16.4MiB 0:00:02 [7.59MiB/s] [============================================>] 100%
+Merge complete. users_base.csv updated.
+Creating database
+Processed 1000 rows in 0.01 seconds   Processed 2000 rows in 0.02 seconds   Processed 3000 rows in 0.03 seconds   Processed 4000 rows in 0.04 seconds   Processed 5000 rows in 0.05 seconds   Processed 6000 rows in 0.06 seconds   Processed 7000 rows in 0.07 seconds   Processed 8000 rows in 0.08 seconds   Processed 9000 rows in 0.08 seconds   Processed 10000 rows in 0.09 seconds   Processed 11000 rows in 0.10 seconds   Processed 12000 rows in 0.11 seconds   Processed 13000 rows in 0.12 seconds   Processed 14000 rows in 0.13 seconds   Processed 15000 rows in 0.13 seconds   Processed 16000 rows in 0.14 seconds   Processed 17000 rows in 0.15 seconds   Processed 18000 rows in 0.16 seconds   Processed 19000 rows in 0.17 seconds   Processed 20000 rows in 0.17 seconds   Processed 21000 rows in 0.18 seconds   Processed 22000 rows in 0.19 seconds   Processed 23000 rows in 0.20 seconds   Processed 24000 rows in 0.21 seconds   Processed 25000 rows in 0.21 seconds   Processed 26000 rows in 0.22 seconds   Processed 27000 rows in 0.23 seconds   Processed 28000 rows in 0.24 seconds   Processed 29000 rows in 0.25 seconds   Processed 30000 rows in 0.26 seconds   Processed 31000 rows in 0.27 seconds   Processed 32000 rows in 0.28 seconds   Processed 33000 rows in 0.29 seconds   Processed 34000 rows in 0.29 seconds   Processed 35000 rows in 0.30 seconds   Processed 36000 rows in 0.31 seconds   Processed 37000 rows in 0.32 seconds   Processed 38000 rows in 0.33 seconds   Processed 39000 rows in 0.33 seconds   Processed 40000 rows in 0.34 seconds   Processed 41000 rows in 0.35 seconds   Processed 42000 rows in 0.36 seconds   Processed 43000 rows in 0.37 seconds   Processed 44000 rows in 0.38 seconds   Processed 45000 rows in 0.39 seconds   Processed 46000 rows in 0.40 seconds   Processed 47000 rows in 0.41 seconds   Processed 48000 rows in 0.42 seconds   Processed 49000 rows in 0.43 seconds   Processed 50000 rows in 0.43 seconds   Processed 51000 rows in 0.44 seconds   Processed 52000 rows in 0.45 seconds   Processed 53000 rows in 0.46 seconds   Processed 54000 rows in 0.47 seconds   Processed 55000 rows in 0.48 seconds   Processed 56000 rows in 0.49 seconds   Processed 57000 rows in 0.49 seconds   Processed 58000 rows in 0.50 seconds   Processed 59000 rows in 0.51 seconds   Processed 60000 rows in 0.52 seconds   Processed 61000 rows in 0.53 seconds   Processed 62000 rows in 0.54 seconds   Processed 63000 rows in 0.54 seconds   Processed 64000 rows in 0.55 seconds   Processed 65000 rows in 0.56 seconds   Processed 66000 rows in 0.57 seconds   Processed 67000 rows in 0.58 seconds   Processed 68000 rows in 0.59 seconds   Processed 69000 rows in 0.60 seconds   Processed 70000 rows in 0.61 seconds   Processed 71000 rows in 0.62 seconds   Processed 72000 rows in 0.63 seconds   Processed 73000 rows in 0.63 seconds   Processed 74000 rows in 0.64 seconds   Processed 75000 rows in 0.65 seconds   Processed 76000 rows in 0.66 seconds   Processed 77000 rows in 0.67 seconds   Processed 78000 rows in 0.68 seconds   Processed 79000 rows in 0.68 seconds   Processed 80000 rows in 0.69 seconds   Processed 81000 rows in 0.70 seconds   Processed 82000 rows in 0.71 seconds   Processed 83000 rows in 0.72 seconds   Processed 84000 rows in 0.73 seconds   Processed 85000 rows in 0.73 seconds   Processed 86000 rows in 0.74 seconds   Processed 87000 rows in 0.75 seconds   Processed 88000 rows in 0.76 seconds   Processed 89000 rows in 0.77 seconds   Processed 90000 rows in 0.78 seconds   Processed 91000 rows in 0.79 seconds   Processed 92000 rows in 0.79 seconds   Processed 93000 rows in 0.80 seconds   Processed 94000 rows in 0.81 seconds   Processed 95000 rows in 0.82 seconds   Processed 96000 rows in 0.83 seconds   Processed 97000 rows in 0.84 seconds   Processed 98000 rows in 0.84 seconds   Processed 99000 rows in 0.85 seconds   Processed 100000 rows in 0.86 seconds   Processed 101000 rows in 0.87 seconds   Processed 102000 rows in 0.88 seconds   Processed 103000 rows in 0.89 seconds   Processed 104000 rows in 0.90 seconds   Processed 105000 rows in 0.91 seconds   Processed 106000 rows in 0.92 seconds   Processed 107000 rows in 0.93 seconds   Processed 108000 rows in 0.93 seconds   Processed 109000 rows in 0.94 seconds   Processed 110000 rows in 0.95 seconds   Processed 111000 rows in 0.96 seconds   Processed 112000 rows in 0.97 seconds   Processed 113000 rows in 0.98 seconds   Processed 114000 rows in 0.98 seconds   Processed 115000 rows in 0.99 seconds   Processed 116000 rows in 1.00 seconds   Processed 117000 rows in 1.01 seconds   Processed 118000 rows in 1.02 seconds   Processed 119000 rows in 1.03 seconds   Processed 120000 rows in 1.04 seconds   Processed 121000 rows in 1.05 seconds   Processed 122000 rows in 1.06 seconds   Processed 123000 rows in 1.07 seconds   Processed 124000 rows in 1.07 seconds   Processed 125000 rows in 1.08 seconds   Processed 126000 rows in 1.09 seconds   Processed 127000 rows in 1.10 seconds   Processed 128000 rows in 1.11 seconds   Processed 129000 rows in 1.12 seconds   Processed 130000 rows in 1.13 seconds   Processed 131000 rows in 1.14 seconds   Processed 132000 rows in 1.15 seconds   Processed 133000 rows in 1.16 seconds   Processed 134000 rows in 1.17 seconds   Processed 135000 rows in 1.18 seconds   Processed 136000 rows in 1.19 seconds   Processed 137000 rows in 1.20 seconds   Processed 138000 rows in 1.21 seconds   Processed 139000 rows in 1.22 seconds   Processed 140000 rows in 1.23 seconds   Processed 141000 rows in 1.24 seconds   Processed 142000 rows in 1.25 seconds   Processed 143000 rows in 1.26 seconds   Processed 144000 rows in 1.27 seconds   Processed 145000 rows in 1.28 seconds   Processed 146000 rows in 1.29 seconds   Processed 147000 rows in 1.29 seconds   Processed 148000 rows in 1.30 seconds   Processed 149000 rows in 1.31 seconds   Processed 150000 rows in 1.32 seconds   Processed 151000 rows in 1.33 seconds   Processed 152000 rows in 1.34 seconds   Processed 153000 rows in 1.35 seconds   Processed 154000 rows in 1.36 seconds   Processed 155000 rows in 1.37 seconds   Processed 156000 rows in 1.38 seconds   Processed 157000 rows in 1.39 seconds   Processed 158000 rows in 1.40 seconds   Processed 159000 rows in 1.41 seconds   Processed 160000 rows in 1.42 seconds   Processed 161000 rows in 1.43 seconds   Processed 162000 rows in 1.44 seconds   Processed 163000 rows in 1.45 seconds   Processed 164000 rows in 1.46 seconds   Processed 165000 rows in 1.47 seconds   Processed 166000 rows in 1.48 seconds   Processed 167000 rows in 1.49 seconds   Processed 168000 rows in 1.50 seconds   Processed 169000 rows in 1.51 seconds   Processed 170000 rows in 1.52 seconds   Processed 171000 rows in 1.53 seconds   Processed 172000 rows in 1.54 seconds   Processed 173000 rows in 1.55 seconds   Processed 174000 rows in 1.56 seconds   Processed 175000 rows in 1.57 seconds   Processed 176000 rows in 1.58 seconds   Processed 177000 rows in 1.59 seconds   Processed 178000 rows in 1.60 seconds   Processed 179000 rows in 1.61 seconds   Processed 180000 rows in 1.62 seconds   Processed 181000 rows in 1.63 seconds   Processed 182000 rows in 1.64 seconds   Processed 183000 rows in 1.66 seconds   Processed 184000 rows in 1.67 seconds   Processed 185000 rows in 1.68 seconds   Processed 186000 rows in 1.69 seconds   Processed 187000 rows in 1.70 seconds   Processed 188000 rows in 1.71 seconds   Processed 189000 rows in 1.72 seconds   Processed 190000 rows in 1.73 seconds   Processed 191000 rows in 1.74 seconds   Processed 192000 rows in 1.75 seconds   Processed 193000 rows in 1.76 seconds   Processed 194000 rows in 1.77 seconds   Processed 195000 rows in 1.78 seconds   Processed 196000 rows in 1.79 seconds   Processed 197000 rows in 1.80 seconds   Processed 198000 rows in 1.81 seconds   Processed 199000 rows in 1.82 seconds   Processed 200000 rows in 1.83 seconds   Processed 201000 rows in 1.84 seconds   Processed 202000 rows in 1.85 seconds   Processed 203000 rows in 1.86 seconds   Processed 204000 rows in 1.87 seconds   Processed 205000 rows in 1.88 seconds   Processed 206000 rows in 1.89 seconds   Processed 207000 rows in 1.90 seconds   Processed 208000 rows in 1.91 seconds   Processed 209000 rows in 1.92 seconds   Processed 210000 rows in 1.93 seconds   Processed 211000 rows in 1.94 seconds   Processed 212000 rows in 1.95 seconds   Processed 213000 rows in 1.96 seconds   Processed 214000 rows in 1.97 seconds   Processed 215000 rows in 1.98 seconds   Processed 216000 rows in 1.99 seconds   Processed 217000 rows in 2.00 seconds   Processed 218000 rows in 2.00 seconds   Processed 219000 rows in 2.01 seconds   Processed 220000 rows in 2.02 seconds   Processed 221000 rows in 2.03 seconds   Processed 222000 rows in 2.04 seconds   Processed 223000 rows in 2.05 seconds   Processed 224000 rows in 2.06 seconds   Processed 225000 rows in 2.07 seconds   Processed 226000 rows in 2.08 seconds   Processed 227000 rows in 2.09 seconds   Processed 228000 rows in 2.10 seconds   Processed 229000 rows in 2.11 seconds   Processed 230000 rows in 2.12 seconds   Processed 231000 rows in 2.13 seconds   Processed 232000 rows in 2.14 seconds   Processed 233000 rows in 2.15 seconds   Processed 234000 rows in 2.16 seconds   Processed 235000 rows in 2.17 seconds   Processed 236000 rows in 2.18 seconds   Processed 237000 rows in 2.19 seconds   Processed 238000 rows in 2.20 seconds   Processed 239000 rows in 2.21 seconds   Processed 240000 rows in 2.22 seconds   Processed 241000 rows in 2.23 seconds   Processed 242000 rows in 2.24 seconds   Processed 243000 rows in 2.25 seconds   Processed 244000 rows in 2.26 seconds   Processed 245000 rows in 2.27 seconds   Processed 246000 rows in 2.28 seconds   Processed 247000 rows in 2.29 seconds   Processed 248000 rows in 2.30 seconds   Processed 249000 rows in 2.31 seconds   Processed 250000 rows in 2.32 seconds   Processed 251000 rows in 2.33 seconds   Processed 252000 rows in 2.34 seconds   Processed 253000 rows in 2.35 seconds   Processed 254000 rows in 2.36 seconds   Processed 255000 rows in 2.37 seconds   Processed 256000 rows in 2.38 seconds   Processed 257000 rows in 2.39 seconds   Processed 258000 rows in 2.40 seconds   Processed 259000 rows in 2.41 seconds   Processed 260000 rows in 2.42 seconds   Processed 261000 rows in 2.43 seconds   Processed 262000 rows in 2.44 seconds   Processed 263000 rows in 2.45 seconds   Processed 264000 rows in 2.46 seconds   Processed 265000 rows in 2.47 seconds   Processed 266000 rows in 2.48 seconds   Processed 267000 rows in 2.49 seconds   Processed 268000 rows in 2.50 seconds   Processed 269000 rows in 2.51 seconds   Processed 270000 rows in 2.52 seconds   Processed 271000 rows in 2.53 seconds   Processed 272000 rows in 2.53 seconds   Processed 273000 rows in 2.54 seconds   Processed 274000 rows in 2.55 seconds   Processed 275000 rows in 2.56 seconds   Processed 276000 rows in 2.57 seconds   Processed 277000 rows in 2.58 seconds   Processed 278000 rows in 2.59 seconds   Processed 279000 rows in 2.60 seconds   Processed 280000 rows in 2.61 seconds   Processed 281000 rows in 2.62 seconds   Processed 282000 rows in 2.63 seconds   Processed 283000 rows in 2.64 seconds   Processed 284000 rows in 2.65 seconds   Processed 285000 rows in 2.66 seconds   Processed 286000 rows in 2.67 seconds   Processed 287000 rows in 2.68 seconds   Processed 288000 rows in 2.69 seconds   Processed 289000 rows in 2.70 seconds   Processed 290000 rows in 2.71 seconds   Processed 291000 rows in 2.72 seconds   Processed 292000 rows in 2.72 seconds   Processed 293000 rows in 2.73 seconds   Processed 294000 rows in 2.74 seconds   Processed 295000 rows in 2.75 seconds   Processed 296000 rows in 2.76 seconds   Processed 297000 rows in 2.77 seconds   Processed 298000 rows in 2.78 seconds   Processed 299000 rows in 2.79 seconds   Processed 300000 rows in 2.80 seconds   Processed 301000 rows in 2.81 seconds   Processed 302000 rows in 2.82 seconds   Processed 303000 rows in 2.83 seconds   Processed 304000 rows in 2.84 seconds   Processed 305000 rows in 2.85 seconds   Processed 306000 rows in 2.86 seconds   Processed 307000 rows in 2.87 seconds   Processed 308000 rows in 2.88 seconds   Processed 309000 rows in 2.89 seconds   Processed 310000 rows in 2.90 seconds   Processed 311000 rows in 2.91 seconds   Processed 312000 rows in 2.92 seconds   Processed 313000 rows in 2.93 seconds   Processed 314000 rows in 2.94 seconds   Processed 315000 rows in 2.95 seconds   Processed 316000 rows in 2.96 seconds   Processed 317000 rows in 2.97 seconds   Processed 318000 rows in 2.98 seconds   Processed 319000 rows in 2.99 seconds   Processed 320000 rows in 3.00 seconds   Processed 321000 rows in 3.01 seconds   
+Database updated successfully. Processed 321418 rows in 3.04 seconds
+Database updated successfully!
+
+Enabling site xlxbra.net.
+Site 000-default disabled.
+
+[38;5;46m✔ Dashboard successfully installed![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                 (ℹ) CONFIGURING SSL CERTIFICATE...[0m
+[38;5;39m                                 ==================================[0m
+
+
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Requesting a certificate for xlxbra.net
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/xlxbra.net/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/xlxbra.net/privkey.pem
+This certificate expires on 2027-01-19.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for xlxbra.net to /etc/apache2/sites-available/xlxbra.net-le-ssl.conf
+Congratulations! You have successfully enabled HTTPS on https://xlxbra.net
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[38;5;46m✔ SSL certificate installed successfully![0m
+
+[38;5;46m✔ Configuration completed![0m
+
+____________________________________________________________________________________________________
+
+[1;34m                                  (ℹ) STARTING XLXBRA REFLECTOR...[0m
+[38;5;39m                                  ================================[0m
+
+
+[38;5;226mInitializing XLX log  5 seconds[0mCreated symlink /etc/systemd/system/multi-user.target.wants/xlx_log.service → /etc/systemd/system/xlx_log.service.
+Created symlink /etc/systemd/system/xlxd.service.wants/xlx_log.service → /etc/systemd/system/xlx_log.service.
+[38;5;226mInitializing XLX log  4 seconds[0m[38;5;226mInitializing XLX log  3 seconds[0m[38;5;226mInitializing XLX log  2 seconds[0m[38;5;226mInitializing XLX log  1 seconds[0m
+[38;5;226mInitializing users_db  5 seconds[0mCreated symlink /etc/systemd/system/timers.target.wants/update_XLX_db.timer → /etc/systemd/system/update_XLX_db.timer.
+[38;5;226mInitializing users_db  4 seconds[0m[38;5;226mInitializing users_db  3 seconds[0m[38;5;226mInitializing users_db  2 seconds[0m[38;5;226mInitializing users_db  1 seconds[0m
+[38;5;226mInitializing SoftAMBE Server  5 seconds[0mCreated symlink /etc/systemd/system/multi-user.target.wants/ambed.service → /etc/systemd/system/ambed.service.
+[38;5;226mInitializing SoftAMBE Server  4 seconds[0m[38;5;226mInitializing SoftAMBE Server  3 seconds[0m[38;5;226mInitializing SoftAMBE Server  2 seconds[0m[38;5;226mInitializing SoftAMBE Server  1 seconds[0m
+[38;5;226mInitializing Echo Test  5 seconds[0mCreated symlink /etc/systemd/system/multi-user.target.wants/xlxecho.service → /etc/systemd/system/xlxecho.service.
+Created symlink /etc/systemd/system/xlxd.service.wants/xlxecho.service → /etc/systemd/system/xlxecho.service.
+[38;5;226mInitializing Echo Test  4 seconds[0m[38;5;226mInitializing Echo Test  3 seconds[0m[38;5;226mInitializing Echo Test  2 seconds[0m[38;5;226mInitializing Echo Test  1 seconds[0m
+[38;5;226mInitializing XLXBRA 10 seconds[0mCreated symlink /etc/systemd/system/multi-user.target.wants/xlxd.service → /etc/systemd/system/xlxd.service.
+[38;5;226mInitializing XLXBRA  9 seconds[0m[38;5;226mInitializing XLXBRA  8 seconds[0m[38;5;226mInitializing XLXBRA  7 seconds[0m[38;5;226mInitializing XLXBRA  6 seconds[0m[38;5;226mInitializing XLXBRA  5 seconds[0m[38;5;226mInitializing XLXBRA  4 seconds[0m[38;5;226mInitializing XLXBRA  3 seconds[0m[38;5;226mInitializing XLXBRA  2 seconds[0m[38;5;226mInitializing XLXBRA  1 seconds[0m
+
+[38;5;46m✔ Initialization completed![0m
+
+[38;5;250m🛈 Running post-installation validation...[0m
+
+[38;5;46m✔ XLXD binary found[0m
+[38;5;46m✔ XLXD service is running[0m
+[38;5;46m✔ XLX log service is running[0m
+[38;5;46m✔ update_db.sh file found[0m
+[38;5;46m✔ update_XLX_db.service file found[0m
+[38;5;46m✔ Update users_db timer is running[0m
+[38;5;46m✔ Apache service is running[0m
+[38;5;46m✔ Dashboard files found[0m
+[38;5;46m✔ Echo Test service is running[0m
+[38;5;46m✔ Software transcoder (ambed) is running[0m
+
+====================================================================================================
+
+
+[1;34m                               ✔ REFLECTOR INSTALLED SUCCESSFULLY!!![0m
+
+
+====================================================================================================
+
+[38;5;46m                        Your Reflector XLXBRA is now installed and running![0m
+
+[38;5;46m                                       For Public Reflectors:[0m
+
+[38;5;46m     • If your XLX number is available it's expected to be listed on the public list shortly, [0m
+[38;5;46m typically within an hour. If you don't want the reflector to be published just set callinghome to [0m
+[38;5;46m           [false] in the main configuration file: /var/www/html/xlxd/pgs/config.inc.php.[0m
+[38;5;46m                         • Many other settings can be changed in this file.[0m
+[38;5;46m                  • More Information about XLX Reflectors: https://xlxbbs.epf.lu/[0m
+[38;5;46m               • Your XLXBRA dashboard should now be accessible at https://xlxbra.net[0m
+
+====================================================================================================

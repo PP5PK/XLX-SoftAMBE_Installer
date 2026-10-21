@@ -1,0 +1,92 @@
+[H[2J[3J====================================================================================================
+
+[1;34m                                     XLX Reflector Uninstaller[0m
+[1;34m       This script will remove the XLX Reflector, its dashboard, and related configurations.[0m
+[38;5;250m               At any prompt, type X and press [ENTER] to cancel the uninstallation.[0m
+
+====================================================================================================
+
+[1;34mAVAILABLE SITES IN /etc/apache2/sites-available:[0m
+[0;34m==================================================[0m
+
+   1) qsl.xlxbra.net
+   2) qsl.xlxbra.net-le-ssl
+   3) xlxbra.net
+   4) xlxbra.net-le-ssl
+
+[1;33mEnter the number corresponding to the reflector domain to remove:[0m
+> [1;33mUsing: xlxbra.net[0m
+____________________________________________________________________________________________________
+
+[1;34mWARNING: This will remove all XLX Reflector files, services, and configurations.[0m
+[1;33mAre you sure you want to proceed with uninstallation? (YES/NO/X)[0m
+> 
+[1;34mSTOPPING AND DISABLING SERVICES...[0m
+[0;34m===================================[0m
+
+[0;32m✔ Stopped xlxd.service.[0m
+Removed "/etc/systemd/system/multi-user.target.wants/xlxd.service".
+[0;32m✔ Disabled xlxd.service.[0m
+[0;32m✔ Stopped ambed.service.[0m
+Removed "/etc/systemd/system/multi-user.target.wants/ambed.service".
+[0;32m✔ Disabled ambed.service.[0m
+Removed "/etc/systemd/system/xlxd.service.wants/xlxecho.service".
+Removed "/etc/systemd/system/multi-user.target.wants/xlxecho.service".
+[0;32m✔ Disabled xlxecho.service.[0m
+Removed "/etc/systemd/system/xlxd.service.wants/xlx_log.service".
+Removed "/etc/systemd/system/multi-user.target.wants/xlx_log.service".
+[0;32m✔ Disabled xlx_log.service.[0m
+
+[1;34mSTOPPING AND DISABLING USER DATABASE TIMER...[0m
+[0;34m==============================================[0m
+
+[0;32m✔ Stopped update_XLX_db.timer.[0m
+Removed "/etc/systemd/system/timers.target.wants/update_XLX_db.timer".
+[0;32m✔ Disabled update_XLX_db.timer.[0m
+[0;32m✔ Disabled update_XLX_db.service.[0m
+
+[1;34mREMOVING FILES AND FOLDERS...[0m
+[0;34m=============================[0m
+
+[0;32m✔ Removed directory: /xlxd[0m
+[0;32m✔ Removed directory: /ambed[0m
+[0;32m✔ Removed directory: /var/www/html/xlxd[0m
+[0;32m✔ Removed directory: /usr/src/xlxd[0m
+[0;32m✔ Removed directory: /usr/src/XLXEcho[0m
+[0;32m✔ Removed directory: /usr/src/XLX_Dark_Dashboard[0m
+[0;32m✔ Removed file: /etc/systemd/system/xlxd.service[0m
+[0;32m✔ Removed file: /etc/systemd/system/ambed.service[0m
+[0;32m✔ Removed file: /etc/systemd/system/xlxecho.service[0m
+[0;32m✔ Removed file: /etc/systemd/system/xlx_log.service[0m
+[0;32m✔ Removed file: /etc/systemd/system/update_XLX_db.service[0m
+[0;32m✔ Removed file: /etc/systemd/system/update_XLX_db.timer[0m
+[0;32m✔ Removed file: /usr/local/bin/xlx_log.sh[0m
+[0;32m✔ Removed file: /etc/logrotate.d/xlx_logrotate.conf[0m
+[0;32m✔ Removed file: /var/log/xlxd.xml[0m
+[0;32m✔ Removed file: /var/log/xlx.log[0m
+[0;32m✔ Removed file: /var/log/xlxecho.log[0m
+
+[1;34mREMOVING APACHE CONFIGURATION...[0m
+[0;34m================================[0m
+
+[0;32m✔ Removed Apache configuration: /etc/apache2/sites-available/xlxbra.net.conf[0m
+[0;32m✔ Re-enabled default Apache site.[0m
+[0;32m✔ Apache service restarted.[0m
+
+[1;34mCHECKING FOR CERTBOT AND SSL CERTIFICATES...[0m
+[0;34m===========================================[0m
+
+[1;33mSSL configuration files found for xlxbra.net:[0m
+  • xlxbra.net-le-ssl.conf
+
+[1;33mWould you like to remove the SSL certificate for xlxbra.net? (YES/NO)[0m
+> [0;32m✔ Removed SSL file: xlxbra.net-le-ssl.conf[0m
+[0;32m✔ Systemd daemon reloaded.[0m
+
+====================================================================================================
+
+[1;32m                        XLX Reflector Uninstallation Completed Successfully![0m
+[1;32m               All XLX-related files, services, and configurations have been removed.[0m
+[1;32m  Log file saved at: /usr/src/XLX-SoftAMBE_Installer/log/log_xlx_uninstall_2026-10-20_22-29-07.log[0m
+
+====================================================================================================

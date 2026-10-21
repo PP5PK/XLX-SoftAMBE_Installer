@@ -869,8 +869,6 @@ question_16() {
 
         print_yellow "Using: $MODAUTO"
     fi
-
-    echo ""
 }
 
 question_17() {
@@ -918,6 +916,7 @@ question_18() {
         fi
     done
     print_yellow "Using: $AMBED_PAIRS"
+echo ""
 }
 
 collect_all_questions() {
@@ -1190,8 +1189,8 @@ msg_success "Repository cloned and customizations applied!"
 echo ""
 line_type1
 echo ""
-center_wrap_color $BLUE_BRIGHT "$ICON_INFO COMPILING..."
-center_wrap_color $BLUE "================"
+center_wrap_color $BLUE_BRIGHT "$ICON_INFO COMPILING XLX REFLECTOR..."
+center_wrap_color $BLUE "=============================="
 echo ""
 echo ""
 make || error_exit "Compilation failed. Check build dependencies and logs."
@@ -1316,7 +1315,7 @@ if [ "$INSTALL_AMBED" == "Y" ]; then
     line_type1
     echo ""
     center_wrap_color $BLUE_BRIGHT "$ICON_INFO INSTALLING SOFTWARE TRANSCODER..."
-    center_wrap_color $BLUE "======================================"
+    center_wrap_color $BLUE "====================================="
     echo ""
     echo ""
     AMBED_SRC="$USRSRC/xlxd/ambed"
